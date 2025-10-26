@@ -1,0 +1,54 @@
+import { useState } from 'react';
+import { Navigation } from './components/Navigation';
+import { Footer } from './components/Footer';
+import { HomePage } from './pages/HomePage';
+import { AboutPage } from './pages/AboutPage';
+import { PortfolioPage } from './pages/PortfolioPage';
+import { ServicesPage } from './pages/ServicesPage';
+import { ContactPage } from './pages/ContactPage';
+import { DesignProcessPage } from './pages/DesignProcessPage';
+
+interface InteriorsAppProps {
+  onNavigateToMain: () => void;
+}
+
+export function InteriorsApp({ onNavigateToMain }: InteriorsAppProps) {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const handleNavigate = (page: string) => {
+    if (page === 'main') {
+      onNavigateToMain();
+    } else {
+      setCurrentPage(page);
+    }
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return <HomePage onNavigate={handleNavigate} />;
+      case 'about':
+        return <AboutPage onNavigate={handleNavigate} />;
+      case 'portfolio':
+        return <PortfolioPage onNavigate={handleNavigate} />;
+      case 'services':
+        return <ServicesPage onNavigate={handleNavigate} />;
+      case 'process':
+        return <DesignProcessPage onNavigate={handleNavigate} />;
+      case 'contact':
+        return <ContactPage onNavigate={handleNavigate} />;
+      default:
+        return <HomePage onNavigate={handleNavigate} />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Navigation currentPage={currentPage} onNavigate={handleNavigate} onNavigateToMain={onNavigateToMain} />
+      <main>
+        {renderPage()}
+      </main>
+      <Footer onNavigate={handleNavigate} />
+    </div>
+  );
+}
