@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
+import { ConsultationDialog } from '../components/ConsultationDialog';
 import { Sparkles, Heart, Home } from 'lucide-react';
 
 interface HomePageProps {
@@ -47,6 +49,8 @@ const services = [
 ];
 
 export function HomePage({ onNavigate }: HomePageProps) {
+  const [showConsultationDialog, setShowConsultationDialog] = useState(false);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -61,22 +65,25 @@ export function HomePage({ onNavigate }: HomePageProps) {
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="mb-6">
-            <div className="inline-block px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full mb-4">
-              <p className="text-sm tracking-wider text-primary">INTERIOR DESIGN & STYLING</p>
+          <div className="mb-8">
+            <div className="inline-block px-6 py-2 bg-white/95 backdrop-blur-md rounded-full mb-6 border border-primary/20 shadow-lg">
+              <p className="text-sm tracking-widest gold-gradient-text">✦ INTERIOR DESIGN & STYLING ✦</p>
             </div>
           </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl mb-6 text-white drop-shadow-lg">
+          <h1 className="text-5xl sm:text-6xl lg:text-8xl mb-8 text-white drop-shadow-2xl tracking-tight">
             House of Faridah
           </h1>
-          <p className="text-xl sm:text-2xl mb-8 text-white drop-shadow-md">
-            Where elegance meets comfort, and every space tells a beautiful story
-          </p>
+          <div className="inline-block px-8 py-1 mb-8">
+            <p className="text-xl sm:text-2xl text-white/95 drop-shadow-lg italic">
+              Where elegance meets comfort, and every space tells a beautiful story
+            </p>
+            <div className="h-px bg-gradient-to-r from-transparent via-white/60 to-transparent mt-6" />
+          </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               onClick={() => onNavigate('portfolio')}
               size="lg"
-              className="bg-primary hover:bg-primary/90"
+              className="bg-gradient-to-r from-primary to-gold-dark hover:from-primary/90 hover:to-gold-dark/90 shadow-xl border border-white/20"
             >
               View Portfolio
             </Button>
@@ -84,7 +91,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
               onClick={() => onNavigate('contact')}
               size="lg"
               variant="outline"
-              className="border-white bg-white/90 hover:bg-white"
+              className="border-white bg-white/95 hover:bg-white text-primary shadow-xl"
             >
               Get in Touch
             </Button>

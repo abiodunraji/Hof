@@ -5,6 +5,7 @@ import { ConstructionHomePage } from './pages/construction/ConstructionHomePage'
 import { ConstructionAboutPage } from './pages/construction/ConstructionAboutPage';
 import { ConstructionPortfolioPage } from './pages/construction/ConstructionPortfolioPage';
 import { ConstructionContactPage } from './pages/construction/ConstructionContactPage';
+import { Toaster } from './components/ui/sonner';
 
 interface ConstructionAppProps {
   onNavigateToMain: () => void;
@@ -44,6 +45,7 @@ export function ConstructionApp({ onNavigateToMain }: ConstructionAppProps) {
         {renderPage()}
       </main>
       <ConstructionFooter onNavigate={handleNavigate} />
+      <Toaster position="top-right" />
     </div>
   );
 }

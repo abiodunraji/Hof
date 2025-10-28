@@ -41,14 +41,20 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-secondary/50 to-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 px-4 bg-gradient-to-b from-gold-light/20 via-secondary/30 to-white relative">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--gold)_1px,transparent_1px)] bg-[length:40px_40px]" />
+        </div>
+        <div className="max-w-7xl mx-auto relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-6">
-                <p className="text-sm tracking-wider text-primary">FOUNDER & LEAD DESIGNER</p>
+              <div className="inline-block px-6 py-2 bg-white/80 backdrop-blur-md rounded-full mb-6 border border-primary/30 shadow-md">
+                <p className="text-sm tracking-widest gold-gradient-text">✦ FOUNDER & LEAD DESIGNER ✦</p>
               </div>
-              <h1 className="text-5xl sm:text-6xl mb-6">Meet Faridah</h1>
+              <h1 className="text-5xl sm:text-6xl mb-6">
+                <span className="gold-gradient-text">Meet Faridah</span>
+              </h1>
+              <div className="w-20 h-1 bg-gradient-to-r from-gold to-transparent mb-8" />
               <p className="text-xl text-muted-foreground leading-relaxed mb-6">
                 A passionate interior designer dedicated to creating spaces that nurture the soul
                 and celebrate the beauty of everyday life.
@@ -56,14 +62,14 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
               <Button
                 onClick={() => onNavigate('contact')}
                 size="lg"
-                className="bg-primary hover:bg-primary/90"
+                className="bg-gradient-to-r from-primary to-gold-dark hover:from-primary/90 hover:to-gold-dark/90 shadow-lg border border-gold/20"
               >
                 Start Your Project
               </Button>
             </div>
 
-            <div className="relative">
-              <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative decorative-corner">
+              <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl luxe-card">
                 <ImageWithFallback
                   src="https://images.unsplash.com/photo-1758817864979-56da98f34f8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwd29tYW4lMjBkZXNpZ25lcnxlbnwxfHx8fDE3NjExMjk3MzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                   alt="Faridah - Interior Designer"

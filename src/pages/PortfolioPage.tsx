@@ -95,12 +95,18 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-secondary/50 to-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-6">
-            <p className="text-sm tracking-wider text-primary">MY WORK</p>
+      <section className="py-16 px-4 bg-gradient-to-b from-gold-light/30 via-secondary/40 to-white relative">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--gold)_1px,transparent_1px)] bg-[length:40px_40px]" />
+        </div>
+        <div className="max-w-7xl mx-auto text-center relative">
+          <div className="inline-block px-6 py-2 bg-white/80 backdrop-blur-md rounded-full mb-6 border border-primary/30 shadow-md">
+            <p className="text-sm tracking-widest gold-gradient-text">✦ MY WORK ✦</p>
           </div>
-          <h1 className="text-5xl sm:text-6xl mb-6">Portfolio</h1>
+          <h1 className="text-5xl sm:text-6xl mb-6">
+            <span className="gold-gradient-text">Portfolio</span>
+          </h1>
+          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-8" />
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Explore my collection of thoughtfully designed spaces where elegance meets functionality.
             Each project tells a unique story of transformation and beauty.

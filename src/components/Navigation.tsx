@@ -35,8 +35,9 @@ export function Navigation({ currentPage, onNavigate, onNavigateToMain }: Naviga
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-primary/10 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md border-b border-primary/20 shadow-lg relative">
+      <div className="absolute inset-0 bg-gradient-to-r from-gold-light/20 via-transparent to-gold-light/20 pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-4">
             {onNavigateToMain && (
@@ -52,7 +53,7 @@ export function Navigation({ currentPage, onNavigate, onNavigateToMain }: Naviga
               className="flex-shrink-0 cursor-pointer" 
               onClick={() => handleNavigation('home')}
             >
-              <h1 className="text-2xl text-primary">House of Faridah</h1>
+              <h1 className="text-2xl gold-gradient-text tracking-wide">House of Faridah</h1>
             </div>
           </div>
 

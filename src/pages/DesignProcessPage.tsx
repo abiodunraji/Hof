@@ -114,15 +114,19 @@ export function DesignProcessPage({ onNavigate }: DesignProcessPageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
-            <Sparkles className="w-4 h-4" />
-            <span className="text-sm">Our Signature Process</span>
+      <section className="relative pt-24 pb-16 px-4 bg-gradient-to-b from-gold-light/30 to-background">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--gold)_1px,transparent_1px)] bg-[length:40px_40px]" />
+        </div>
+        <div className="max-w-4xl mx-auto text-center relative">
+          <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/80 backdrop-blur-md border border-primary/30 text-primary mb-8 shadow-lg">
+            <Sparkles className="w-4 h-4 text-gold" />
+            <span className="text-sm tracking-wider gold-gradient-text">✦ OUR SIGNATURE PROCESS ✦</span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl mb-6 text-foreground">
-            The Design Journey
+          <h1 className="text-4xl md:text-5xl lg:text-7xl mb-6 text-foreground tracking-tight">
+            <span className="gold-gradient-text">The Design Journey</span>
           </h1>
+          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-8" />
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             From our first conversation to the final reveal, we guide you through a thoughtful, collaborative process designed to bring your dream space to life.
           </p>

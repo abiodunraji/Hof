@@ -31,8 +31,9 @@ export function ConstructionNavigation({ currentPage, onNavigate, onNavigateToMa
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-foreground/10 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-wood-light/95 to-white/95 backdrop-blur-md border-b border-wood-primary/20 shadow-lg relative wood-texture">
+      <div className="absolute inset-0 bg-gradient-to-r from-wood-primary/5 via-transparent to-wood-primary/5 pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-4">
             <button
@@ -46,7 +47,7 @@ export function ConstructionNavigation({ currentPage, onNavigate, onNavigateToMa
               className="flex-shrink-0 cursor-pointer" 
               onClick={() => handleNavigation('home')}
             >
-              <h1 className="text-2xl text-foreground">HOF Construction</h1>
+              <h1 className="text-2xl text-wood-dark tracking-wide">HOF Construction</h1>
             </div>
           </div>
 
@@ -58,8 +59,8 @@ export function ConstructionNavigation({ currentPage, onNavigate, onNavigateToMa
                 onClick={() => handleNavigation(link.page)}
                 className={`transition ${
                   currentPage === link.page
-                    ? 'text-foreground'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? 'text-wood-dark font-medium'
+                    : 'text-wood-primary hover:text-wood-dark'
                 }`}
               >
                 {link.label}
@@ -67,7 +68,7 @@ export function ConstructionNavigation({ currentPage, onNavigate, onNavigateToMa
             ))}
             <Button 
               onClick={() => handleNavigation('contact')}
-              className="bg-foreground hover:bg-foreground/90 text-background"
+              className="bg-gradient-to-r from-wood-primary to-wood-dark hover:from-wood-primary/90 hover:to-wood-dark/90 text-white shadow-lg"
             >
               Get a Quote
             </Button>
@@ -77,7 +78,7 @@ export function ConstructionNavigation({ currentPage, onNavigate, onNavigateToMa
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-muted-foreground hover:text-foreground"
+              className="text-wood-dark hover:text-wood-primary"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -87,11 +88,11 @@ export function ConstructionNavigation({ currentPage, onNavigate, onNavigateToMa
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-foreground/10 shadow-lg">
+        <div className="md:hidden bg-white border-t border-wood-primary/20 shadow-lg">
           <div className="px-4 pt-2 pb-4 space-y-2">
             <button
               onClick={handleMainNavigation}
-              className="block w-full text-left px-4 py-2 rounded transition text-muted-foreground hover:bg-foreground/5 hover:text-foreground flex items-center gap-2"
+              className="block w-full text-left px-4 py-2 rounded transition text-wood-primary hover:bg-wood-light/30 hover:text-wood-dark flex items-center gap-2"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to HOF Group
@@ -102,8 +103,8 @@ export function ConstructionNavigation({ currentPage, onNavigate, onNavigateToMa
                 onClick={() => handleNavigation(link.page)}
                 className={`block w-full text-left px-4 py-2 rounded transition ${
                   currentPage === link.page
-                    ? 'bg-foreground/10 text-foreground'
-                    : 'text-muted-foreground hover:bg-foreground/5 hover:text-foreground'
+                    ? 'bg-wood-light/50 text-wood-dark font-medium'
+                    : 'text-wood-primary hover:bg-wood-light/30 hover:text-wood-dark'
                 }`}
               >
                 {link.label}
@@ -111,7 +112,7 @@ export function ConstructionNavigation({ currentPage, onNavigate, onNavigateToMa
             ))}
             <Button
               onClick={() => handleNavigation('contact')}
-              className="w-full mt-2 bg-foreground hover:bg-foreground/90 text-background"
+              className="w-full mt-2 bg-gradient-to-r from-wood-primary to-wood-dark hover:from-wood-primary/90 hover:to-wood-dark/90 text-white"
             >
               Get a Quote
             </Button>

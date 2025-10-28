@@ -7,6 +7,7 @@ import { PortfolioPage } from './pages/PortfolioPage';
 import { ServicesPage } from './pages/ServicesPage';
 import { ContactPage } from './pages/ContactPage';
 import { DesignProcessPage } from './pages/DesignProcessPage';
+import { Toaster } from './components/ui/sonner';
 
 interface InteriorsAppProps {
   onNavigateToMain: () => void;
@@ -49,6 +50,7 @@ export function InteriorsApp({ onNavigateToMain }: InteriorsAppProps) {
         {renderPage()}
       </main>
       <Footer onNavigate={handleNavigate} />
+      <Toaster position="top-right" />
     </div>
   );
 }

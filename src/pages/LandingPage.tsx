@@ -39,18 +39,19 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
             {/* HOF Interiors Panel */}
             <button
               onClick={() => onNavigate('/interiors')}
-              className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 border border-primary/20 hover:border-primary/40"
+              className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 border border-primary/30 hover:border-gold elegant-hover luxe-card"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/30 group-hover:from-primary/10 group-hover:via-primary/15 group-hover:to-accent/40 transition-all duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-gold-light/30 via-primary/10 to-gold/20 group-hover:from-gold-light/40 group-hover:via-primary/15 group-hover:to-gold/30 transition-all duration-500" />
+              <div className="absolute inset-0 gold-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               
               <div className="relative p-8 md:p-12 lg:p-16 flex flex-col items-center justify-center min-h-[400px] md:min-h-[500px]">
                 {/* Icon */}
-                <div className="mb-6 md:mb-8 p-6 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
-                  <Home className="w-12 h-12 md:w-16 md:h-16 text-primary" strokeWidth={1.5} />
+                <div className="mb-6 md:mb-8 p-6 rounded-full bg-gradient-to-br from-gold-light to-gold/20 group-hover:from-gold to-gold-dark/30 transition-all duration-300 shadow-lg">
+                  <Home className="w-12 h-12 md:w-16 md:h-16 text-gold-dark" strokeWidth={1.5} />
                 </div>
                 
                 {/* Title */}
-                <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 text-primary">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 gold-gradient-text">
                   HOF Interiors
                 </h2>
                 
@@ -61,15 +62,15 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
                 
                 {/* Navigation Links Preview */}
                 <div className="flex flex-wrap gap-3 justify-center mb-6 opacity-70 group-hover:opacity-100 transition-opacity">
-                  <span className="text-sm px-3 py-1 rounded-full bg-primary/10 text-primary">About</span>
-                  <span className="text-sm px-3 py-1 rounded-full bg-primary/10 text-primary">Portfolio</span>
-                  <span className="text-sm px-3 py-1 rounded-full bg-primary/10 text-primary">Services</span>
-                  <span className="text-sm px-3 py-1 rounded-full bg-primary/10 text-primary">Contact</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-gold-light/50 backdrop-blur-sm border border-gold/30 text-gold-dark">About</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-gold-light/50 backdrop-blur-sm border border-gold/30 text-gold-dark">Portfolio</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-gold-light/50 backdrop-blur-sm border border-gold/30 text-gold-dark">Services</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-gold-light/50 backdrop-blur-sm border border-gold/30 text-gold-dark">Contact</span>
                 </div>
                 
                 {/* CTA Arrow */}
-                <div className="flex items-center gap-2 text-primary group-hover:gap-4 transition-all duration-300">
-                  <span>Explore Interiors</span>
+                <div className="flex items-center gap-2 text-gold-dark group-hover:gap-4 transition-all duration-300">
+                  <span className="tracking-wide">Explore Interiors</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -78,18 +79,18 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
             {/* HOF Construction Panel */}
             <button
               onClick={() => onNavigate('/construction')}
-              className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 border border-foreground/20 hover:border-foreground/40"
+              className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 border border-wood-primary/30 hover:border-wood-primary elegant-hover"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-foreground/5 via-foreground/10 to-muted-foreground/20 group-hover:from-foreground/10 group-hover:via-foreground/15 group-hover:to-muted-foreground/30 transition-all duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-wood-light/30 via-wood-secondary/10 to-wood-primary/20 group-hover:from-wood-light/40 group-hover:via-wood-secondary/15 group-hover:to-wood-primary/30 transition-all duration-500" />
               
               <div className="relative p-8 md:p-12 lg:p-16 flex flex-col items-center justify-center min-h-[400px] md:min-h-[500px]">
                 {/* Icon */}
-                <div className="mb-6 md:mb-8 p-6 rounded-full bg-foreground/10 group-hover:bg-foreground/20 transition-colors duration-300">
-                  <Building2 className="w-12 h-12 md:w-16 md:h-16 text-foreground" strokeWidth={1.5} />
+                <div className="mb-6 md:mb-8 p-6 rounded-full bg-gradient-to-br from-wood-light to-wood-secondary/30 group-hover:from-wood-secondary group-hover:to-wood-primary/30 transition-all duration-300 shadow-lg">
+                  <Building2 className="w-12 h-12 md:w-16 md:h-16 text-wood-dark" strokeWidth={1.5} />
                 </div>
                 
                 {/* Title */}
-                <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 text-foreground">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 text-wood-dark">
                   HOF Construction
                 </h2>
                 
@@ -100,15 +101,15 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
                 
                 {/* Navigation Links Preview */}
                 <div className="flex flex-wrap gap-3 justify-center mb-6 opacity-70 group-hover:opacity-100 transition-opacity">
-                  <span className="text-sm px-3 py-1 rounded-full bg-foreground/10 text-foreground">About</span>
-                  <span className="text-sm px-3 py-1 rounded-full bg-foreground/10 text-foreground">Projects</span>
-                  <span className="text-sm px-3 py-1 rounded-full bg-foreground/10 text-foreground">Services</span>
-                  <span className="text-sm px-3 py-1 rounded-full bg-foreground/10 text-foreground">Contact</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-wood-light/50 backdrop-blur-sm border border-wood-primary/30 text-wood-dark">About</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-wood-light/50 backdrop-blur-sm border border-wood-primary/30 text-wood-dark">Projects</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-wood-light/50 backdrop-blur-sm border border-wood-primary/30 text-wood-dark">Services</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-wood-light/50 backdrop-blur-sm border border-wood-primary/30 text-wood-dark">Contact</span>
                 </div>
                 
                 {/* CTA Arrow */}
-                <div className="flex items-center gap-2 text-foreground group-hover:gap-4 transition-all duration-300">
-                  <span>Explore Construction</span>
+                <div className="flex items-center gap-2 text-wood-dark group-hover:gap-4 transition-all duration-300">
+                  <span className="tracking-wide">Explore Construction</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>

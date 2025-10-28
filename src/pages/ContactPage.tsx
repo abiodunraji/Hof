@@ -5,6 +5,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Label } from '../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { ConsultationDialog } from '../components/ConsultationDialog';
 import { Mail, Phone, MapPin, Clock, Instagram, Facebook, Linkedin } from 'lucide-react';
 import { toast } from 'sonner@2.0.3';
 
@@ -13,6 +14,7 @@ interface ContactPageProps {
 }
 
 export function ContactPage({ onNavigate }: ContactPageProps) {
+  const [showConsultationDialog, setShowConsultationDialog] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -287,6 +289,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                   </p>
                   <Button
                     variant="outline"
+                    onClick={() => setShowConsultationDialog(true)}
                     className="w-full border-white bg-white text-primary hover:bg-white/90"
                   >
                     Book Consultation
@@ -355,6 +358,11 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
           </div>
         </div>
       </section>
+      <ConsultationDialog
+        open={showConsultationDialog}
+        onOpenChange={setShowConsultationDialog}
+        serviceType="interiors"
+      />
     </div>
   );
 }
