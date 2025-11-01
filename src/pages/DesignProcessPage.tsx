@@ -1,14 +1,14 @@
 import { 
   MessageSquare, 
   Lightbulb, 
-  PenTool, 
-  Palette, 
-  Package, 
+  Users, 
   CheckCircle,
   ArrowRight,
   Clock,
-  Users,
-  Sparkles
+  Sparkles,
+  Star,
+  Target,
+  Zap
 } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -21,92 +21,78 @@ const processSteps = [
   {
     number: '01',
     icon: MessageSquare,
-    title: 'Discovery & Consultation',
-    duration: '1-2 weeks',
-    description: 'We begin with an in-depth conversation about your vision, lifestyle, and design preferences. This is where we get to know you and understand what makes your space uniquely yours.',
+    title: 'Share Your Vision',
+    subtitle: 'Documentation & Brief',
+    duration: '1-2 days',
+    description: 'Begin your transformation by sharing your space with us. Upload photos, videos, or CAD files alongside your budget and timeline to help us craft a realistic project scope that aligns with your dreams.',
+    keyActivities: 'Review & Assessment',
     activities: [
-      'Initial consultation meeting',
-      'Lifestyle and needs assessment',
-      'Budget discussion and planning',
-      'Site measurement and analysis',
-      'Inspiration board creation'
+      'Photo and video upload portal',
+      'CAD file analysis (if available)', 
+      'Budget alignment discussion',
+      'Timeline planning session',
+      'Space measurement verification',
+      'Initial brief documentation'
     ],
-    color: 'from-primary/20 to-primary/10'
+    color: 'from-blue-500/20 to-blue-600/10',
+    highlight: 'Upload & Plan'
   },
   {
-    number: '02',
-    icon: Lightbulb,
-    title: 'Concept Development',
-    duration: '2-3 weeks',
-    description: 'Drawing inspiration from our consultation, we develop a cohesive design concept that captures your personality and style while addressing all functional requirements.',
+    number: '02', 
+    icon: Users,
+    title: 'Expert Site Visit',
+    subtitle: 'On-Location Discovery',
+    duration: '1 day',
+    description: 'Our expert design team visits your space for an immersive consultation. We explore possibilities together, understand your lifestyle needs, and align our creative vision with your expectations.',
+    keyActivities: 'Ideate & Explore',
     activities: [
-      'Mood board and concept presentation',
-      'Space planning and layout options',
-      'Style direction refinement',
-      'Color palette development',
-      'Material and finish exploration'
+      'Comprehensive site assessment',
+      'Lifestyle and needs exploration',
+      'Design possibility mapping',
+      'Spatial relationship analysis',
+      'Material and lighting evaluation',
+      'Vision alignment workshop'
     ],
-    color: 'from-accent/30 to-accent/15'
+    color: 'from-emerald-500/20 to-emerald-600/10',
+    highlight: 'Discover & Connect'
   },
   {
     number: '03',
-    icon: PenTool,
+    icon: Lightbulb,
     title: 'Design Development',
-    duration: '3-4 weeks',
-    description: 'We refine the approved concept into detailed design plans, selecting every element from furniture to fixtures with meticulous attention to detail.',
+    subtitle: 'Concept & Quotation',
+    duration: '1-2 weeks',
+    description: 'Following your site visit, we provide a retainership invoice that unlocks our creative process. Once confirmed, receive a tailored moodboard and detailed quotation after approving the concept design.',
+    keyActivities: 'Quote & Visualize',
     activities: [
-      'Detailed floor plans and elevations',
-      'Custom furniture design',
-      'Lighting design and layout',
-      'Material specifications',
-      '3D renderings and visualizations'
+      'Retainership agreement setup',
+      'Custom moodboard creation',
+      'Concept design development',
+      'Material palette curation',
+      'Detailed project quotation',
+      'Design presentation session'
     ],
-    color: 'from-primary/25 to-primary/12'
+    color: 'from-amber-500/20 to-amber-600/10',
+    highlight: 'Create & Propose'
   },
   {
     number: '04',
-    icon: Palette,
-    title: 'Selection & Sourcing',
-    duration: '2-3 weeks',
-    description: 'With the design finalized, we carefully curate and source every piece, ensuring quality, authenticity, and perfect alignment with your aesthetic.',
-    activities: [
-      'Furniture and decor selection',
-      'Fabric and material ordering',
-      'Custom piece commission',
-      'Vendor coordination',
-      'Sample review and approval'
-    ],
-    color: 'from-accent/35 to-accent/18'
-  },
-  {
-    number: '05',
-    icon: Package,
-    title: 'Installation & Styling',
-    duration: '1-2 weeks',
-    description: 'This is where the magic happens. We oversee every detail of the installation, ensuring flawless execution and styling that brings your vision to life.',
-    activities: [
-      'Delivery coordination',
-      'Installation management',
-      'Furniture placement and styling',
-      'Art and accessory curation',
-      'Final detail refinement'
-    ],
-    color: 'from-primary/20 to-primary/10'
-  },
-  {
-    number: '06',
     icon: CheckCircle,
-    title: 'Reveal & Support',
-    duration: 'Ongoing',
-    description: 'The moment you\'ve been waiting for! We unveil your transformed space and provide continued support to ensure your complete satisfaction.',
+    title: 'Project Launch',
+    subtitle: 'Implementation & Delivery',
+    duration: '4-8 weeks',
+    description: 'Once the bill of quantity is delivered and payment confirmed, our transformation begins immediately. Watch your space evolve as our team executes every detail with precision and care.',
+    keyActivities: 'Launch & Transform',
     activities: [
-      'Final walkthrough and reveal',
-      'Care and maintenance guidance',
-      'Post-installation adjustments',
-      'Ongoing design support',
-      'Seasonal refresh consultations'
+      'Bill of quantity finalization',
+      'Payment processing & confirmation',
+      'Project timeline activation',
+      'Vendor coordination & sourcing',
+      'Installation management',
+      'Final styling & completion'
     ],
-    color: 'from-accent/30 to-accent/15'
+    color: 'from-purple-500/20 to-purple-600/10',
+    highlight: 'Execute & Deliver'
   }
 ];
 
@@ -142,7 +128,7 @@ export function DesignProcessPage({ onNavigate }: DesignProcessPageProps) {
                 <div>
                   <Clock className="w-8 h-8 text-primary mx-auto mb-3" />
                   <h3 className="mb-2">Typical Timeline</h3>
-                  <p className="text-muted-foreground">10-16 weeks</p>
+                  <p className="text-muted-foreground">4-12 weeks</p>
                 </div>
                 <div>
                   <Users className="w-8 h-8 text-primary mx-auto mb-3" />
@@ -247,15 +233,15 @@ export function DesignProcessPage({ onNavigate }: DesignProcessPageProps) {
                 <Button
                   onClick={() => onNavigate('contact')}
                   size="lg"
-                  className="bg-white text-primary hover:bg-white/90"
+                  variant="outline"
+                  className="btn-cta-white-to-gold shadow-lg border-0"
                 >
                   Schedule Consultation
                 </Button>
                 <Button
                   onClick={() => onNavigate('portfolio')}
                   size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white/10"
+                  className="bg-gradient-to-r from-amber-400 to-gold-dark text-white hover:from-amber-300 hover:to-gold border-0 shadow-lg"
                 >
                   View Our Portfolio
                 </Button>

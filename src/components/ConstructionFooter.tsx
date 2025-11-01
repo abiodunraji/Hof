@@ -78,15 +78,15 @@ export function ConstructionFooter({ onNavigate }: ConstructionFooterProps) {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-background/70">(555) 123-4567</span>
+                <span className="text-background/70">09039330335 / 07040654539</span>
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-background/70">info@hofconstruction.com</span>
+                <span className="text-background/70">Houseoffaridahh@gmail.com</span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-background/70">123 Builder Street, Construction City, ST 12345</span>
+                <span className="text-background/70">Bolien House, 90 4th Ave, Gwarinpa, Abuja 900108, Federal Capital Territory</span>
               </li>
             </ul>
           </div>

@@ -29,27 +29,27 @@ export function Footer({ onNavigate }: FooterProps) {
             <h4 className="mb-4">Quick Links</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <button onClick={() => handleNavigation('home')} className="hover:text-primary transition">
+                <button onClick={() => handleNavigation('home')} className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
                   Home
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNavigation('about')} className="hover:text-primary transition">
+                <button onClick={() => handleNavigation('about')} className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
                   About
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNavigation('portfolio')} className="hover:text-primary transition">
+                <button onClick={() => handleNavigation('portfolio')} className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
                   Portfolio
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNavigation('services')} className="hover:text-primary transition">
+                <button onClick={() => handleNavigation('services')} className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
                   Services
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNavigation('contact')} className="hover:text-primary transition">
+                <button onClick={() => handleNavigation('contact')} className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
                   Contact
                 </button>
               </li>

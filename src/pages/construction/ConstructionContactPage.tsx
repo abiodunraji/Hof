@@ -15,7 +15,7 @@ import {
   CheckCircle,
   MessageSquare
 } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface ConstructionContactPageProps {
   onNavigate: (page: string) => void;
@@ -57,19 +57,19 @@ export function ConstructionContactPage({ onNavigate }: ConstructionContactPageP
     {
       icon: Phone,
       title: 'Phone',
-      details: ['Main: (555) 123-4567', 'Emergency: (555) 123-4568'],
+      details: ['Main: 09039330335', 'Alternate: 07040654539'],
       action: 'Call Us'
     },
     {
       icon: Mail,
       title: 'Email',
-      details: ['info@hofconstruction.com', 'quotes@hofconstruction.com'],
+      details: ['Houseoffaridahh@gmail.com'],
       action: 'Email Us'
     },
     {
       icon: MapPin,
       title: 'Office Location',
-      details: ['123 Builder Street', 'Construction City, ST 12345'],
+      details: ['Bolien House, 90 4th Ave', 'Gwarinpa, Abuja 900108', 'Federal Capital Territory'],
       action: 'Get Directions'
     },
     {
@@ -201,7 +201,7 @@ export function ConstructionContactPage({ onNavigate }: ConstructionContactPageP
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      placeholder="(555) 123-4567"
+                      placeholder="09039330335"
                       className="mt-1.5"
                     />
                   </div>
@@ -374,7 +374,7 @@ export function ConstructionContactPage({ onNavigate }: ConstructionContactPageP
 
               <div className="bg-muted/50 p-6 rounded-lg border border-border">
                 <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">Emergency Services:</strong> For urgent construction issues or emergencies, please call our 24/7 emergency line at (555) 123-4568.
+                  <strong className="text-foreground">Emergency Services:</strong> For urgent construction issues or emergencies, please call our 24/7 emergency line at 07040654539.
                 </p>
               </div>
             </div>
@@ -396,8 +396,9 @@ export function ConstructionContactPage({ onNavigate }: ConstructionContactPageP
             <div className="aspect-video bg-muted/50 flex items-center justify-center">
               <div className="text-center text-muted-foreground">
                 <MapPin className="w-12 h-12 mx-auto mb-4" />
-                <p>123 Builder Street</p>
-                <p>Construction City, ST 12345</p>
+                <p>Bolien House, 90 4th Ave</p>
+                <p>Gwarinpa, Abuja 900108</p>
+                <p>Federal Capital Territory</p>
                 <Button 
                   variant="outline" 
                   className="mt-4"

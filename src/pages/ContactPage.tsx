@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { ConsultationDialog } from '../components/ConsultationDialog';
 import { Mail, Phone, MapPin, Clock, Instagram, Facebook, Linkedin } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface ContactPageProps {
   onNavigate: (page: string) => void;
@@ -104,7 +104,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                         <Input
                           id="phone"
                           type="tel"
-                          placeholder="(555) 123-4567"
+                          placeholder="09039330335"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           className="mt-1"
@@ -115,7 +115,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                         <Label htmlFor="projectType">Project Type *</Label>
                         <Select
                           value={formData.projectType}
-                          onValueChange={(value) => setFormData({ ...formData, projectType: value })}
+                          onValueChange={(value: string) => setFormData({ ...formData, projectType: value })}
                           required
                         >
                           <SelectTrigger className="mt-1">
@@ -138,7 +138,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                         <Label htmlFor="budget">Budget Range</Label>
                         <Select
                           value={formData.budget}
-                          onValueChange={(value) => setFormData({ ...formData, budget: value })}
+                          onValueChange={(value: string) => setFormData({ ...formData, budget: value })}
                         >
                           <SelectTrigger className="mt-1">
                             <SelectValue placeholder="Select budget range" />
@@ -157,7 +157,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                         <Label htmlFor="timeline">Timeline</Label>
                         <Select
                           value={formData.timeline}
-                          onValueChange={(value) => setFormData({ ...formData, timeline: value })}
+                          onValueChange={(value: string) => setFormData({ ...formData, timeline: value })}
                         >
                           <SelectTrigger className="mt-1">
                             <SelectValue placeholder="Select timeline" />
@@ -207,7 +207,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                     </div>
                     <div>
                       <p className="text-muted-foreground mb-1">Phone</p>
-                      <p className="text-lg">+1 (555) 123-4567</p>
+                      <p className="text-lg">09039330335 / 07040654539</p>
                     </div>
                   </div>
 
@@ -217,7 +217,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                     </div>
                     <div>
                       <p className="text-muted-foreground mb-1">Email</p>
-                      <p className="text-lg">hello@houseoffaridah.com</p>
+                      <p className="text-lg">Houseoffaridahh@gmail.com</p>
                     </div>
                   </div>
 
@@ -228,8 +228,9 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                     <div>
                       <p className="text-muted-foreground mb-1">Address</p>
                       <p className="text-lg">
-                        123 Design Avenue<br />
-                        New York, NY 10001
+                        Bolien House, 90 4th Ave<br />
+                        Gwarinpa, Abuja 900108<br />
+                        Federal Capital Territory
                       </p>
                     </div>
                   </div>

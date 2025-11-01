@@ -257,7 +257,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
               onClick={() => onNavigate('portfolio')}
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white/10"
+              className="btn-outline-white"
             >
               View My Work
             </Button>

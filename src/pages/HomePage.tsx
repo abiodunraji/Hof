@@ -65,25 +65,29 @@ export function HomePage({ onNavigate }: HomePageProps) {
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="mb-8">
-            <div className="inline-block px-6 py-2 bg-white/95 backdrop-blur-md rounded-full mb-6 border border-primary/20 shadow-lg">
-              <p className="text-sm tracking-widest gold-gradient-text">✦ INTERIOR DESIGN & STYLING ✦</p>
+          <div className="mb-8 animate-fade-in-up">
+            <div className="inline-block backdrop-elegant rounded-full mb-6 shadow-lg hover-lift">
+              <div className="px-6 py-2">
+                <p className="text-luxury-spacing gold-gradient-text">✦ INTERIOR DESIGN & STYLING ✦</p>
+              </div>
             </div>
           </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-8xl mb-8 text-white drop-shadow-2xl tracking-tight">
-            House of Faridah
-          </h1>
-          <div className="inline-block px-8 py-1 mb-8">
-            <p className="text-xl sm:text-2xl text-white/95 drop-shadow-lg italic">
+          <div className="animate-sophisticated-zoom" style={{animationDelay: '0.3s'}}>
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-8xl mb-8 text-white drop-shadow-2xl tracking-tight text-reveal">
+              House of Faridah
+            </h1>
+          </div>
+          <div className="inline-block px-8 py-1 mb-8 animate-elegant-slide" style={{animationDelay: '0.5s'}}>
+            <p className="text-xl sm:text-2xl text-white/95 drop-shadow-lg italic animate-parallax-float">
               Where elegance meets comfort, and every space tells a beautiful story
             </p>
-            <div className="h-px bg-gradient-to-r from-transparent via-white/60 to-transparent mt-6" />
+            <div className="h-px bg-gradient-to-r from-transparent via-white/60 to-transparent mt-6 animate-luxury-glow" />
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-premium-rotate" style={{animationDelay: '0.7s'}}>
             <Button
               onClick={() => onNavigate('portfolio')}
               size="lg"
-              className="bg-gradient-to-r from-primary to-gold-dark hover:from-primary/90 hover:to-gold-dark/90 shadow-xl border border-white/20"
+              className="bg-gradient-to-r from-primary to-gold-dark hover:from-primary/90 hover:to-gold-dark/90 shadow-xl border border-white/20 luxury-hover premium-card-3d"
             >
               View Portfolio
             </Button>
@@ -91,7 +95,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
               onClick={() => onNavigate('contact')}
               size="lg"
               variant="outline"
-              className="border-white bg-white/95 hover:bg-white text-primary shadow-xl"
+              className="btn-outline-white backdrop-blur-sm luxury-hover premium-card-3d"
             >
               Get in Touch
             </Button>
@@ -102,18 +106,22 @@ export function HomePage({ onNavigate }: HomePageProps) {
       {/* Featured Projects Preview */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl sm:text-5xl mb-4">Featured Projects</h2>
+          <div className="text-center mb-12 animate-fade-in-up">
+            <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
+              <p className="text-luxury-spacing gold-gradient-text">Featured Work</p>
+            </div>
+            <h2 className="font-elegant text-4xl sm:text-5xl mb-4">Featured Projects</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               A glimpse into our latest creations
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-            {featuredProjects.map((project) => (
+            {featuredProjects.map((project, index) => (
               <Card
                 key={project.id}
-                className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all border-primary/20"
+                className={`overflow-hidden group cursor-pointer hover:shadow-xl transition-all border-primary/20 luxury-hover premium-card-3d stagger-animation`}
+                style={{animationDelay: `${0.7 + index * 0.15}s`}}
               >
                 <CardContent className="p-0">
                   <div className="relative overflow-hidden aspect-[3/4]">
@@ -125,7 +133,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                       <p className="text-sm mb-1 opacity-90">{project.category}</p>
-                      <h3 className="text-xl">{project.title}</h3>
+                      <h3 className="text-xl font-elegant">{project.title}</h3>
                     </div>
                   </div>
                 </CardContent>
@@ -149,8 +157,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
       {/* Services Preview */}
       <section className="py-20 px-4 bg-secondary/30">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl sm:text-5xl mb-4">What I Offer</h2>
+          <div className="text-center mb-12 animate-fade-in-up" style={{animationDelay: '1.0s'}}>
+            <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
+              <p className="text-luxury-spacing gold-gradient-text">Our Services</p>
+            </div>
+            <h2 className="font-display text-4xl sm:text-5xl mb-4 text-luxury-spacing">What I Offer</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Personalized design services to transform your vision into reality
             </p>
@@ -158,12 +169,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
             {services.map((service, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow border-primary/20 bg-white">
+              <Card key={index} className="hover:shadow-lg transition-shadow border-primary/20 bg-white hover-lift animate-fade-in-up" style={{animationDelay: `${1.2 + index * 0.1}s`}}>
                 <div className="p-8 text-center">
                   <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-6 mx-auto">
                     <service.icon size={28} />
                   </div>
-                  <h3 className="text-2xl mb-4">{service.title}</h3>
+                  <h3 className="text-2xl mb-4 font-elegant">{service.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     {service.description}
                   </p>
@@ -189,8 +200,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <h2 className="text-4xl sm:text-5xl mb-6">Meet Faridah</h2>
+            <div className="order-2 lg:order-1 animate-fade-in-up" style={{animationDelay: '1.5s'}}>
+              <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
+                <p className="text-luxury-spacing gold-gradient-text">About</p>
+              </div>
+              <h2 className="font-display text-4xl sm:text-5xl mb-6 text-luxury-spacing">Meet Faridah</h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 With a passion for creating spaces that nurture the soul, I bring a unique blend
                 of elegance, warmth, and sophistication to every project. My design philosophy
@@ -204,17 +218,17 @@ export function HomePage({ onNavigate }: HomePageProps) {
               <Button
                 onClick={() => onNavigate('about')}
                 size="lg"
-                className="bg-primary hover:bg-primary/90"
+                className="bg-primary hover:bg-primary/90 hover-lift"
               >
                 Learn More About Me
               </Button>
             </div>
 
-            <div className="order-1 lg:order-2 relative h-[500px] rounded-2xl overflow-hidden shadow-xl">
+            <div className="order-1 lg:order-2 relative h-[500px] rounded-2xl overflow-hidden shadow-xl animate-fade-in-up hover-lift" style={{animationDelay: '1.7s'}}>
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1758817864979-56da98f34f8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwd29tYW4lMjBkZXNpZ25lcnxlbnwxfHx8fDE3NjExMjk3MzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src="https://images.unsplash.com/photo-1758817864979-56da98f34f8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx8fDE3NjExMjk3MzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                 alt="Faridah - Interior Designer"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
           </div>
@@ -223,8 +237,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
       {/* Design Process Preview */}
       <section className="py-20 px-4 bg-gradient-to-br from-primary to-primary/80 text-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl sm:text-5xl mb-6">Our Design Journey</h2>
+        <div className="max-w-7xl mx-auto text-center animate-fade-in-up" style={{animationDelay: '1.9s'}}>
+          <div className="inline-block px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6 shadow-md hover-lift">
+            <p className="text-luxury-spacing text-white/90">Process</p>
+          </div>
+          <h2 className="font-display text-4xl sm:text-5xl mb-6 text-luxury-spacing">Our Design Journey</h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
             From our first conversation to the final reveal, we guide you through a thoughtful, 
             collaborative process designed to bring your dream space to life.
@@ -232,7 +249,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
           <Button
             onClick={() => onNavigate('process')}
             size="lg"
-            className="bg-white text-primary hover:bg-white/90"
+            className="bg-white text-primary hover:bg-white/90 hover-lift"
           >
             Explore Our Process
           </Button>
