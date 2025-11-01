@@ -16,11 +16,23 @@ interface InteriorsAppProps {
 export function InteriorsApp({ onNavigateToMain }: InteriorsAppProps) {
   const [currentPage, setCurrentPage] = useState('home');
 
-  const handleNavigate = (page: string) => {
+  const handleNavigate = (page: string, scrollToSection?: string) => {
     if (page === 'main') {
       onNavigateToMain();
     } else {
       setCurrentPage(page);
+      // Scroll to top immediately on navigation
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // If a section is specified, scroll to it after a brief delay
+      if (scrollToSection) {
+        setTimeout(() => {
+          const element = document.getElementById(scrollToSection);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
     }
   };
 

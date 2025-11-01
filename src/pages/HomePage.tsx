@@ -3,7 +3,7 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { ConsultationDialog } from '../components/ConsultationDialog';
-import { Sparkles, Heart, Home } from 'lucide-react';
+import { Home, MessageCircle, Layout, Palette, Box, Sofa } from 'lucide-react';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -32,19 +32,34 @@ const featuredProjects = [
 
 const services = [
   {
+    icon: MessageCircle,
+    title: 'Consultation',
+    description: 'Comprehensive site visits and client consultations to understand your unique vision and lifestyle needs.',
+  },
+  {
+    icon: Layout,
+    title: 'Space Planning',
+    description: 'Technical floor plan development with a focus on accessibility, functionality, and spatial optimization.',
+  },
+  {
+    icon: Palette,
+    title: 'Design Concept',
+    description: 'Custom moodboards and comprehensive visual concepts that capture your aesthetic preferences.',
+  },
+  {
+    icon: Box,
+    title: '3D Design',
+    description: 'Photorealistic 3D renderings that showcase spatial layouts, lighting, and design elements.',
+  },
+  {
+    icon: Sofa,
+    title: 'Furniture & Furnishing',
+    description: 'Complete furniture design, production coordination, and professional installation services.',
+  },
+  {
     icon: Home,
-    title: 'Residential Design',
-    description: 'Creating beautiful, personalized homes that reflect your unique style and story.',
-  },
-  {
-    icon: Sparkles,
-    title: 'Styling & Decor',
-    description: 'Curating the perfect finishing touches to bring elegance and warmth to your space.',
-  },
-  {
-    icon: Heart,
-    title: 'Color Consultation',
-    description: 'Expert guidance in selecting harmonious color palettes that evoke the right emotions.',
+    title: 'Complete Design',
+    description: 'Comprehensive project management from initial consultation through final furnishing installation.',
   },
 ];
 
@@ -167,15 +182,15 @@ export function HomePage({ onNavigate }: HomePageProps) {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {services.map((service, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow border-primary/20 bg-white hover-lift animate-fade-in-up" style={{animationDelay: `${1.2 + index * 0.1}s`}}>
-                <div className="p-8 text-center">
-                  <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-6 mx-auto">
-                    <service.icon size={28} />
+                <div className="p-6 text-center">
+                  <div className="w-14 h-14 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <service.icon size={24} strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-2xl mb-4 font-elegant">{service.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <h3 className="text-xl mb-3 font-elegant">{service.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm">
                     {service.description}
                   </p>
                 </div>
@@ -216,7 +231,16 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 Let me help you create a sanctuary that inspires and delights every single day.
               </p>
               <Button
-                onClick={() => onNavigate('about')}
+                onClick={() => {
+                  onNavigate('about');
+                  // Scroll to My Story section after navigation
+                  setTimeout(() => {
+                    const element = document.getElementById('my-story');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }, 100);
+                }}
                 size="lg"
                 className="bg-primary hover:bg-primary/90 hover-lift"
               >

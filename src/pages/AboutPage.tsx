@@ -87,7 +87,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
       </section>
 
       {/* Story Section */}
-      <section className="py-20 px-4 bg-white">
+      <section id="my-story" className="py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl mb-8 text-center">My Story</h2>
           <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
