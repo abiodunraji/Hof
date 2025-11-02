@@ -39,9 +39,9 @@ const achievements = [
 
 export function AboutPage({ onNavigate }: AboutPageProps) {
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-gold-light/20 via-secondary/30 to-white relative">
+      <section className="relative pt-24 pb-20 px-4 bg-gradient-to-b from-gold-light/20 via-secondary/30 to-white">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--gold)_1px,transparent_1px)] bg-[length:40px_40px]" />
         </div>

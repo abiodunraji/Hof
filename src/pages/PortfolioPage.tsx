@@ -3,201 +3,79 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
-import { Dialog, DialogContent, DialogTitle } from '../components/ui/dialog';
-import { X } from 'lucide-react';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '../components/ui/dialog';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { interiorsProjects, interiorsCategories } from '../data/portfolioData';
 
 interface PortfolioPageProps {
   onNavigate: (page: string) => void;
 }
 
-const categories = ['All', 'Living Rooms', 'Bedrooms', 'Kitchens', 'Bathrooms', 'Commercial'];
-
-const projects = [
-  {
-    id: 1,
-    title: 'Serene Living Space',
-    category: 'Living Rooms',
-    description: 'A minimalist haven featuring soft neutrals and natural textures that create a calming atmosphere.',
-    image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx8fDE3NjEwNjI0NzR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    tags: ['Minimalist', 'Neutral', 'Contemporary'],
-    location: 'Hillside Residence',
-    year: '2024',
-    budget: '$65,000',
-    duration: '3 months',
-    size: '800 sq ft',
-    fullDescription: 'This serene living space was designed to be a peaceful retreat from the busy world. Using a carefully curated palette of soft neutrals, natural wood tones, and organic textures, we created a harmonious environment that promotes relaxation and mindfulness.',
-    highlights: [
-      'Custom-built floating shelves in reclaimed oak',
-      'Japanese-inspired minimalist furniture selection',
-      'Hand-selected natural fiber rugs and textiles',
-      'Integrated LED lighting system with dimming controls',
-      'Curated collection of artisanal pottery and ceramics'
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx8fDE3NjEwNjI0NzR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx8fDE3NjEwNjI0NzR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      'https://images.unsplash.com/photo-1556228720-195a672e8a03?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx8fDE3NjEwNjI0NzR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-    ]
-  },
-  {
-    id: 2,
-    title: 'Romantic Bedroom Retreat',
-    category: 'Bedrooms',
-    description: 'An elegant sanctuary with soft pink accents and luxurious textures for ultimate relaxation.',
-    image: 'https://images.unsplash.com/photo-1759691321555-94fed84288fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwYmVkcm9vbSUyMGludGVyaW9yfGVufDF8fHx8MTc2MTEyNjU5NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    tags: ['Elegant', 'Romantic', 'Cozy'],
-    location: 'Penthouse Suite',
-    year: '2024',
-    budget: '$45,000',
-    duration: '2 months',
-    size: '400 sq ft',
-    fullDescription: 'This romantic bedroom retreat was designed to be the ultimate sanctuary for rest and intimacy. Soft blush tones, luxurious velvet textures, and carefully curated lighting create an atmosphere of warmth and elegance.',
-    highlights: [
-      'Custom upholstered headboard in blush velvet',
-      'Hand-selected vintage brass fixtures',
-      'Layered lighting design with crystal chandelier',
-      'Luxurious Egyptian cotton bedding collection',
-      'Antique French nightstands with marble tops'
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1759691321555-94fed84288fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwYmVkcm9vbSUyMGludGVyaW9yfGVufDF8fHx8MTc2MTEyNjU5NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-    ]
-  },
-  {
-    id: 3,
-    title: 'Modern Culinary Haven',
-    category: 'Kitchens',
-    description: 'A sophisticated kitchen blending functionality with timeless design elements.',
-    image: 'https://images.unsplash.com/photo-1682888813795-192fca4a10d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBraXRjaGVuJTIwZGVzaWdufGVufDF8fHx8MTc2MTA5MDM5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    tags: ['Modern', 'Functional', 'Sleek'],
-    location: 'Contemporary Villa',
-    year: '2024',
-    budget: '$85,000',
-    duration: '4 months',
-    size: '500 sq ft',
-    fullDescription: 'This modern culinary haven seamlessly blends cutting-edge functionality with timeless elegance. Every element was carefully chosen to create a space that inspires culinary creativity while maintaining sophisticated aesthetics.',
-    highlights: [
-      'Custom Italian marble waterfall island',
-      'Professional-grade appliance suite',
-      'Hidden storage solutions throughout',
-      'Integrated wine storage and display',
-      'Statement lighting with brass accents'
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1682888813795-192fca4a10d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBraXRjaGVuJTIwZGVzaWdufGVufDF8fHx8MTc2MTA5MDM5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-    ]
-  },
-  {
-    id: 4,
-    title: 'Spa-Inspired Bathroom',
-    category: 'Bathrooms',
-    description: 'A luxurious bathroom retreat featuring natural materials and serene aesthetics.',
-    image: 'https://images.unsplash.com/photo-1688786219616-598ed96aa19d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb250ZW1wb3JhcnklMjBiYXRocm9vbXxlbnwxfHx8fDE3NjEwMzIyMDN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    tags: ['Luxury', 'Spa-like', 'Tranquil'],
-    location: 'Luxury Condo',
-    year: '2024',
-    budget: '$55,000',
-    duration: '3 months',
-    size: '200 sq ft',
-    fullDescription: 'This spa-inspired bathroom transforms daily routines into luxurious rituals. Natural stone, warm wood tones, and carefully selected fixtures create a serene sanctuary for relaxation and rejuvenation.',
-    highlights: [
-      'Natural stone rainfall shower',
-      'Custom teak vanity with integrated storage',
-      'Freestanding soaking tub',
-      'Heated floor system',
-      'Ambient lighting design'
-    ]
-  },
-  {
-    id: 5,
-    title: 'Executive Office Space',
-    category: 'Commercial',
-    description: 'A professional yet inviting workspace designed to inspire productivity and creativity.',
-    image: 'https://images.unsplash.com/photo-1718220216044-006f43e3a9b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHlsaXNoJTIwb2ZmaWNlJTIwc3BhY2V8ZW58MXx8fHwxNzYxMTI2NTk2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    tags: ['Professional', 'Modern', 'Sophisticated'],
-    location: 'Corporate Tower',
-    year: '2024',
-    budget: '$75,000',
-    duration: '2 months',
-    size: '600 sq ft',
-    fullDescription: 'This executive office space balances professionalism with comfort, creating an environment that fosters productivity while reflecting executive status. Clean lines, premium materials, and thoughtful lighting design create an inspiring workspace.',
-    highlights: [
-      'Custom mahogany executive desk',
-      'Integrated technology solutions',
-      'Premium leather seating',
-      'Statement wall art collection',
-      'Sound-dampening design elements'
-    ]
-  },
-  {
-    id: 6,
-    title: 'Urban Loft Living',
-    category: 'Living Rooms',
-    description: 'Contemporary loft design with warm accents and carefully curated furnishings.',
-    image: 'https://images.unsplash.com/photo-1639173925921-5d5fd027713c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBtb2Rlcm4lMjBpbnRlcmlvcnxlbnwxfHx8fDE3NjEwNzE1MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    tags: ['Urban', 'Contemporary', 'Warm'],
-  },
-  {
-    id: 7,
-    title: 'Blush Pink Oasis',
-    category: 'Bedrooms',
-    description: 'A dreamy bedroom featuring soft pink tones and luxurious velvet textures.',
-    image: 'https://images.unsplash.com/photo-1595081203419-e577b42effd1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0JTIwcGluayUyMGludGVyaW9yfGVufDF8fHx8MTc2MTEyOTczMnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    tags: ['Feminine', 'Dreamy', 'Elegant'],
-  },
-  {
-    id: 8,
-    title: 'Elegant Home Office',
-    category: 'Commercial',
-    description: 'A feminine home office that balances beauty with productivity.',
-    image: 'https://images.unsplash.com/photo-1669975103152-207f84d2b272?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmZW1pbmluZSUyMHdvcmtzcGFjZXxlbnwxfHx8fDE3NjEwODI3NDN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    tags: ['Chic', 'Organized', 'Inspiring'],
-  },
-  {
-    id: 9,
-    title: 'Refined Home Decor',
-    category: 'Living Rooms',
-    description: 'Sophisticated living space with carefully selected statement pieces and warm lighting.',
-    image: 'https://images.unsplash.com/photo-1704428381540-b5be472a4d17?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwaG9tZSUyMGRlY29yfGVufDF8fHx8MTc2MTEyOTczMXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    tags: ['Refined', 'Curated', 'Timeless'],
-  },
-];
-
 export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const filteredProjects = activeCategory === 'All'
-    ? projects
-    : projects.filter(project => project.category === activeCategory);
+    ? interiorsProjects
+    : interiorsProjects.filter(project => project.category === activeCategory);
 
   const handleProjectClick = (project: any) => {
     setSelectedProject(project);
+    setCurrentImageIndex(0); // Reset to first image
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedProject(null);
+    setCurrentImageIndex(0);
   };
 
+  const handlePrevImage = () => {
+    if (!selectedProject?.gallery) return;
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? selectedProject.gallery.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    if (!selectedProject?.gallery) return;
+    setCurrentImageIndex((prev) => 
+      prev === selectedProject.gallery.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  // Get the current image to display (use gallery if available, otherwise use main image)
+  const getCurrentImage = () => {
+    if (!selectedProject) return '';
+    if (selectedProject.gallery && selectedProject.gallery.length > 0) {
+      return selectedProject.gallery[currentImageIndex];
+    }
+    return selectedProject.image;
+  };
+
+  // Check if navigation buttons should be shown
+  const showNavigation = selectedProject?.gallery && selectedProject.gallery.length > 1;
+
   return (
-    <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-gold-light/30 via-secondary/40 to-white relative">
-        <div className="absolute inset-0 opacity-5">
+    <div className="min-h-screen">
+      {/* Hero Section - Matched to uniform styling */}
+      <section className="relative pt-24 pb-16 px-4 bg-gradient-to-b from-gold-light/30 to-background">
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--gold)_1px,transparent_1px)] bg-[length:40px_40px]" />
         </div>
-        <div className="max-w-7xl mx-auto text-center relative animate-sophisticated-zoom">
-          <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md animate-prestige-pulse">
-            <p className="text-luxury-spacing gold-gradient-text text-reveal">✦ MY WORK ✦</p>
+        
+        <div className="max-w-4xl mx-auto text-center relative">
+          <div className="inline-block px-6 py-2 rounded-full bg-white/80 backdrop-blur-md border border-primary/30 text-primary mb-8 shadow-lg">
+            <span className="text-sm tracking-wider gold-gradient-text">✦ MY WORK ✦</span>
           </div>
-          <h1 className="font-display text-5xl sm:text-6xl mb-6 text-luxury-spacing animate-elegant-slide" style={{animationDelay: '0.2s'}}>
+          <h1 className="text-4xl md:text-5xl lg:text-7xl mb-6 text-foreground tracking-tight">
             <span className="gold-gradient-text">Portfolio</span>
           </h1>
-          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-8 animate-luxury-glow" />
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-parallax-float" style={{animationDelay: '0.4s'}}>
+          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-8" />
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Explore my collection of thoughtfully designed spaces where elegance meets functionality.
             Each project tells a unique story of transformation and beauty.
           </p>
@@ -208,7 +86,7 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
       <section className="py-8 px-4 bg-white border-b border-primary/10">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map((category) => (
+            {interiorsCategories.map((category) => (
               <Button
                 key={category}
                 variant={activeCategory === category ? 'default' : 'outline'}
@@ -289,29 +167,74 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
 
       {/* Project Details Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 [&>button]:hidden">
           {selectedProject && (
-            <div className="relative">
+            <>
+              {/* Accessibility elements for screen readers */}
+              <DialogTitle className="sr-only">{selectedProject.title}</DialogTitle>
+              <DialogDescription className="sr-only">
+                {selectedProject.description} - {selectedProject.location}
+              </DialogDescription>
+              
+              {/* Custom close button with elegant hover effect */}
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 z-50 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-colors"
+                className="absolute top-4 right-4 z-[60] w-12 h-12 bg-white/95 hover:bg-primary rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-125 group ring-2 ring-primary/20 hover:ring-primary/60"
+                aria-label="Close"
               >
-                <X size={16} className="text-gray-600" />
+                <X size={22} className="text-gray-800 group-hover:text-white transition-colors duration-300" strokeWidth={2.5} />
               </button>
               
-              <div className="relative h-64 md:h-80 overflow-hidden">
-                <ImageWithFallback
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-6 left-6 text-white">
-                  <Badge variant="secondary" className="mb-2 bg-primary text-white">
+              {/* Image Section with Navigation */}
+              <div className="relative w-full h-80 md:h-96">
+                <div className="absolute inset-0 overflow-hidden">
+                  <ImageWithFallback
+                    src={getCurrentImage()}
+                    alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30 pointer-events-none" />
+                </div>
+                
+                {/* Navigation Buttons - Centered vertically on image */}
+                {showNavigation && (
+                  <>
+                    {/* Left Arrow */}
+                    <button
+                      type="button"
+                      onClick={handlePrevImage}
+                      className="absolute left-4 -translate-y-1/2 z-50 w-11 h-11 bg-white/95 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-200 hover:scale-110 border border-primary/20"
+                      style={{ top: '54%' }}
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft size={24} className="text-primary" strokeWidth={2.5} />
+                    </button>
+                    
+                    {/* Right Arrow */}
+                    <button
+                      type="button"
+                      onClick={handleNextImage}
+                      className="absolute right-4 -translate-y-1/2 z-50 w-11 h-11 bg-white/95 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-200 hover:scale-110 border border-primary/20"
+                      style={{ top: '54%' }}
+                      aria-label="Next image"
+                    >
+                      <ChevronRight size={24} className="text-primary" strokeWidth={2.5} />
+                    </button>
+                    
+                    {/* Image Counter */}
+                    <div className="absolute left-1/2 -translate-x-1/2 z-50 px-4 py-1.5 bg-white/95 backdrop-blur-sm rounded-full text-primary text-xs font-semibold shadow-xl" style={{ top: '48px' }}>
+                      {currentImageIndex + 1} / {selectedProject.gallery.length}
+                    </div>
+                  </>
+                )}
+                
+                {/* Title Overlay - Bottom with proper spacing */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-40 pointer-events-none">
+                  <Badge variant="secondary" className="mb-3 bg-primary text-white shadow-lg pointer-events-auto">
                     {selectedProject.category}
                   </Badge>
-                  <h2 className="text-3xl font-display mb-2">{selectedProject.title}</h2>
-                  <p className="text-lg opacity-90">{selectedProject.location}</p>
+                  <h2 className="text-2xl md:text-3xl font-display mb-1.5 drop-shadow-lg">{selectedProject.title}</h2>
+                  <p className="text-base md:text-lg opacity-95 drop-shadow-md">{selectedProject.location}</p>
                 </div>
               </div>
 
@@ -387,7 +310,7 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
                   </div>
                 </div>
               </div>
-            </div>
+            </>
           )}
         </DialogContent>
       </Dialog>

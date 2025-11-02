@@ -40,15 +40,22 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
   };
 
   return (
-    <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-secondary/50 to-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-6">
-            <p className="text-sm tracking-wider text-primary">LET'S CONNECT</p>
+    <div className="min-h-screen">
+      {/* Hero Section - Matched to Portfolio/Services/Process page styling */}
+      <section className="relative pt-24 pb-16 px-4 bg-gradient-to-b from-gold-light/30 to-background">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--gold)_1px,transparent_1px)] bg-[length:40px_40px]" />
+        </div>
+        
+        <div className="max-w-4xl mx-auto text-center relative">
+          <div className="inline-block px-6 py-2 rounded-full bg-white/80 backdrop-blur-md border border-primary/30 text-primary mb-8 shadow-lg">
+            <span className="text-sm tracking-wider gold-gradient-text">✦ LET'S CONNECT ✦</span>
           </div>
-          <h1 className="text-5xl sm:text-6xl mb-6">Get in Touch</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl mb-6 text-foreground tracking-tight">
+            <span className="gold-gradient-text">Get in Touch</span>
+          </h1>
+          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-8" />
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Ready to transform your space? I'd love to hear about your vision and discuss how we can
             create something beautiful together. Fill out the form below or reach out directly.
           </p>
@@ -303,11 +310,14 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 px-4 bg-secondary/30">
+      <section className="py-20 px-4 bg-secondary/30">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl mb-4">Frequently Asked Questions</h2>
-            <p className="text-muted-foreground">
+          <div className="text-center mb-16">
+            <div className="inline-block px-6 py-2 rounded-full bg-white/80 backdrop-blur-md border border-primary/30 text-primary mb-8 shadow-lg">
+              <span className="text-sm tracking-wider gold-gradient-text">✦ FAQ ✦</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl mb-4">Frequently Asked Questions</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Quick answers to common questions about working together
             </p>
           </div>

@@ -1,0 +1,146 @@
+/**
+ * PROJECT TEMPLATE
+ * 
+ * Copy this template and fill in your project details.
+ * Then paste into the appropriate array in portfolioData.ts:
+ * - interiorsProjects for HOF Interiors
+ * - constructionProjects for HOF Construction
+ */
+
+// ============= INTERIORS PROJECT TEMPLATE =============
+{
+  id: 999, // CHANGE THIS: Use next available ID (check highest ID in array)
+  title: 'Your Project Title',
+  category: 'Living Rooms', // CHOOSE ONE: 'Living Rooms', 'Bedrooms', 'Kitchens', 'Bathrooms', 'Commercial'
+  description: 'Short description (1-2 sentences) shown on the project card',
+  image: '/portfolio/interiors/your-folder/hero-image.jpg', // REQUIRED: Main image path
+  tags: ['Tag1', 'Tag2', 'Tag3'], // 2-4 descriptive tags
+  location: 'Project Location (City, Neighborhood, or Building Name)',
+  year: '2024', // Completion year
+  budget: '₦25,000,000', // Nigerian Naira format
+  duration: '3 months', // Project timeline
+  size: '500 sq ft', // Project size
+  fullDescription: 'Detailed description shown in the modal. Explain the design vision, challenges solved, and unique aspects of the project. 2-3 sentences recommended.',
+  highlights: [
+    'First key feature or design element',
+    'Second key feature',
+    'Third key feature',
+    'Fourth key feature (optional)',
+    'Fifth key feature (optional)'
+  ],
+  
+  // FOR SINGLE IMAGE PROJECT (just one photo):
+  gallery: [
+    '/portfolio/interiors/your-folder/hero-image.jpg'
+  ]
+  
+  // FOR GALLERY PROJECT (multiple photos):
+  // gallery: [
+  //   '/portfolio/interiors/your-folder/view-1.jpg', // First image is the hero
+  //   '/portfolio/interiors/your-folder/view-2.jpg',
+  //   '/portfolio/interiors/your-folder/view-3.jpg',
+  //   '/portfolio/interiors/your-folder/view-4.jpg',
+  //   '/portfolio/interiors/your-folder/view-5.jpg'
+  // ]
+}
+
+// ============= CONSTRUCTION PROJECT TEMPLATE =============
+{
+  id: 999, // CHANGE THIS: Use next available ID
+  title: 'Your Project Title',
+  category: 'Commercial', // CHOOSE ONE: 'Commercial', 'Residential', 'Renovation'
+  description: 'Short description of the construction project and its key features',
+  image: '/portfolio/construction/your-folder/hero-image.jpg', // REQUIRED: Main image
+  tags: ['Tag1', 'Tag2', 'Tag3'], // 2-4 descriptive tags
+  location: 'Project Location',
+  year: '2024', // Completion year
+  budget: '₦1,500,000,000', // Nigerian Naira (construction budgets are typically larger)
+  duration: '18 months', // Construction timeline
+  size: '50,000 sq ft', // Building size or lot size
+  fullDescription: 'Detailed project description highlighting the construction challenges, technical specifications, and project achievements.',
+  highlights: [
+    'Key construction feature or certification',
+    'Technical specification',
+    'Special system or material',
+    'Unique challenge solved',
+    'Sustainability feature (if applicable)'
+  ],
+  
+  // FOR SINGLE IMAGE:
+  gallery: [
+    '/portfolio/construction/your-folder/hero-image.jpg'
+  ]
+  
+  // FOR GALLERY:
+  // gallery: [
+  //   '/portfolio/construction/your-folder/exterior.jpg',
+  //   '/portfolio/construction/your-folder/lobby.jpg',
+  //   '/portfolio/construction/your-folder/detail-1.jpg',
+  //   '/portfolio/construction/your-folder/detail-2.jpg'
+  // ]
+}
+
+// ============= QUICK REFERENCE =============
+
+/**
+ * BUDGET CONVERSION (approximate, ~₦433 per $1 USD)
+ * 
+ * Interiors (typical):
+ * $20,000  = ₦8,660,000
+ * $30,000  = ₦12,990,000
+ * $50,000  = ₦21,650,000
+ * $75,000  = ₦32,475,000
+ * $100,000 = ₦43,300,000
+ * 
+ * Construction (typical):
+ * $500,000  = ₦216,500,000
+ * $1M       = ₦433,000,000
+ * $2M       = ₦866,000,000
+ * $5M       = ₦2,165,000,000
+ * $10M      = ₦4,330,000,000
+ */
+
+/**
+ * CATEGORY OPTIONS
+ * 
+ * Interiors:
+ * - 'Living Rooms'
+ * - 'Bedrooms'
+ * - 'Kitchens'
+ * - 'Bathrooms'
+ * - 'Commercial'
+ * 
+ * Construction:
+ * - 'Commercial'
+ * - 'Residential'
+ * - 'Renovation'
+ */
+
+/**
+ * IMAGE PATH FORMAT
+ * 
+ * ✅ Correct:
+ * '/portfolio/interiors/project-name/image.jpg'
+ * '/portfolio/construction/project-name/image.jpg'
+ * 
+ * ❌ Wrong:
+ * 'portfolio/interiors/image.jpg'  (missing leading slash)
+ * '/public/portfolio/...'          (don't include 'public')
+ * 'C:/Users/...'                   (no absolute file paths)
+ */
+
+/**
+ * COMMON TAG SUGGESTIONS
+ * 
+ * Interiors:
+ * - Style: 'Modern', 'Contemporary', 'Minimalist', 'Traditional', 'Eclectic'
+ * - Mood: 'Elegant', 'Cozy', 'Sophisticated', 'Warm', 'Serene', 'Bold'
+ * - Features: 'Luxury', 'Functional', 'Spacious', 'Intimate', 'Bright'
+ * - Elements: 'Custom Furniture', 'Smart Home', 'Sustainable', 'Vintage'
+ * 
+ * Construction:
+ * - Type: 'High-Rise', 'Low-Rise', 'Mixed-Use', 'Single-Family'
+ * - Features: 'LEED Certified', 'Sustainable', 'Smart Building', 'Historic'
+ * - Scale: 'Large-Scale', 'Boutique', 'Community'
+ * - Special: 'Award-Winning', 'Fast-Track', 'Green Building'
+ */

@@ -4,131 +4,19 @@ import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
 import { MapPin, Calendar, DollarSign, Users, CheckCircle, Building2 } from 'lucide-react';
+import { constructionProjects, constructionCategories } from '../../data/portfolioData';
 
 interface ConstructionPortfolioPageProps {
   onNavigate: (page: string) => void;
 }
-
-const projects = [
-  {
-    id: 1,
-    title: 'Riverside Corporate Center',
-    category: 'Commercial',
-    location: 'Downtown District',
-    year: '2024',
-    budget: '$8.5M',
-    size: '75,000 sq ft',
-    duration: '18 months',
-    image: 'https://images.unsplash.com/photo-1652379742283-b1db151d4b70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tZXJjaWFsJTIwY29uc3RydWN0aW9uJTIwYnVpbGRpbmd8ZW58MXx8fHwxNzYxNTAyNjYzfDA&ixlib=rb-4.1.0&q=80&w=1080',
-    description: 'Modern office complex featuring sustainable design, state-of-the-art facilities, and LEED Gold certification.',
-    highlights: [
-      'LEED Gold Certified',
-      'Energy-efficient HVAC system',
-      'Rooftop solar installation',
-      'Underground parking for 200 vehicles'
-    ]
-  },
-  {
-    id: 2,
-    title: 'Hillside Luxury Residence',
-    category: 'Residential',
-    location: 'Hillside Estate',
-    year: '2024',
-    budget: '$3.2M',
-    size: '6,500 sq ft',
-    duration: '14 months',
-    image: 'https://images.unsplash.com/photo-1580063665421-4c9cbe9ec11b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNpZGVudGlhbCUyMGNvbnN0cnVjdGlvbiUyMGhvdXNlfGVufDF8fHx8MTc2MTM5NDkyMHww&ixlib=rb-4.1.0&q=80&w=1080',
-    description: 'Custom-built luxury home with panoramic views, featuring high-end finishes and smart home integration.',
-    highlights: [
-      'Custom architectural design',
-      'Smart home automation',
-      'Infinity pool with spa',
-      'Wine cellar and home theater'
-    ]
-  },
-  {
-    id: 3,
-    title: 'Heritage Building Restoration',
-    category: 'Renovation',
-    location: 'Heritage District',
-    year: '2023',
-    budget: '$2.1M',
-    size: '15,000 sq ft',
-    duration: '12 months',
-    image: 'https://images.unsplash.com/photo-1760331283499-abccea681c46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidWlsZGluZyUyMHJlbm92YXRpb24lMjBwcm9qZWN0fGVufDF8fHx8MTc2MTUwMjY2M3ww&ixlib=rb-4.1.0&q=80&w=1080',
-    description: 'Complete restoration of historic 1920s building, preserving original character while modernizing infrastructure.',
-    highlights: [
-      'Historic preservation approved',
-      'Original facade restoration',
-      'Modern electrical and plumbing',
-      'Seismic retrofitting'
-    ]
-  },
-  {
-    id: 4,
-    title: 'Lakeside Medical Plaza',
-    category: 'Commercial',
-    location: 'Lakeside District',
-    year: '2023',
-    budget: '$5.7M',
-    size: '42,000 sq ft',
-    duration: '16 months',
-    image: 'https://images.unsplash.com/photo-1694702740570-0a31ee1525c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjBidWlsZGluZ3xlbnwxfHx8fDE3NjE0MjU3MTh8MA&ixlib=rb-4.1.0&q=80&w=1080',
-    description: 'Multi-specialty medical facility with advanced infrastructure for healthcare services.',
-    highlights: [
-      'Healthcare-grade infrastructure',
-      'Advanced HVAC filtration',
-      'Backup power systems',
-      'ADA compliant throughout'
-    ]
-  },
-  {
-    id: 5,
-    title: 'Sunset Townhome Development',
-    category: 'Residential',
-    location: 'Sunset Valley',
-    year: '2023',
-    budget: '$6.8M',
-    size: '24 units',
-    duration: '20 months',
-    image: 'https://images.unsplash.com/photo-1580063665421-4c9cbe9ec11b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNpZGVudGlhbCUyMGNvbnN0cnVjdGlvbiUyMGhvdXNlfGVufDF8fHx8MTc2MTM5NDkyMHww&ixlib=rb-4.1.0&q=80&w=1080',
-    description: 'Modern townhome community featuring sustainable design and community amenities.',
-    highlights: [
-      '24 luxury townhomes',
-      'Community clubhouse',
-      'Green building practices',
-      'Electric vehicle charging stations'
-    ]
-  },
-  {
-    id: 6,
-    title: 'Industrial Warehouse Complex',
-    category: 'Commercial',
-    location: 'Industrial Park',
-    year: '2022',
-    budget: '$4.3M',
-    size: '95,000 sq ft',
-    duration: '10 months',
-    image: 'https://images.unsplash.com/photo-1652379742283-b1db151d4b70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tZXJjaWFsJTIwY29uc3RydWN0aW9uJTIwYnVpbGRpbmd8ZW58MXx8fHwxNzYxNTAyNjYzfDA&ixlib=rb-4.1.0&q=80&w=1080',
-    description: 'Large-scale warehouse facility with advanced logistics infrastructure and office space.',
-    highlights: [
-      'Clear-span warehouse design',
-      'Multiple loading docks',
-      'Office and break room facilities',
-      'Advanced security systems'
-    ]
-  }
-];
-
-const categories = ['All', 'Commercial', 'Residential', 'Renovation'];
 
 export function ConstructionPortfolioPage({ onNavigate }: ConstructionPortfolioPageProps) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
   const filteredProjects = selectedCategory === 'All' 
-    ? projects 
-    : projects.filter(p => p.category === selectedCategory);
+    ? constructionProjects 
+    : constructionProjects.filter(p => p.category === selectedCategory);
 
   return (
     <div className="min-h-screen pt-16 bg-gradient-to-br from-muted/20 to-background">
@@ -152,7 +40,7 @@ export function ConstructionPortfolioPage({ onNavigate }: ConstructionPortfolioP
       <section className="px-4 pb-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => (
+            {constructionCategories.map((category) => (
               <Button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
@@ -229,7 +117,7 @@ export function ConstructionPortfolioPage({ onNavigate }: ConstructionPortfolioP
                   <Button 
                     variant="outline" 
                     className="w-full"
-                    onClick={(e) => {
+                    onClick={(e: React.MouseEvent) => {
                       e.stopPropagation();
                       setSelectedProject(project.id);
                     }}
@@ -254,7 +142,7 @@ export function ConstructionPortfolioPage({ onNavigate }: ConstructionPortfolioP
             onClick={(e) => e.stopPropagation()}
           >
             {(() => {
-              const project = projects.find(p => p.id === selectedProject);
+              const project = constructionProjects.find(p => p.id === selectedProject);
               if (!project) return null;
 
               return (
