@@ -12,21 +12,21 @@ interface HomePageProps {
 const featuredProjects = [
   {
     id: 1,
-    title: 'Serene Living Space',
-    category: 'Residential',
-    image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwbGl2aW5nJTIwcm9vbXxlbnwxfHx8fDE3NjEwNjI0NzR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    title: 'Contemporary Lagos Residence',
+    category: 'Living Rooms',
+    image: '/Hof/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg',
   },
   {
     id: 2,
-    title: 'Romantic Bedroom',
-    category: 'Residential',
-    image: 'https://images.unsplash.com/photo-1759691321555-94fed84288fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwYmVkcm9vbSUyMGludGVyaW9yfGVufDF8fHx8MTc2MTEyNjU5NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    title: 'Glamorous Gold & Crystal Kitchen',
+    category: 'Kitchens',
+    image: '/Hof/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
   },
   {
     id: 3,
-    title: 'Elegant Kitchen',
-    category: 'Residential',
-    image: 'https://images.unsplash.com/photo-1682888813795-192fca4a10d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBraXRjaGVuJTIwZGVzaWdufGVufDF8fHx8MTc2MTA5MDM5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    title: 'Modern Athletic Sanctuary',
+    category: 'Bedrooms',
+    image: '/Hof/portfolio/interiors/modern-athletic-bedroom/bedroom-media-wall.jpg',
   },
 ];
 
@@ -72,7 +72,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
       <section className="relative h-screen flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1595081203419-e577b42effd1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0JTIwcGluayUyMGludGVyaW9yfGVufDF8fHx8MTc2MTEyOTczMnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            src="/Hof/portfolio/interiors/luxury-gold-kitchen/kitchen-full-view.jpg"
             alt="Elegant interior design"
             className="w-full h-full object-cover"
           />
@@ -145,10 +145,15 @@ export function HomePage({ onNavigate }: HomePageProps) {
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <p className="text-sm mb-1 opacity-90">{project.category}</p>
-                      <h3 className="text-xl font-elegant">{project.title}</h3>
+                    {/* Mobile: Simple title bar at bottom (no gold overlay) */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 md:hidden">
+                      <p className="text-sm mb-1 text-white/80">{project.category}</p>
+                      <h3 className="text-xl text-white font-elegant">{project.title}</h3>
+                    </div>
+                    {/* Desktop: Gold overlay with content on hover */}
+                    <div className="hidden md:flex absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 p-6 flex-col justify-end text-white">
+                      <p className="text-sm mb-1 opacity-90 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300">{project.category}</p>
+                      <h3 className="text-xl font-elegant transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 delay-75">{project.title}</h3>
                     </div>
                   </div>
                 </CardContent>
@@ -250,7 +255,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
             <div className="order-1 lg:order-2 relative h-[500px] rounded-2xl overflow-hidden shadow-xl animate-fade-in-up hover-lift" style={{animationDelay: '1.7s'}}>
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1758817864979-56da98f34f8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx8fDE3NjExMjk3MzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbnRlcmlvciUyMGRlc2lnbmVyfGVufDB8fHx8MTczMTEzNjAzMXww&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Faridah - Interior Designer"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />
