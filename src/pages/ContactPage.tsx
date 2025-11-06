@@ -9,11 +9,7 @@ import { ConsultationDialog } from '../components/ConsultationDialog';
 import { Mail, Phone, MapPin, Clock, Instagram, Facebook, Linkedin } from 'lucide-react';
 import { toast } from 'sonner';
 
-interface ContactPageProps {
-  onNavigate: (page: string) => void;
-}
-
-export function ContactPage({ onNavigate }: ContactPageProps) {
+export function ContactPage() {
   const [showConsultationDialog, setShowConsultationDialog] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -265,19 +261,28 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                 <CardContent>
                   <div className="flex gap-3">
                     <a
-                      href="#"
+                      href="https://instagram.com/houseoffaridah"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Follow House of Faridah on Instagram"
                       className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
                     >
                       <Instagram size={20} />
                     </a>
                     <a
-                      href="#"
+                      href="https://facebook.com/houseoffaridah"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Follow House of Faridah on Facebook"
                       className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
                     >
                       <Facebook size={20} />
                     </a>
                     <a
-                      href="#"
+                      href="https://linkedin.com/company/houseoffaridah"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Connect with House of Faridah on LinkedIn"
                       className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
                     >
                       <Linkedin size={20} />

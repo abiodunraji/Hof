@@ -10,12 +10,9 @@ import {
   Target,
   Zap
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-
-interface DesignProcessPageProps {
-  onNavigate: (page: string) => void;
-}
 
 const processSteps = [
   {
@@ -96,7 +93,7 @@ const processSteps = [
   }
 ];
 
-export function DesignProcessPage({ onNavigate }: DesignProcessPageProps) {
+export function DesignProcessPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
       {/* Hero Section */}
@@ -231,19 +228,19 @@ export function DesignProcessPage({ onNavigate }: DesignProcessPageProps) {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
-                  onClick={() => onNavigate('contact')}
+                  asChild
                   size="lg"
                   variant="outline"
                   className="btn-cta-white-to-gold shadow-lg border-0"
                 >
-                  Schedule Consultation
+                  <Link to="/interiors/contact">Schedule Consultation</Link>
                 </Button>
                 <Button
-                  onClick={() => onNavigate('portfolio')}
+                  asChild
                   size="lg"
                   className="bg-gradient-to-r from-amber-400 to-gold-dark text-white hover:from-amber-300 hover:to-gold border-0 shadow-lg"
                 >
-                  View Our Portfolio
+                  <Link to="/interiors/portfolio">View Our Portfolio</Link>
                 </Button>
               </div>
             </CardContent>

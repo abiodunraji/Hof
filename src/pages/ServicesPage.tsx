@@ -1,11 +1,8 @@
+import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { MessageCircle, Layout, Palette, Box, Sofa, Home, ArrowRight, CheckCircle, Star } from 'lucide-react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-
-interface ServicesPageProps {
-  onNavigate: (page: string) => void;
-}
 
 const services = [
   {
@@ -114,7 +111,7 @@ const services = [
 
 
 
-export function ServicesPage({ onNavigate }: ServicesPageProps) {
+export function ServicesPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section - Matched to Portfolio/Process page styling */}
@@ -483,20 +480,22 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
           {/* CTA Buttons - Matched to AboutPage styling */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10 sm:mb-12 px-4">
             <Button
-              onClick={() => onNavigate('contact')}
+              asChild
               size="lg"
               className="bg-white text-primary hover:bg-white/90 hover:scale-105 transition-all duration-300"
             >
-              <span>Schedule Consultation</span>
-              <ArrowRight size={18} className="ml-2" strokeWidth={2} />
+              <Link to="/interiors/contact">
+                <span>Schedule Consultation</span>
+                <ArrowRight size={18} className="ml-2" strokeWidth={2} />
+              </Link>
             </Button>
             <Button
-              onClick={() => onNavigate('portfolio')}
+              asChild
               size="lg"
               variant="outline"
               className="btn-outline-white hover:scale-105 transition-all duration-300"
             >
-              View Portfolio
+              <Link to="/interiors/portfolio">View Portfolio</Link>
             </Button>
           </div>
           

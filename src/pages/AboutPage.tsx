@@ -1,11 +1,8 @@
+import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Award, Heart, Sparkles, Star, Users, Home } from 'lucide-react';
-
-interface AboutPageProps {
-  onNavigate: (page: string) => void;
-}
 
 const values = [
   {
@@ -37,7 +34,7 @@ const achievements = [
   { icon: Sparkles, value: '50+', label: 'Design Awards' },
 ];
 
-export function AboutPage({ onNavigate }: AboutPageProps) {
+export function AboutPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -60,11 +57,11 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
                 and celebrate the beauty of everyday life.
               </p>
               <Button
-                onClick={() => onNavigate('contact')}
+                asChild
                 size="lg"
                 className="bg-gradient-to-r from-primary to-gold-dark hover:from-primary/90 hover:to-gold-dark/90 shadow-lg border border-gold/20"
               >
-                Start Your Project
+                <Link to="/interiors/contact">Start Your Project</Link>
               </Button>
             </div>
 
@@ -246,20 +243,20 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={() => onNavigate('contact')}
+              asChild
               size="lg"
               variant="outline"
               className="border-white bg-white text-primary hover:bg-white/90"
             >
-              Get in Touch
+              <Link to="/interiors/contact">Get in Touch</Link>
             </Button>
             <Button
-              onClick={() => onNavigate('portfolio')}
+              asChild
               size="lg"
               variant="outline"
               className="btn-outline-white"
             >
-              View My Work
+              <Link to="/interiors/portfolio">View My Work</Link>
             </Button>
           </div>
         </div>

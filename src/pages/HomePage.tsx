@@ -1,13 +1,10 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { ConsultationDialog } from '../components/ConsultationDialog';
 import { Home, MessageCircle, Layout, Palette, Box, Sofa } from 'lucide-react';
-
-interface HomePageProps {
-  onNavigate: (page: string) => void;
-}
 
 const featuredProjects = [
   {
@@ -63,7 +60,7 @@ const services = [
   },
 ];
 
-export function HomePage({ onNavigate }: HomePageProps) {
+export function HomePage() {
   const [showConsultationDialog, setShowConsultationDialog] = useState(false);
 
   return (
@@ -100,19 +97,19 @@ export function HomePage({ onNavigate }: HomePageProps) {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-premium-rotate" style={{animationDelay: '0.7s'}}>
             <Button
-              onClick={() => onNavigate('portfolio')}
+              asChild
               size="lg"
               className="bg-gradient-to-r from-primary to-gold-dark hover:from-primary/90 hover:to-gold-dark/90 shadow-xl border border-white/20 luxury-hover premium-card-3d"
             >
-              View Portfolio
+              <Link to="/interiors/portfolio">View Portfolio</Link>
             </Button>
             <Button
-              onClick={() => onNavigate('contact')}
+              asChild
               size="lg"
               variant="outline"
               className="btn-outline-white backdrop-blur-sm luxury-hover premium-card-3d"
             >
-              Get in Touch
+              <Link to="/interiors/contact">Get in Touch</Link>
             </Button>
           </div>
         </div>
@@ -163,12 +160,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
           <div className="text-center">
             <Button
-              onClick={() => onNavigate('portfolio')}
+              asChild
               size="lg"
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-white"
             >
-              View All Projects
+              <Link to="/interiors/portfolio">View All Projects</Link>
             </Button>
           </div>
         </div>
@@ -205,12 +202,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
           <div className="text-center">
             <Button
-              onClick={() => onNavigate('services')}
+              asChild
               size="lg"
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-white"
             >
-              Explore All Services
+              <Link to="/interiors/services">Explore All Services</Link>
             </Button>
           </div>
         </div>
@@ -236,20 +233,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 Let me help you create a sanctuary that inspires and delights every single day.
               </p>
               <Button
-                onClick={() => {
-                  onNavigate('about');
-                  // Scroll to My Story section after navigation
-                  setTimeout(() => {
-                    const element = document.getElementById('my-story');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                  }, 100);
-                }}
+                asChild
                 size="lg"
                 className="bg-primary hover:bg-primary/90 hover-lift"
               >
-                Learn More About Me
+                <Link to="/interiors/about">Learn More About Me</Link>
               </Button>
             </div>
 
@@ -276,11 +264,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
             collaborative process designed to bring your dream space to life.
           </p>
           <Button
-            onClick={() => onNavigate('process')}
+            asChild
             size="lg"
             className="bg-white text-primary hover:bg-white/90 hover-lift"
           >
-            Explore Our Process
+            <Link to="/interiors/process">Explore Our Process</Link>
           </Button>
         </div>
       </section>

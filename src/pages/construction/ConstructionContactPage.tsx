@@ -17,11 +17,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
-interface ConstructionContactPageProps {
-  onNavigate: (page: string) => void;
-}
-
-export function ConstructionContactPage({ onNavigate }: ConstructionContactPageProps) {
+export function ConstructionContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',

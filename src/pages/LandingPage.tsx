@@ -1,11 +1,8 @@
 import { ArrowRight, Home, Building2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
-interface LandingPageProps {
-  onNavigate: (path: string) => void;
-}
-
-export function LandingPage({ onNavigate }: LandingPageProps) {
+export function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
@@ -37,9 +34,9 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
             
             {/* HOF Interiors Panel */}
-            <button
-              onClick={() => onNavigate('/interiors')}
-              className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 border border-primary/30 hover:border-gold elegant-hover luxe-card"
+            <Link
+              to="/interiors"
+              className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 border border-primary/30 hover:border-gold elegant-hover luxe-card block"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-gold-light/30 via-primary/10 to-gold/20 group-hover:from-gold-light/40 group-hover:via-primary/15 group-hover:to-gold/30 transition-all duration-500" />
               <div className="absolute inset-0 gold-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -74,12 +71,12 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
-            </button>
+            </Link>
 
             {/* HOF Construction Panel */}
-            <button
-              onClick={() => onNavigate('/construction')}
-              className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 border border-wood-primary/30 hover:border-wood-primary elegant-hover"
+            <Link
+              to="/construction"
+              className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 border border-wood-primary/30 hover:border-wood-primary elegant-hover block"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-wood-light/30 via-wood-secondary/10 to-wood-primary/20 group-hover:from-wood-light/40 group-hover:via-wood-secondary/15 group-hover:to-wood-primary/30 transition-all duration-500" />
               
@@ -113,7 +110,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
-            </button>
+            </Link>
 
           </div>
         </div>

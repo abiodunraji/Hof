@@ -1,14 +1,7 @@
+import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Linkedin, Heart } from 'lucide-react';
 
-interface FooterProps {
-  onNavigate: (page: string) => void;
-}
-
-export function Footer({ onNavigate }: FooterProps) {
-  const handleNavigation = (page: string) => {
-    onNavigate(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+export function Footer() {
 
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-foreground to-gray-900 text-white py-12 px-4 relative">
@@ -29,29 +22,29 @@ export function Footer({ onNavigate }: FooterProps) {
             <h4 className="mb-4">Quick Links</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <button onClick={() => handleNavigation('home')} className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
+                <Link to="/interiors" className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
                   Home
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={() => handleNavigation('about')} className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
+                <Link to="/interiors/about" className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
                   About
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={() => handleNavigation('portfolio')} className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
+                <Link to="/interiors/portfolio" className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
                   Portfolio
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={() => handleNavigation('services')} className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
+                <Link to="/interiors/services" className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
                   Services
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={() => handleNavigation('contact')} className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
+                <Link to="/interiors/contact" className="text-gray-300 hover:text-gold hover:text-primary transition-colors duration-300">
                   Contact
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -59,13 +52,31 @@ export function Footer({ onNavigate }: FooterProps) {
           <div>
             <h4 className="mb-4">Connect</h4>
             <div className="flex gap-3 mb-4">
-              <a href="#" className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-gold hover:to-gold-dark transition-all duration-300 border border-gold/20">
+              <a 
+                href="https://instagram.com/houseoffaridah" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Follow House of Faridah on Instagram"
+                className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-gold hover:to-gold-dark transition-all duration-300 border border-gold/20"
+              >
                 <Instagram size={20} />
               </a>
-              <a href="#" className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-gold hover:to-gold-dark transition-all duration-300 border border-gold/20">
+              <a 
+                href="https://facebook.com/houseoffaridah" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Follow House of Faridah on Facebook"
+                className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-gold hover:to-gold-dark transition-all duration-300 border border-gold/20"
+              >
                 <Facebook size={20} />
               </a>
-              <a href="#" className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-gold hover:to-gold-dark transition-all duration-300 border border-gold/20">
+              <a 
+                href="https://linkedin.com/company/houseoffaridah" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Connect with House of Faridah on LinkedIn"
+                className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-gold hover:to-gold-dark transition-all duration-300 border border-gold/20"
+              >
                 <Linkedin size={20} />
               </a>
             </div>

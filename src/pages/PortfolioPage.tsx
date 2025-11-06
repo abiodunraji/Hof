@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
@@ -7,11 +8,8 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from '../compon
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { interiorsProjects, interiorsCategories } from '../data/portfolioData';
 
-interface PortfolioPageProps {
-  onNavigate: (page: string) => void;
-}
-
-export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
+export function PortfolioPage() {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -159,7 +157,7 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
             Let's work together to create your dream space. Every project begins with a conversation.
           </p>
           <Button
-            onClick={() => onNavigate('contact')}
+            onClick={() => navigate('/interiors/contact')}
             size="lg"
             className="bg-primary hover:bg-primary/90 hover-lift"
           >
@@ -292,7 +290,7 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
                     <Button
                       onClick={() => {
                         closeModal();
-                        onNavigate('contact');
+                        navigate('/interiors/contact');
                       }}
                       size="lg"
                       className="bg-primary hover:bg-primary/90"
@@ -302,7 +300,7 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
                     <Button
                       onClick={() => {
                         closeModal();
-                        onNavigate('contact');
+                        navigate('/interiors/contact');
                       }}
                       size="lg"
                       variant="outline"

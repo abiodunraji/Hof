@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { ConstructionNavigation } from './components/ConstructionNavigation';
 import { ConstructionFooter } from './components/ConstructionFooter';
 import { ConstructionHomePage } from './pages/construction/ConstructionHomePage';
@@ -7,44 +7,19 @@ import { ConstructionPortfolioPage } from './pages/construction/ConstructionPort
 import { ConstructionContactPage } from './pages/construction/ConstructionContactPage';
 import { Toaster } from './components/ui/sonner';
 
-interface ConstructionAppProps {
-  onNavigateToMain: () => void;
-}
-
-export function ConstructionApp({ onNavigateToMain }: ConstructionAppProps) {
-  const [currentPage, setCurrentPage] = useState('home');
-
-  const handleNavigate = (page: string) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <ConstructionHomePage onNavigate={handleNavigate} />;
-      case 'about':
-        return <ConstructionAboutPage onNavigate={handleNavigate} />;
-      case 'portfolio':
-        return <ConstructionPortfolioPage onNavigate={handleNavigate} />;
-      case 'contact':
-        return <ConstructionContactPage onNavigate={handleNavigate} />;
-      default:
-        return <ConstructionHomePage onNavigate={handleNavigate} />;
-    }
-  };
-
+export function ConstructionApp() {
   return (
     <div className="min-h-screen bg-background">
-      <ConstructionNavigation 
-        currentPage={currentPage} 
-        onNavigate={handleNavigate} 
-        onNavigateToMain={onNavigateToMain} 
-      />
+      <ConstructionNavigation />
       <main>
-        {renderPage()}
+        <Routes>
+          <Route path="/" element={<ConstructionHomePage />} />
+          <Route path="/about" element={<ConstructionAboutPage />} />
+          <Route path="/portfolio" element={<ConstructionPortfolioPage />} />
+          <Route path="/contact" element={<ConstructionContactPage />} />
+        </Routes>
       </main>
-      <ConstructionFooter onNavigate={handleNavigate} />
+      <ConstructionFooter />
       <Toaster position="top-right" />
     </div>
   );

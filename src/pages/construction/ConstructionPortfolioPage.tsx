@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
@@ -6,11 +7,8 @@ import { Badge } from '../../components/ui/badge';
 import { MapPin, Calendar, DollarSign, Users, CheckCircle, Building2 } from 'lucide-react';
 import { constructionProjects, constructionCategories } from '../../data/portfolioData';
 
-interface ConstructionPortfolioPageProps {
-  onNavigate: (page: string) => void;
-}
-
-export function ConstructionPortfolioPage({ onNavigate }: ConstructionPortfolioPageProps) {
+export function ConstructionPortfolioPage() {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
@@ -213,7 +211,7 @@ export function ConstructionPortfolioPage({ onNavigate }: ConstructionPortfolioP
 
                     <div className="mt-8 pt-8 border-t flex gap-4">
                       <Button
-                        onClick={() => onNavigate('contact')}
+                        onClick={() => navigate('/construction/contact')}
                         className="flex-1 bg-foreground hover:bg-foreground/90 text-background"
                       >
                         Start Your Project
@@ -244,7 +242,7 @@ export function ConstructionPortfolioPage({ onNavigate }: ConstructionPortfolioP
             Let's discuss how we can bring your vision to life with the same quality and dedication shown in our portfolio.
           </p>
           <Button
-            onClick={() => onNavigate('contact')}
+            onClick={() => navigate('/construction/contact')}
             size="lg"
             className="bg-background text-foreground hover:bg-background/90"
           >

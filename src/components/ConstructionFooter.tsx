@@ -1,10 +1,7 @@
+import { Link } from 'react-router-dom';
 import { Building2, Mail, Phone, MapPin } from 'lucide-react';
 
-interface ConstructionFooterProps {
-  onNavigate: (page: string) => void;
-}
-
-export function ConstructionFooter({ onNavigate }: ConstructionFooterProps) {
+export function ConstructionFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -27,36 +24,36 @@ export function ConstructionFooter({ onNavigate }: ConstructionFooterProps) {
             <h4 className="mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <button 
-                  onClick={() => onNavigate('home')}
+                <Link 
+                  to="/construction"
                   className="text-background/70 hover:text-background transition"
                 >
                   Home
-                </button>
+                </Link>
               </li>
               <li>
-                <button 
-                  onClick={() => onNavigate('about')}
+                <Link 
+                  to="/construction/about"
                   className="text-background/70 hover:text-background transition"
                 >
                   About Us
-                </button>
+                </Link>
               </li>
               <li>
-                <button 
-                  onClick={() => onNavigate('portfolio')}
+                <Link 
+                  to="/construction/portfolio"
                   className="text-background/70 hover:text-background transition"
                 >
                   Portfolio
-                </button>
+                </Link>
               </li>
               <li>
-                <button 
-                  onClick={() => onNavigate('contact')}
+                <Link 
+                  to="/construction/contact"
                   className="text-background/70 hover:text-background transition"
                 >
                   Contact Us
-                </button>
+                </Link>
               </li>
             </ul>
           </div>

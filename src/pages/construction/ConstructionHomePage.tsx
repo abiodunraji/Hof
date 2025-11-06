@@ -1,11 +1,8 @@
+import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import { Button } from '../../components/ui/button';
 import { Card, CardContent } from '../../components/ui/card';
 import { Building2, HardHat, Hammer, Award, Shield, Clock, CheckCircle, ArrowRight } from 'lucide-react';
-
-interface ConstructionHomePageProps {
-  onNavigate: (page: string) => void;
-}
 
 const services = [
   {
@@ -77,7 +74,7 @@ const recentProjects = [
   }
 ];
 
-export function ConstructionHomePage({ onNavigate }: ConstructionHomePageProps) {
+export function ConstructionHomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -101,19 +98,19 @@ export function ConstructionHomePage({ onNavigate }: ConstructionHomePageProps) 
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
-                onClick={() => onNavigate('contact')}
+                asChild
                 size="lg"
                 className="bg-background text-foreground hover:bg-background/90"
               >
-                Get a Free Quote
+                <Link to="/construction/contact">Get a Free Quote</Link>
               </Button>
               <Button
-                onClick={() => onNavigate('portfolio')}
+                asChild
                 size="lg"
                 variant="outline"
                 className="border-background text-background hover:bg-background/10"
               >
-                View Our Work
+                <Link to="/construction/portfolio">View Our Work</Link>
               </Button>
             </div>
           </div>
@@ -211,12 +208,14 @@ export function ConstructionHomePage({ onNavigate }: ConstructionHomePageProps) 
               </p>
             </div>
             <Button
-              onClick={() => onNavigate('portfolio')}
+              asChild
               variant="outline"
               className="hidden md:flex items-center gap-2"
             >
-              View All Projects
-              <ArrowRight className="w-4 h-4" />
+              <Link to="/construction/portfolio">
+                View All Projects
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </Button>
           </div>
 
@@ -248,11 +247,11 @@ export function ConstructionHomePage({ onNavigate }: ConstructionHomePageProps) 
 
           <div className="text-center md:hidden">
             <Button
-              onClick={() => onNavigate('portfolio')}
+              asChild
               variant="outline"
               className="w-full sm:w-auto"
             >
-              View All Projects
+              <Link to="/construction/portfolio">View All Projects</Link>
             </Button>
           </div>
         </div>
@@ -269,19 +268,19 @@ export function ConstructionHomePage({ onNavigate }: ConstructionHomePageProps) 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={() => onNavigate('contact')}
+              asChild
               size="lg"
               className="bg-background text-foreground hover:bg-background/90"
             >
-              Get Your Free Quote
+              <Link to="/construction/contact">Get Your Free Quote</Link>
             </Button>
             <Button
-              onClick={() => onNavigate('about')}
+              asChild
               size="lg"
               variant="outline"
               className="border-background text-background hover:bg-background/10"
             >
-              Learn More About Us
+              <Link to="/construction/about">Learn More About Us</Link>
             </Button>
           </div>
         </div>

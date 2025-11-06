@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
@@ -13,10 +14,6 @@ import {
   Wrench,
   ClipboardCheck
 } from 'lucide-react';
-
-interface ConstructionAboutPageProps {
-  onNavigate: (page: string) => void;
-}
 
 const values = [
   {
@@ -74,7 +71,7 @@ const milestones = [
   { year: '2025', title: 'Industry Recognition', description: 'Awarded Regional Builder of the Year' }
 ];
 
-export function ConstructionAboutPage({ onNavigate }: ConstructionAboutPageProps) {
+export function ConstructionAboutPage() {
   return (
     <div className="min-h-screen pt-16">
       {/* Hero Section */}
@@ -286,11 +283,11 @@ export function ConstructionAboutPage({ onNavigate }: ConstructionAboutPageProps
 
           <div className="text-center">
             <Button
-              onClick={() => onNavigate('contact')}
+              asChild
               size="lg"
               className="bg-background text-foreground hover:bg-background/90"
             >
-              Work With Us
+              <Link to="/construction/contact">Work With Us</Link>
             </Button>
           </div>
         </div>
