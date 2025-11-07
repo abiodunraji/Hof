@@ -212,7 +212,7 @@ export function ConstructionPortfolioPage() {
                     <div className="mt-8 pt-8 border-t flex gap-4">
                       <Button
                         onClick={() => navigate('/construction/contact')}
-                        className="flex-1 bg-foreground hover:bg-foreground/90 text-background"
+                        className="flex-1 bg-wood-primary hover:bg-wood-primary/90 text-background"
                       >
                         Start Your Project
                       </Button>
@@ -244,7 +244,7 @@ export function ConstructionPortfolioPage() {
           <Button
             onClick={() => navigate('/construction/contact')}
             size="lg"
-            className="bg-background text-foreground hover:bg-background/90"
+            className="bg-wood-primary text-background hover:bg-wood-primary/90"
           >
             Get Your Free Quote
           </Button>

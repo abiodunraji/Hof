@@ -100,7 +100,7 @@ export function ConstructionHomePage() {
               <Button
                 asChild
                 size="lg"
-                className="bg-background text-foreground hover:bg-background/90"
+                className="bg-wood-primary text-background hover:bg-wood-primary/90"
               >
                 <Link to="/construction/contact">Get a Free Quote</Link>
               </Button>
@@ -270,7 +270,7 @@ export function ConstructionHomePage() {
             <Button
               asChild
               size="lg"
-              className="bg-background text-foreground hover:bg-background/90"
+              className="bg-wood-primary text-background hover:bg-wood-primary/90"
             >
               <Link to="/construction/contact">Get Your Free Quote</Link>
             </Button>
