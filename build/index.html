@@ -22,9 +22,11 @@
             var params = new URLSearchParams(query);
             var path = params.get('p');
             if (path) {
-              // Add leading slash if path doesn't start with one
-              var cleanPath = path.startsWith('/') ? path : '/' + path;
-              var url = window.location.origin + window.location.pathname.split('?')[0] + cleanPath;
+              // Get base path (e.g., /Hof/)
+              var basePath = '/' + window.location.pathname.split('/')[1] + '/';
+              // Ensure path doesn't have leading slash to avoid double slash
+              var cleanPath = path.startsWith('/') ? path.substring(1) : path;
+              var url = window.location.origin + basePath + cleanPath;
               history.replaceState(null, null, url);
             }
           }
