@@ -107,8 +107,7 @@ export function ConstructionHomePage() {
               <Button
                 asChild
                 size="lg"
-                variant="outline"
-                className="border-background text-background hover:bg-background/10"
+                className="bg-background/20 backdrop-blur-sm border-2 border-background text-background hover:bg-background hover:text-foreground transition-all"
               >
                 <Link to="/construction/portfolio">View Our Work</Link>
               </Button>
@@ -277,8 +276,7 @@ export function ConstructionHomePage() {
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="border-background text-background hover:bg-background/10"
+              className="bg-background/20 backdrop-blur-sm border-2 border-background text-background hover:bg-background hover:text-foreground transition-all"
             >
               <Link to="/construction/about">Learn More About Us</Link>
             </Button>
