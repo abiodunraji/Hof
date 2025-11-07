@@ -16,13 +16,15 @@
             history.replaceState(null, null, redirect);
           }
           
-          // Handle query parameter redirect
+          // Handle query parameter redirect (expects path without leading slash)
           var query = window.location.search;
           if (query) {
             var params = new URLSearchParams(query);
             var path = params.get('p');
             if (path) {
-              var url = window.location.origin + window.location.pathname.split('?')[0] + path;
+              // Add leading slash if path doesn't start with one
+              var cleanPath = path.startsWith('/') ? path : '/' + path;
+              var url = window.location.origin + window.location.pathname.split('?')[0] + cleanPath;
               history.replaceState(null, null, url);
             }
           }

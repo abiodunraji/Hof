@@ -15,11 +15,11 @@
       var search = window.location.search;
       var hash = window.location.hash;
       
-      // Redirect to index.html with the path encoded
+      // Redirect to index.html with the path encoded (no leading slash in query param)
       window.location.replace(
         window.location.origin + '/' +
         window.location.pathname.split('/')[1] + '/' +
-        '?p=/' + path +
+        '?p=' + path +
         (search ? '&' + search.slice(1) : '') +
         hash
       );
