@@ -285,7 +285,7 @@ export function ConstructionAboutPage() {
             <Button
               asChild
               size="lg"
-              className="bg-wood-primary text-background hover:bg-wood-primary/90"
+              className="bg-background text-foreground hover:bg-background/90"
             >
               <Link to="/construction/contact">Work With Us</Link>
             </Button>
