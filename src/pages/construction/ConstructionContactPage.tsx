@@ -211,6 +211,7 @@ export function ConstructionContactPage() {
                     value={formData.projectType}
                     onChange={handleChange}
                     required
+                    aria-label="Select project type"
                     className="mt-1.5 w-full px-3 py-2 border border-input rounded-md bg-input-background focus:outline-none focus:ring-2 focus:ring-ring"
                   >
                     <option value="">Select project type...</option>
@@ -228,6 +229,7 @@ export function ConstructionContactPage() {
                       name="budget"
                       value={formData.budget}
                       onChange={handleChange}
+                      aria-label="Select budget range"
                       className="mt-1.5 w-full px-3 py-2 border border-input rounded-md bg-input-background focus:outline-none focus:ring-2 focus:ring-ring"
                     >
                       <option value="">Select budget range...</option>
@@ -243,6 +245,7 @@ export function ConstructionContactPage() {
                       name="timeline"
                       value={formData.timeline}
                       onChange={handleChange}
+                      aria-label="Select desired timeline"
                       className="mt-1.5 w-full px-3 py-2 border border-input rounded-md bg-input-background focus:outline-none focus:ring-2 focus:ring-ring"
                     >
                       <option value="">Select timeline...</option>
