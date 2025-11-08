@@ -3,6 +3,7 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Award, Heart, Sparkles, Star, Users, Home } from 'lucide-react';
+import faridahAboutImage from '/faridah-about.png';
 
 const values = [
   {
@@ -68,7 +69,7 @@ export function AboutPage() {
             <div className="relative decorative-corner">
               <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl luxe-card">
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1758817864979-56da98f34f8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwd29tYW4lMjBkZXNpZ25lcnxlbnwxfHx8fDE3NjExMjk3MzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  src={faridahAboutImage}
                   alt="Faridah - Interior Designer"
                   className="w-full h-full object-cover"
                 />

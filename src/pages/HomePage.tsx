@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
+import aboutMeImage from '/about-me.png';
 import { Card, CardContent } from '../components/ui/card';
 import { ConsultationDialog } from '../components/ConsultationDialog';
 import { Home, MessageCircle, Layout, Palette, Box, Sofa } from 'lucide-react';
@@ -243,7 +244,7 @@ export function HomePage() {
 
             <div className="order-1 lg:order-2 relative h-[500px] rounded-2xl overflow-hidden shadow-xl animate-fade-in-up hover-lift" style={{animationDelay: '1.7s'}}>
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbnRlcmlvciUyMGRlc2lnbmVyfGVufDB8fHx8MTczMTEzNjAzMXww&ixlib=rb-4.1.0&q=80&w=1080"
+                src={aboutMeImage}
                 alt="Faridah - Interior Designer"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />
