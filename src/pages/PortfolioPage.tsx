@@ -174,7 +174,7 @@ export function PortfolioPage() {
               {/* Accessibility elements for screen readers */}
               <DialogTitle className="sr-only">{selectedProject.title}</DialogTitle>
               <DialogDescription className="sr-only">
-                {selectedProject.description} - {selectedProject.location}
+                {selectedProject.description}
               </DialogDescription>
               
               {/* Custom close button with elegant hover effect */}
@@ -235,7 +235,6 @@ export function PortfolioPage() {
                     {selectedProject.category}
                   </Badge>
                   <h2 className="text-2xl md:text-3xl font-display mb-1.5 drop-shadow-lg">{selectedProject.title}</h2>
-                  <p className="text-base md:text-lg opacity-95 drop-shadow-md">{selectedProject.location}</p>
                 </div>
               </div>
 
@@ -245,14 +244,10 @@ export function PortfolioPage() {
                     {selectedProject.fullDescription || selectedProject.description}
                   </p>
                   
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
                     <div className="text-center p-4 bg-secondary/30 rounded-lg">
                       <p className="text-sm text-muted-foreground mb-1">Completed</p>
                       <p className="text-lg font-elegant text-primary">{selectedProject.year}</p>
-                    </div>
-                    <div className="text-center p-4 bg-secondary/30 rounded-lg">
-                      <p className="text-sm text-muted-foreground mb-1">Investment</p>
-                      <p className="text-lg font-elegant text-primary">{selectedProject.budget}</p>
                     </div>
                     <div className="text-center p-4 bg-secondary/30 rounded-lg">
                       <p className="text-sm text-muted-foreground mb-1">Timeline</p>

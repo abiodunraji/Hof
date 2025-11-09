@@ -4,7 +4,7 @@ import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
-import { MapPin, Calendar, DollarSign, Users, CheckCircle, Building2 } from 'lucide-react';
+import { Calendar, Users, CheckCircle, Building2 } from 'lucide-react';
 import { constructionProjects, constructionCategories } from '../../data/portfolioData';
 
 export function ConstructionPortfolioPage() {
@@ -79,27 +79,16 @@ export function ConstructionPortfolioPage() {
                   </div>
                   <div className="absolute bottom-4 left-4 right-4 text-background">
                     <h3 className="text-xl mb-2">{project.title}</h3>
-                    <div className="flex items-center gap-2 text-sm text-background/90">
-                      <MapPin className="w-4 h-4" />
-                      {project.location}
-                    </div>
                   </div>
                 </div>
 
                 <CardContent className="p-6">
-                  <div className="grid grid-cols-3 gap-4 mb-4 text-sm">
+                  <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
                     <div>
                       <div className="text-muted-foreground mb-1">Year</div>
                       <div className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
                         {project.year}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-muted-foreground mb-1">Budget</div>
-                      <div className="flex items-center gap-1">
-                        <DollarSign className="w-3 h-3" />
-                        {project.budget.replace('$', '')}
                       </div>
                     </div>
                     <div>
@@ -153,19 +142,15 @@ export function ConstructionPortfolioPage() {
                     />
                     <button
                       onClick={() => setSelectedProject(null)}
-                      className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center hover:bg-background transition"
+                      className="absolute top-4 right-4 w-12 h-12 rounded-full bg-background hover:bg-background/90 flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 border-2 border-foreground/20"
                     >
-                      <span className="text-xl">×</span>
+                      <span className="text-2xl font-bold text-foreground">×</span>
                     </button>
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/90 to-transparent p-8 text-background">
                       <Badge className="bg-background/90 backdrop-blur-sm text-foreground border-0 mb-3">
                         {project.category}
                       </Badge>
                       <h2 className="text-3xl mb-2">{project.title}</h2>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" />
-                        {project.location}
-                      </div>
                     </div>
                   </div>
 
@@ -174,16 +159,11 @@ export function ConstructionPortfolioPage() {
                       {project.description}
                     </p>
 
-                    <div className="grid md:grid-cols-4 gap-6 mb-8 p-6 bg-muted/30 rounded-lg">
+                    <div className="grid md:grid-cols-3 gap-6 mb-8 p-6 bg-muted/30 rounded-lg">
                       <div>
                         <Calendar className="w-5 h-5 text-foreground mb-2" />
                         <div className="text-sm text-muted-foreground mb-1">Completed</div>
                         <div>{project.year}</div>
-                      </div>
-                      <div>
-                        <DollarSign className="w-5 h-5 text-foreground mb-2" />
-                        <div className="text-sm text-muted-foreground mb-1">Budget</div>
-                        <div>{project.budget}</div>
                       </div>
                       <div>
                         <Building2 className="w-5 h-5 text-foreground mb-2" />
