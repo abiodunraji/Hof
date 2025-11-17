@@ -32,7 +32,7 @@ function LoadingFallback() {
 
 export default function App() {
   return (
-    <Router basename="/Hof">
+    <Router basename="/">
       <ScrollToTop />
       <Suspense fallback={<LoadingFallback />}>
         <Routes>
