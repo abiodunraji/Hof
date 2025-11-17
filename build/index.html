@@ -8,7 +8,7 @@
       
       <!-- GitHub Pages SPA redirect handler -->
       <script>
-        // Handle redirect from 404.html
+        // Handle redirect from 404.html for custom domain
         (function() {
           var redirect = sessionStorage.redirect;
           delete sessionStorage.redirect;
@@ -16,17 +16,14 @@
             history.replaceState(null, null, redirect);
           }
           
-          // Handle query parameter redirect (expects path without leading slash)
+          // Handle query parameter redirect for custom domain
           var query = window.location.search;
           if (query) {
             var params = new URLSearchParams(query);
             var path = params.get('p');
             if (path) {
-              // Get base path (e.g., /Hof/)
-              var basePath = '/' + window.location.pathname.split('/')[1] + '/';
-              // Ensure path doesn't have leading slash to avoid double slash
-              var cleanPath = path.startsWith('/') ? path.substring(1) : path;
-              var url = window.location.origin + basePath + cleanPath;
+              // For custom domain, just use the path directly
+              var url = window.location.origin + '/' + path;
               history.replaceState(null, null, url);
             }
           }
@@ -41,7 +38,7 @@
       <!-- Meta for luxury brand -->
       <meta name="description" content="House of Faridah - Bespoke interior design services creating elegant, personalized spaces that reflect luxury and sophistication. Transform your home into a masterpiece.">
       <meta name="keywords" content="luxury interior design, bespoke home design, elegant interiors, high-end interior designer, sophisticated home styling">
-      <script type="module" crossorigin src="/assets/index-BL4wffCZ.js"></script>
+      <script type="module" crossorigin src="/assets/index-Dc8fVpcj.js"></script>
       <link rel="stylesheet" crossorigin href="/assets/index-DcZT9Lg6.css">
     </head>
 

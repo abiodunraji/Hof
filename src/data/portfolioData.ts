@@ -49,7 +49,7 @@ export const interiorsProjects: InteriorsProject[] = [
     title: 'Contemporary Residence',
     category: 'Living Rooms',
     description: 'A stunning contemporary home featuring curated African art, natural stone accents, and sophisticated modern furnishings.',
-    image: '/Hof/portfolio/interiors/contemporary-lagos-residence/dining-area.png',
+    image: '/portfolio/interiors/contemporary-lagos-residence/dining-area.png',
     tags: ['Contemporary', 'Art-Centric', 'Sophisticated', 'Modern'],
     location: '',
     year: '2024',
@@ -68,11 +68,11 @@ export const interiorsProjects: InteriorsProject[] = [
       'Statement marble dining table with designer chairs'
     ],
     gallery: [
-      '/Hof/portfolio/interiors/contemporary-lagos-residence/dining-area.png',
-      '/Hof/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg',
-      '/Hof/portfolio/interiors/contemporary-lagos-residence/bedroom-detail.jpg',
-      '/Hof/portfolio/interiors/contemporary-lagos-residence/bedroom-mirrors.png',
-      '/Hof/portfolio/interiors/contemporary-lagos-residence/lifestyle-shot.jpg'
+      '/portfolio/interiors/contemporary-lagos-residence/dining-area.png',
+      '/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg',
+      '/portfolio/interiors/contemporary-lagos-residence/bedroom-detail.jpg',
+      '/portfolio/interiors/contemporary-lagos-residence/bedroom-mirrors.png',
+      '/portfolio/interiors/contemporary-lagos-residence/lifestyle-shot.jpg'
     ]
   },
   {
@@ -80,7 +80,7 @@ export const interiorsProjects: InteriorsProject[] = [
     title: 'Glamorous Gold & Crystal Kitchen',
     category: 'Kitchens',
     description: 'An opulent kitchen featuring cascading crystal chandeliers, gold accents, and luxurious marble surfaces that redefine culinary elegance.',
-    image: '/Hof/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
+    image: '/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
     tags: ['Luxury', 'Glamorous', 'Gold Accents', 'Crystal Lighting'],
     location: '',
     year: '2024',
@@ -100,11 +100,11 @@ export const interiorsProjects: InteriorsProject[] = [
       'Sophisticated neutral color palette with metallic accents'
     ],
     gallery: [
-      '/Hof/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
-      '/Hof/portfolio/interiors/luxury-gold-kitchen/island-seating-view.jpg',
-      '/Hof/portfolio/interiors/luxury-gold-kitchen/dining-chandelier-view.jpg',
-      '/Hof/portfolio/interiors/luxury-gold-kitchen/kitchen-workspace.jpg',
-      '/Hof/portfolio/interiors/luxury-gold-kitchen/kitchen-full-view.jpg'
+      '/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
+      '/portfolio/interiors/luxury-gold-kitchen/island-seating-view.jpg',
+      '/portfolio/interiors/luxury-gold-kitchen/dining-chandelier-view.jpg',
+      '/portfolio/interiors/luxury-gold-kitchen/kitchen-workspace.jpg',
+      '/portfolio/interiors/luxury-gold-kitchen/kitchen-full-view.jpg'
     ]
   },
   {
@@ -112,7 +112,7 @@ export const interiorsProjects: InteriorsProject[] = [
     title: 'Urban Sports & Entertainment Lounge',
     category: 'Commercial',
     description: 'A vibrant sports-themed entertainment space featuring bold street art, dynamic basketball court design, and energetic retail displays.',
-    image: '/Hof/portfolio/interiors/urban-sports-lounge/basketball-mural-wall.jpg',
+    image: '/portfolio/interiors/urban-sports-lounge/basketball-mural-wall.jpg',
     tags: ['Sports Theme', 'Urban', 'Bold', 'Entertainment'],
     location: '',
     year: '2024',
@@ -133,10 +133,10 @@ export const interiorsProjects: InteriorsProject[] = [
       'Urban street art aesthetic throughout'
     ],
     gallery: [
-      '/Hof/portfolio/interiors/urban-sports-lounge/basketball-mural-wall.jpg',
-      '/Hof/portfolio/interiors/urban-sports-lounge/court-view-with-hoop.jpg',
-      '/Hof/portfolio/interiors/urban-sports-lounge/brand-wall-portrait.png',
-      '/Hof/portfolio/interiors/urban-sports-lounge/retail-display-wall.png'
+      '/portfolio/interiors/urban-sports-lounge/basketball-mural-wall.jpg',
+      '/portfolio/interiors/urban-sports-lounge/court-view-with-hoop.jpg',
+      '/portfolio/interiors/urban-sports-lounge/brand-wall-portrait.png',
+      '/portfolio/interiors/urban-sports-lounge/retail-display-wall.png'
     ]
   },
   {
@@ -144,7 +144,7 @@ export const interiorsProjects: InteriorsProject[] = [
     title: 'Modern Athletic Sanctuary',
     category: 'Bedrooms',
     description: 'A contemporary bedroom retreat blending athletic inspiration with refined elegance through textured walls, golden wood accents, and curated artwork.',
-    image: '/Hof/portfolio/interiors/modern-athletic-bedroom/bedroom-media-wall.jpg',
+    image: '/portfolio/interiors/modern-athletic-bedroom/bedroom-media-wall.jpg',
     tags: ['Contemporary', 'Athletic-Inspired', 'Textured', 'Sophisticated'],
     location: '',
     year: '2024',
@@ -165,9 +165,9 @@ export const interiorsProjects: InteriorsProject[] = [
       'Ambient lighting design with multiple layers'
     ],
     gallery: [
-      '/Hof/portfolio/interiors/modern-athletic-bedroom/bedroom-media-wall.jpg',
-      '/Hof/portfolio/interiors/modern-athletic-bedroom/bedroom-full-view.jpg',
-      '/Hof/portfolio/interiors/modern-athletic-bedroom/mirror-detail-view.jpg'
+      '/portfolio/interiors/modern-athletic-bedroom/bedroom-media-wall.jpg',
+      '/portfolio/interiors/modern-athletic-bedroom/bedroom-full-view.jpg',
+      '/portfolio/interiors/modern-athletic-bedroom/mirror-detail-view.jpg'
     ]
   },
 ];
@@ -316,3 +316,4 @@ export const constructionProjects: ConstructionProject[] = [
     ]
   }
 ];
+

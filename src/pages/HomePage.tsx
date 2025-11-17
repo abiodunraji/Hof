@@ -12,19 +12,19 @@ const featuredProjects = [
     id: 1,
     title: 'Contemporary Lagos Residence',
     category: 'Living Rooms',
-    image: '/Hof/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg',
+    image: '/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg',
   },
   {
     id: 2,
     title: 'Glamorous Gold & Crystal Kitchen',
     category: 'Kitchens',
-    image: '/Hof/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
+    image: '/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
   },
   {
     id: 3,
     title: 'Modern Athletic Sanctuary',
     category: 'Bedrooms',
-    image: '/Hof/portfolio/interiors/modern-athletic-bedroom/bedroom-media-wall.jpg',
+    image: '/portfolio/interiors/modern-athletic-bedroom/bedroom-media-wall.jpg',
   },
 ];
 
@@ -70,7 +70,7 @@ export function HomePage() {
       <section className="relative h-screen flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <ImageWithFallback
-            src="/Hof/portfolio/interiors/luxury-gold-kitchen/kitchen-full-view.jpg"
+            src="/portfolio/interiors/luxury-gold-kitchen/kitchen-full-view.jpg"
             alt="Elegant interior design"
             className="w-full h-full object-cover"
           />
@@ -276,3 +276,4 @@ export function HomePage() {
     </div>
   );
 }
+
