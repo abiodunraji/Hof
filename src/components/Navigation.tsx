@@ -38,7 +38,7 @@ export function Navigation() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md border-b border-primary/20 shadow-lg relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-gold-light/20 via-transparent to-gold-light/20 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-magenta-light/20 via-transparent to-magenta-light/20 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-4">
@@ -54,7 +54,7 @@ export function Navigation() {
               to="/interiors"
               className="flex-shrink-0"
             >
-              <h1 className="text-2xl gold-gradient-text tracking-wide">House of Faridah</h1>
+              <h1 className="text-2xl magenta-gradient-text tracking-wide">House of Faridah</h1>
             </Link>
           </div>
 

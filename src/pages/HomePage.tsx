@@ -81,7 +81,7 @@ export function HomePage() {
           <div className="mb-8 animate-fade-in-up">
             <div className="inline-block backdrop-elegant rounded-full mb-6 shadow-lg hover-lift">
               <div className="px-6 py-2">
-                <p className="text-luxury-spacing gold-gradient-text">✦ INTERIOR DESIGN & STYLING ✦</p>
+                <p className="text-luxury-spacing magenta-gradient-text">✦ INTERIOR DESIGN & STYLING ✦</p>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@ export function HomePage() {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-primary to-gold-dark hover:from-primary/90 hover:to-gold-dark/90 shadow-xl border border-white/20 luxury-hover premium-card-3d"
+              className="bg-gradient-to-r from-primary to-magenta-dark hover:from-primary/90 hover:to-magenta-dark/90 shadow-xl border border-white/20 luxury-hover premium-card-3d"
             >
               <Link to="/interiors/portfolio">View Portfolio</Link>
             </Button>
@@ -121,7 +121,7 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 animate-fade-in-up">
             <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
-              <p className="text-luxury-spacing gold-gradient-text">Featured Work</p>
+              <p className="text-luxury-spacing magenta-gradient-text">Featured Work</p>
             </div>
             <h2 className="font-elegant text-4xl sm:text-5xl mb-4">Featured Projects</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -148,7 +148,7 @@ export function HomePage() {
                       <p className="text-sm mb-1 text-white/80">{project.category}</p>
                       <h3 className="text-xl text-white font-elegant">{project.title}</h3>
                     </div>
-                    {/* Desktop: Gold overlay with content on hover */}
+                    {/* Desktop: Magenta overlay with content on hover */}
                     <div className="hidden md:flex absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 p-6 flex-col justify-end text-white">
                       <p className="text-sm mb-1 opacity-90 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300">{project.category}</p>
                       <h3 className="text-xl font-elegant transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 delay-75">{project.title}</h3>
@@ -177,7 +177,7 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 animate-fade-in-up" style={{animationDelay: '1.0s'}}>
             <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
-              <p className="text-luxury-spacing gold-gradient-text">Our Services</p>
+              <p className="text-luxury-spacing magenta-gradient-text">Our Services</p>
             </div>
             <h2 className="font-display text-4xl sm:text-5xl mb-4 text-luxury-spacing">What I Offer</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -220,7 +220,7 @@ export function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 animate-fade-in-up" style={{animationDelay: '1.5s'}}>
               <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
-                <p className="text-luxury-spacing gold-gradient-text">About</p>
+                <p className="text-luxury-spacing magenta-gradient-text">About</p>
               </div>
               <h2 className="font-display text-4xl sm:text-5xl mb-6 text-luxury-spacing">Meet Faridah</h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">

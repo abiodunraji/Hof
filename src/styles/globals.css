@@ -16,27 +16,27 @@
   --popover: #ffffff;
   --popover-foreground: #2b2524;
   
-  /* Enhanced Luxurious Color Palette */
-  --primary: #c9a063;
+  /* Enhanced Luxurious Color Palette - Magenta Theme */
+  --primary: #E6007E;
   --primary-foreground: #ffffff;
-  --secondary: #f9f5f0;
-  --secondary-foreground: #2b2524;
-  --muted: #f5ede5;
-  --muted-foreground: #8d7a6d;
-  --accent: #d4af87;
-  --accent-foreground: #2b2524;
+  --secondary: #FFE5F0;
+  --secondary-foreground: #1A1A1A;
+  --muted: #FFF0F7;
+  --muted-foreground: #757575;
+  --accent: #FF1493;
+  --accent-foreground: #ffffff;
   
-  /* Premium Gold & Luxury Accents */
-  --gold: #d4af87;
-  --gold-light: #f0e5d8;
-  --gold-dark: #b8935e;
-  --rose-gold: #c9a063;
-  --champagne: #F7E7CE;
-  --pearl: #FAFAFA;
-  --deep-gold: #B8860B;
-  --sage: #9CAF88;
-  --blush: #F8E8E7;
-  --charcoal: #36454F;
+  /* Premium Magenta & Pink Accents */
+  --magenta: #E6007E;
+  --magenta-light: #FFE5F0;
+  --magenta-dark: #B30062;
+  --hot-pink: #FF1493;
+  --soft-pink: #FFB6D9;
+  --blush-pink: #FFF0F7;
+  --deep-magenta: #B30062;
+  --rose-pink: #FF69B4;
+  --pale-pink: #FFE5F0;
+  --charcoal: #1A1A1A;
   
   /* Wood tones for construction */
   --wood-primary: #8b6f47;
@@ -46,27 +46,27 @@
   
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
-  --border: rgba(201, 160, 99, 0.2);
+  --border: rgba(230, 0, 126, 0.15);
   --input: transparent;
-  --input-background: #f9f5f0;
-  --switch-background: #ede6de;
+  --input-background: #FFF0F7;
+  --switch-background: #FFE5F0;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #c9a063;
-  --chart-1: #c9a063;
-  --chart-2: #d4af87;
-  --chart-3: #f0e5d8;
-  --chart-4: #8d7a6d;
-  --chart-5: #b8935e;
+  --ring: #E6007E;
+  --chart-1: #E6007E;
+  --chart-2: #FF1493;
+  --chart-3: #FFB6D9;
+  --chart-4: #757575;
+  --chart-5: #B30062;
   --radius: 0.875rem;
-  --sidebar: #f9f5f0;
-  --sidebar-foreground: #2b2524;
-  --sidebar-primary: #c9a063;
+  --sidebar: #FFF0F7;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #E6007E;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f0e5d8;
-  --sidebar-accent-foreground: #2b2524;
-  --sidebar-border: rgba(201, 160, 99, 0.2);
-  --sidebar-ring: #c9a063;
+  --sidebar-accent: #FFE5F0;
+  --sidebar-accent-foreground: #1A1A1A;
+  --sidebar-border: rgba(230, 0, 126, 0.15);
+  --sidebar-ring: #E6007E;
 }
 
 .dark {
@@ -180,8 +180,8 @@ html {
   font-size: var(--font-size);
 }
 
-/* Luxurious gold shimmer effect */
-@keyframes goldShimmer {
+/* Luxurious magenta shimmer effect */
+@keyframes magentaShimmer {
   0% {
     background-position: -200% center;
   }
@@ -190,29 +190,29 @@ html {
   }
 }
 
-.gold-shimmer {
+.magenta-shimmer {
   background: linear-gradient(
     90deg,
-    rgba(201, 160, 99, 0.1) 0%,
-    rgba(212, 175, 135, 0.3) 50%,
-    rgba(201, 160, 99, 0.1) 100%
+    rgba(230, 0, 126, 0.1) 0%,
+    rgba(255, 229, 240, 0.3) 50%,
+    rgba(230, 0, 126, 0.1) 100%
   );
   background-size: 200% 100%;
-  animation: goldShimmer 3s ease-in-out infinite;
+  animation: magentaShimmer 3s ease-in-out infinite;
 }
 
-/* Gold gradient text */
-.gold-gradient-text {
-  background: linear-gradient(135deg, #c9a063 0%, #d4af87 50%, #b8935e 100%);
+/* Magenta gradient text */
+.magenta-gradient-text {
+  background: linear-gradient(135deg, #E6007E 0%, #FF1493 50%, #B30062 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Elegant gold border */
-.gold-border {
-  border: 1px solid rgba(201, 160, 99, 0.3);
-  box-shadow: 0 0 20px rgba(201, 160, 99, 0.1);
+/* Elegant magenta border */
+.magenta-border {
+  border: 1px solid rgba(230, 0, 126, 0.3);
+  box-shadow: 0 0 20px rgba(230, 0, 126, 0.1);
 }
 
 /* Luxe card effect */
@@ -592,20 +592,20 @@ html {
   box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
 }
 
-/* Special CTA button style - white background with black text, gold on hover with white text */
-.btn-cta-white-to-gold {
+/* Special CTA button style - white background with black text, magenta on hover with white text */
+.btn-cta-white-to-magenta {
   background-color: white !important;
   color: #1f2937 !important;
   border: 2px solid #e5e7eb !important;
   transition: all 0.3s ease;
 }
 
-.btn-cta-white-to-gold:hover {
-  background: linear-gradient(to right, #f59e0b, #d97706) !important;
+.btn-cta-white-to-magenta:hover {
+  background: linear-gradient(to right, #E6007E, #B30062) !important;
   color: white !important;
   border-color: transparent !important;
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 10px 25px rgba(230, 0, 126, 0.3);
 }
 
 /* ========================================

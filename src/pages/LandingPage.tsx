@@ -36,19 +36,19 @@ export function LandingPage() {
             {/* HOF Interiors Panel */}
             <Link
               to="/interiors"
-              className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 border border-primary/30 hover:border-gold elegant-hover luxe-card block"
+              className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 border border-primary/30 hover:border-magenta elegant-hover luxe-card block"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-gold-light/30 via-primary/10 to-gold/20 group-hover:from-gold-light/40 group-hover:via-primary/15 group-hover:to-gold/30 transition-all duration-500" />
-              <div className="absolute inset-0 gold-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-br from-magenta-light/30 via-primary/10 to-magenta/20 group-hover:from-magenta-light/40 group-hover:via-primary/15 group-hover:to-magenta/30 transition-all duration-500" />
+              <div className="absolute inset-0 magenta-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               
               <div className="relative p-8 md:p-12 lg:p-16 flex flex-col items-center justify-center min-h-[400px] md:min-h-[500px]">
                 {/* Icon */}
-                <div className="mb-6 md:mb-8 p-6 rounded-full bg-gradient-to-br from-gold-light to-gold/20 group-hover:from-gold to-gold-dark/30 transition-all duration-300 shadow-lg">
-                  <Home className="w-12 h-12 md:w-16 md:h-16 text-gold-dark" strokeWidth={1.5} />
+                <div className="mb-6 md:mb-8 p-6 rounded-full bg-gradient-to-br from-magenta-light to-magenta/20 group-hover:from-magenta to-magenta-dark/30 transition-all duration-300 shadow-lg">
+                  <Home className="w-12 h-12 md:w-16 md:h-16 text-magenta-dark" strokeWidth={1.5} />
                 </div>
                 
                 {/* Title */}
-                <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 gold-gradient-text">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 magenta-gradient-text">
                   HOF Interiors
                 </h2>
                 
@@ -59,14 +59,14 @@ export function LandingPage() {
                 
                 {/* Navigation Links Preview */}
                 <div className="flex flex-wrap gap-3 justify-center mb-6 opacity-70 group-hover:opacity-100 transition-opacity">
-                  <span className="text-sm px-3 py-1 rounded-full bg-gold-light/50 backdrop-blur-sm border border-gold/30 text-gold-dark">About</span>
-                  <span className="text-sm px-3 py-1 rounded-full bg-gold-light/50 backdrop-blur-sm border border-gold/30 text-gold-dark">Portfolio</span>
-                  <span className="text-sm px-3 py-1 rounded-full bg-gold-light/50 backdrop-blur-sm border border-gold/30 text-gold-dark">Services</span>
-                  <span className="text-sm px-3 py-1 rounded-full bg-gold-light/50 backdrop-blur-sm border border-gold/30 text-gold-dark">Contact</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-magenta-light/50 backdrop-blur-sm border border-magenta/30 text-magenta-dark">About</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-magenta-light/50 backdrop-blur-sm border border-magenta/30 text-magenta-dark">Portfolio</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-magenta-light/50 backdrop-blur-sm border border-magenta/30 text-magenta-dark">Services</span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-magenta-light/50 backdrop-blur-sm border border-magenta/30 text-magenta-dark">Contact</span>
                 </div>
                 
                 {/* CTA Arrow */}
-                <div className="flex items-center gap-2 text-gold-dark group-hover:gap-4 transition-all duration-300">
+                <div className="flex items-center gap-2 text-magenta-dark group-hover:gap-4 transition-all duration-300">
                   <span className="tracking-wide">Explore Interiors</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
