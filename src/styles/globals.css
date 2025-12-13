@@ -15,8 +15,8 @@
   --card-foreground: #2b2524;
   --popover: #ffffff;
   --popover-foreground: #2b2524;
-  
-/* Enhanced Luxurious Color Palette - Feminine Magenta Theme */
+
+  /* Enhanced Luxurious Color Palette - Feminine Magenta Theme */
   --primary: #AD1457;
   --primary-foreground: #ffffff;
   --secondary: #FCE4EC;
@@ -245,6 +245,12 @@ html {
 .site-brand {
   display: inline-flex;
   align-items: center;
+}
+
+/* Elegant magenta border */
+.magenta-border {
+  border: 1px solid rgba(173, 20, 87, 0.3);
+  box-shadow: 0 0 20px rgba(173, 20, 87, 0.1);
 }
 
 .interiors-logo {

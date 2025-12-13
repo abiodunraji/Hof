@@ -58,10 +58,10 @@ export function LandingPage() {
                 }`}
               />
             ))}
-            
+
             {/* Hover overlay (left only) */}
             <div className="landing-panel-overlay landing-overlay-interiors" />
-            
+
             {/* Content */}
             <div className="relative z-10 h-full flex flex-col items-center justify-center p-8 text-center">
               <div className="mb-6 p-6 rounded-full bg-white/10 backdrop-blur-sm group-hover:bg-hot-pink/40 transition-all duration-300 shadow-2xl group-hover:scale-110">
@@ -71,20 +71,20 @@ export function LandingPage() {
                   className="w-12 h-12 md:w-16 md:h-16 object-contain"
                 />
               </div>
-              
+
               <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-4 drop-shadow-2xl [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">
                 HOF Interiors
               </h2>
-              
+
               <p className="text-white text-lg md:text-xl max-w-md mb-6 drop-shadow-lg [text-shadow:_0_2px_8px_rgb(0_0_0_/_60%)]">
                 Where elegance meets functionality
               </p>
-              
+
               <div className="flex items-center gap-3 text-white group-hover:gap-5 transition-all duration-300 [text-shadow:_0_2px_8px_rgb(0_0_0_/_60%)]">
                 <span className="text-luxury-spacing">Explore</span>
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
               </div>
-              
+
               {/* Image counter */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                 {interiorsImages.map((_, idx) => (
