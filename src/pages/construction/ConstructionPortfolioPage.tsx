@@ -4,17 +4,56 @@ import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
-import { Calendar, Users, CheckCircle, Building2 } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../../components/ui/dialog';
+import { Calendar, Users, CheckCircle, Building2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { constructionProjects, constructionCategories } from '../../data/portfolioData';
 
 export function ConstructionPortfolioPage() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const filteredProjects = selectedCategory === 'All' 
     ? constructionProjects 
     : constructionProjects.filter(p => p.category === selectedCategory);
+
+  const handleProjectClick = (project: any) => {
+    setSelectedProject(project);
+    setCurrentImageIndex(0);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+    setCurrentImageIndex(0);
+  };
+
+  const handlePrevImage = () => {
+    if (!selectedProject?.gallery) return;
+    setCurrentImageIndex((prev: number) =>
+      prev === 0 ? selectedProject.gallery.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    if (!selectedProject?.gallery) return;
+    setCurrentImageIndex((prev: number) =>
+      prev === selectedProject.gallery.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const getCurrentImage = () => {
+    if (!selectedProject) return '';
+    if (selectedProject.gallery && selectedProject.gallery.length > 0) {
+      return selectedProject.gallery[currentImageIndex];
+    }
+    return selectedProject.image;
+  };
+
+  const showNavigation = selectedProject?.gallery && selectedProject.gallery.length > 1;
 
   return (
     <div className="min-h-screen pt-16 bg-gradient-to-br from-muted/20 to-background">
@@ -63,7 +102,7 @@ export function ConstructionPortfolioPage() {
               <Card 
                 key={project.id} 
                 className="overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-300"
-                onClick={() => setSelectedProject(project.id)}
+                onClick={() => handleProjectClick(project)}
               >
                 <div className="relative h-64 overflow-hidden">
                   <ImageWithFallback
@@ -106,7 +145,7 @@ export function ConstructionPortfolioPage() {
                     className="w-full"
                     onClick={(e: React.MouseEvent) => {
                       e.stopPropagation();
-                      setSelectedProject(project.id);
+                      handleProjectClick(project);
                     }}
                   >
                     View Details
@@ -118,99 +157,122 @@ export function ConstructionPortfolioPage() {
         </div>
       </section>
 
-      {/* Project Detail Modal */}
-      {selectedProject && (
-        <div 
-          className="fixed inset-0 bg-foreground/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedProject(null)}
-        >
-          <div 
-            className="bg-background rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {(() => {
-              const project = constructionProjects.find(p => p.id === selectedProject);
-              if (!project) return null;
+      {/* Project Details Modal (with gallery navigation when available) */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 [&>button]:hidden">
+          {selectedProject && (
+            <>
+              <DialogTitle className="sr-only">{selectedProject.title}</DialogTitle>
+              <DialogDescription className="sr-only">{selectedProject.description}</DialogDescription>
 
-              return (
-                <>
-                  <div className="relative h-80">
-                    <ImageWithFallback
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
+              <button
+                type="button"
+                onClick={closeModal}
+                className="absolute top-4 right-4 z-[60] w-12 h-12 bg-white/95 hover:bg-white rounded-full flex items-center justify-center shadow-xl transition-all duration-200 hover:scale-110 border border-wood-primary/20"
+                aria-label="Close"
+              >
+                <X size={22} className="text-wood-dark" strokeWidth={2.5} />
+              </button>
+
+              <div className="relative w-full h-80 md:h-96">
+                <div className="absolute inset-0 overflow-hidden">
+                  <ImageWithFallback
+                    src={getCurrentImage()}
+                    alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30 pointer-events-none" />
+                </div>
+
+                {showNavigation && (
+                  <>
                     <button
-                      onClick={() => setSelectedProject(null)}
-                      className="absolute top-4 right-4 w-12 h-12 rounded-full bg-background hover:bg-background/90 flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 border-2 border-foreground/20"
+                      type="button"
+                      onClick={handlePrevImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 z-50 w-11 h-11 bg-white/95 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-200 hover:scale-110 border border-wood-primary/20"
+                      aria-label="Previous image"
                     >
-                      <span className="text-2xl font-bold text-foreground">×</span>
+                      <ChevronLeft size={24} className="text-wood-dark" strokeWidth={2.5} />
                     </button>
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/90 to-transparent p-8 text-background">
-                      <Badge className="bg-background/90 backdrop-blur-sm text-foreground border-0 mb-3">
-                        {project.category}
-                      </Badge>
-                      <h2 className="text-3xl mb-2">{project.title}</h2>
+
+                    <button
+                      type="button"
+                      onClick={handleNextImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 z-50 w-11 h-11 bg-white/95 hover:bg-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-200 hover:scale-110 border border-wood-primary/20"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight size={24} className="text-wood-dark" strokeWidth={2.5} />
+                    </button>
+
+                    <div className="absolute left-1/2 -translate-x-1/2 top-6 z-50 px-4 py-1.5 bg-white/95 backdrop-blur-sm rounded-full text-wood-dark text-xs font-semibold shadow-xl">
+                      {currentImageIndex + 1} / {selectedProject.gallery.length}
                     </div>
+                  </>
+                )}
+
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-40 pointer-events-none">
+                  <Badge className="mb-3 bg-white/90 backdrop-blur-sm text-wood-dark border-0 shadow-lg pointer-events-auto">
+                    {selectedProject.category}
+                  </Badge>
+                  <h2 className="text-2xl md:text-3xl font-display mb-1.5 drop-shadow-lg">{selectedProject.title}</h2>
+                </div>
+              </div>
+
+              <div className="p-8">
+                <p className="text-muted-foreground mb-8 leading-relaxed">
+                  {selectedProject.fullDescription || selectedProject.description}
+                </p>
+
+                <div className="grid md:grid-cols-3 gap-6 mb-8 p-6 bg-muted/30 rounded-lg">
+                  <div>
+                    <Calendar className="w-5 h-5 text-wood-dark mb-2" />
+                    <div className="text-sm text-muted-foreground mb-1">Completed</div>
+                    <div>{selectedProject.year}</div>
                   </div>
-
-                  <div className="p-8">
-                    <p className="text-muted-foreground mb-8 leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    <div className="grid md:grid-cols-3 gap-6 mb-8 p-6 bg-muted/30 rounded-lg">
-                      <div>
-                        <Calendar className="w-5 h-5 text-foreground mb-2" />
-                        <div className="text-sm text-muted-foreground mb-1">Completed</div>
-                        <div>{project.year}</div>
-                      </div>
-                      <div>
-                        <Building2 className="w-5 h-5 text-foreground mb-2" />
-                        <div className="text-sm text-muted-foreground mb-1">Size</div>
-                        <div>{project.size}</div>
-                      </div>
-                      <div>
-                        <Users className="w-5 h-5 text-foreground mb-2" />
-                        <div className="text-sm text-muted-foreground mb-1">Duration</div>
-                        <div>{project.duration}</div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h3 className="text-xl mb-4">Project Highlights</h3>
-                      <ul className="grid md:grid-cols-2 gap-3">
-                        {project.highlights.map((highlight, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <CheckCircle className="w-5 h-5 text-foreground flex-shrink-0 mt-0.5" />
-                            <span className="text-muted-foreground">{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="mt-8 pt-8 border-t flex gap-4">
-                      <Button
-                        onClick={() => navigate('/construction/contact')}
-                        className="flex-1 bg-foreground hover:bg-foreground/90 text-background"
-                      >
-                        Start Your Project
-                      </Button>
-                      <Button
-                        onClick={() => setSelectedProject(null)}
-                        variant="outline"
-                        className="flex-1"
-                      >
-                        Close
-                      </Button>
-                    </div>
+                  <div>
+                    <Building2 className="w-5 h-5 text-wood-dark mb-2" />
+                    <div className="text-sm text-muted-foreground mb-1">Size</div>
+                    <div>{selectedProject.size}</div>
                   </div>
-                </>
-              );
-            })()}
-          </div>
-        </div>
-      )}
+                  <div>
+                    <Users className="w-5 h-5 text-wood-dark mb-2" />
+                    <div className="text-sm text-muted-foreground mb-1">Duration</div>
+                    <div>{selectedProject.duration}</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl mb-4">Project Highlights</h3>
+                  <ul className="grid md:grid-cols-2 gap-3">
+                    {selectedProject.highlights.map((highlight: string, index: number) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-wood-dark flex-shrink-0 mt-0.5" />
+                        <span className="text-muted-foreground">{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-8 pt-8 border-t flex gap-4">
+                  <Button
+                    onClick={() => navigate('/construction/contact')}
+                    className="flex-1 bg-foreground hover:bg-foreground/90 text-background"
+                  >
+                    Start Your Project
+                  </Button>
+                  <Button
+                    onClick={closeModal}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    Close
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* CTA Section */}
       <section className="py-20 px-4 bg-foreground text-background">

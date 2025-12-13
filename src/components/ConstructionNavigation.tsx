@@ -7,6 +7,7 @@ export function ConstructionNavigation() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const [logoLoaded, setLogoLoaded] = useState<boolean | null>(null);
 
   const handleBackClick = () => {
     if (window.history.length > 2) {
@@ -40,8 +41,17 @@ export function ConstructionNavigation() {
               <ArrowLeft className="w-4 h-4" />
               <span className="hidden sm:inline">Back</span>
             </button>
-            <Link to="/construction" className="flex-shrink-0">
-              <h1 className="text-2xl text-wood-dark tracking-wide">HOF Construction</h1>
+            <Link to="/construction" className="flex-shrink-0 flex items-center gap-3">
+              {/* Logo image for Construction app. Place file at /public/assets/hof-construction-logo.png */}
+              <img
+                src="/assets/hof-construction-logo.png"
+                alt="House of Faridah Construction logo"
+                className="interiors-logo"
+                onLoad={() => setLogoLoaded(true)}
+                onError={() => setLogoLoaded(false)}
+              />
+              {/* Show textual title as fallback. If logoLoaded === true, keep it hidden on small screens; if false, always show so users see a label. */}
+              <h1 className={`${logoLoaded ? 'hidden sm:block' : 'block'} text-2xl text-wood-dark tracking-wide`}>HOF Construction</h1>
             </Link>
           </div>
 

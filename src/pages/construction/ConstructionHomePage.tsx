@@ -53,24 +53,10 @@ const whyChooseUs = [
 const recentProjects = [
   {
     id: 1,
-    title: 'Modern Office Complex',
+    title: 'Riverside Corporate Center',
     category: 'Commercial',
     location: 'Downtown District',
-    image: 'https://images.unsplash.com/photo-1652379742283-b1db151d4b70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tZXJjaWFsJTIwY29uc3RydWN0aW9uJTIwYnVpbGRpbmd8ZW58MXx8fHwxNzYxNTAyNjYzfDA&ixlib=rb-4.1.0&q=80&w=1080'
-  },
-  {
-    id: 2,
-    title: 'Luxury Residential Home',
-    category: 'Residential',
-    location: 'Hillside Estate',
-    image: 'https://images.unsplash.com/photo-1580063665421-4c9cbe9ec11b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNpZGVudGlhbCUyMGNvbnN0cnVjdGlvbiUyMGhvdXNlfGVufDF8fHx8MTc2MTM5NDkyMHww&ixlib=rb-4.1.0&q=80&w=1080'
-  },
-  {
-    id: 3,
-    title: 'Historic Building Renovation',
-    category: 'Renovation',
-    location: 'Heritage District',
-    image: 'https://images.unsplash.com/photo-1760331283499-abccea681c46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidWlsZGluZyUyMHJlbm92YXRpb24lMjBwcm9qZWN0fGVufDF8fHx8MTc2MTUwMjY2M3ww&ixlib=rb-4.1.0&q=80&w=1080'
+    image: '/portfolio/construction/site-work/site-work-01.jpg'
   }
 ];
 

@@ -36,11 +36,13 @@ export function Navigation() {
     { label: 'Contact', page: 'contact', path: '/interiors/contact' },
   ];
 
+  const [logoLoaded, setLogoLoaded] = useState<boolean | null>(null);
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md border-b border-primary/20 shadow-lg relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-gold-light/20 via-transparent to-gold-light/20 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-magenta-light/20 via-transparent to-magenta-light/20 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20 lg:h-28">
           <div className="flex items-center gap-4">
             <button
               onClick={handleBackClick}
@@ -50,11 +52,20 @@ export function Navigation() {
               <ArrowLeft className="w-4 h-4" />
               <span className="hidden sm:inline">Back</span>
             </button>
-            <Link 
+            <Link
               to="/interiors"
-              className="flex-shrink-0"
+              className="flex-shrink-0 flex items-center gap-3 site-brand"
             >
-              <h1 className="text-2xl gold-gradient-text tracking-wide">House of Faridah</h1>
+              {/* Logo image for Interiors app. Place file at /public/assets/hof-interiors-logo.png */}
+              <img
+                src="/assets/hof-interiors-logo.png"
+                alt="House of Faridah Interiors logo"
+                className="interiors-logo"
+                onLoad={() => setLogoLoaded(true)}
+                onError={() => setLogoLoaded(false)}
+              />
+              {/* Show textual title as fallback. If logoLoaded === true, keep it hidden on small screens; if false, always show so users see a label. */}
+              <h1 className={`${logoLoaded ? 'hidden sm:block' : 'block'} text-2xl magenta-gradient-text tracking-wide`}>House of Faridah</h1>
             </Link>
           </div>
 

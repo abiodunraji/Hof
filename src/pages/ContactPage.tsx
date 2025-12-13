@@ -38,17 +38,17 @@ export function ContactPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section - Matched to Portfolio/Services/Process page styling */}
-      <section className="relative pt-24 pb-16 px-4 bg-gradient-to-b from-gold-light/30 to-background">
+      <section className="relative pt-24 pb-16 px-4 bg-gradient-to-b from-magenta-light/30 to-background">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--gold)_1px,transparent_1px)] bg-[length:40px_40px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--magenta)_1px,transparent_1px)] bg-[length:40px_40px]" />
         </div>
         
         <div className="max-w-4xl mx-auto text-center relative">
           <div className="inline-block px-6 py-2 rounded-full bg-white/80 backdrop-blur-md border border-primary/30 text-primary mb-8 shadow-lg">
-            <span className="text-sm tracking-wider gold-gradient-text">✦ LET'S CONNECT ✦</span>
+            <span className="text-sm tracking-wider magenta-gradient-text">✦ LET'S CONNECT ✦</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-7xl mb-6 text-foreground tracking-tight">
-            <span className="gold-gradient-text">Get in Touch</span>
+            <span className="magenta-gradient-text">Get in Touch</span>
           </h1>
           <div className="w-20 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-8" />
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -319,7 +319,7 @@ export function ContactPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <div className="inline-block px-6 py-2 rounded-full bg-white/80 backdrop-blur-md border border-primary/30 text-primary mb-8 shadow-lg">
-              <span className="text-sm tracking-wider gold-gradient-text">✦ FAQ ✦</span>
+              <span className="text-sm tracking-wider magenta-gradient-text">✦ FAQ ✦</span>
             </div>
             <h2 className="text-4xl sm:text-5xl mb-4">Frequently Asked Questions</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

@@ -182,7 +182,7 @@ export const constructionProjects: ConstructionProject[] = [
     title: 'Riverside Corporate Center',
     category: 'Commercial',
     description: 'Modern office complex featuring sustainable design, state-of-the-art facilities, and LEED Gold certification.',
-    image: 'https://images.unsplash.com/photo-1652379742283-b1db151d4b70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tZXJjaWFsJTIwY29uc3RydWN0aW9uJTIwYnVpbGRpbmd8ZW58MXx8fHwxNzYxNTAyNjYzfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: '/portfolio/construction/site-work/site-work-01.jpg',
     tags: ['LEED Certified', 'Sustainable', 'Corporate'],
     location: 'Downtown District',
     year: '2024',
@@ -197,122 +197,24 @@ export const constructionProjects: ConstructionProject[] = [
       'Underground parking for 200 vehicles'
     ],
     gallery: [
-      'https://images.unsplash.com/photo-1652379742283-b1db151d4b70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tZXJjaWFsJTIwY29uc3RydWN0aW9uJTIwYnVpbGRpbmd8ZW58MXx8fHwxNzYxNTAyNjYzfDA&ixlib=rb-4.1.0&q=80&w=1080'
-    ]
-  },
-  {
-    id: 2,
-    title: 'Hillside Luxury Residence',
-    category: 'Residential',
-    description: 'Custom-built luxury home with panoramic views, featuring high-end finishes and smart home integration.',
-    image: 'https://images.unsplash.com/photo-1580063665421-4c9cbe9ec11b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNpZGVudGlhbCUyMGNvbnN0cnVjdGlvbiUyMGhvdXNlfGVufDF8fHx8MTc2MTM5NDkyMHww&ixlib=rb-4.1.0&q=80&w=1080',
-    tags: ['Luxury', 'Custom Build', 'Smart Home'],
-    location: 'Hillside Estate',
-    year: '2024',
-    budget: '₦1,385,600,000', // ~$3.2M
-    duration: '14 months',
-    size: '6,500 sq ft',
-    fullDescription: 'A bespoke luxury residence that combines architectural excellence with cutting-edge technology, offering unparalleled comfort and sophistication.',
-    highlights: [
-      'Custom architectural design',
-      'Smart home automation',
-      'Infinity pool with spa',
-      'Wine cellar and home theater'
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1580063665421-4c9cbe9ec11b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNpZGVudGlhbCUyMGNvbnN0cnVjdGlvbiUyMGhvdXNlfGVufDF8fHx8MTc2MTM5NDkyMHww&ixlib=rb-4.1.0&q=80&w=1080'
-    ]
-  },
-  {
-    id: 3,
-    title: 'Heritage Building Restoration',
-    category: 'Renovation',
-    description: 'Complete restoration of historic 1920s building, preserving original character while modernizing infrastructure.',
-    image: 'https://images.unsplash.com/photo-1760331283499-abccea681c46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidWlsZGluZyUyMHJlbm92YXRpb24lMjBwcm9qZWN0fGVufDF8fHx8MTc2MTUwMjY2M3ww&ixlib=rb-4.1.0&q=80&w=1080',
-    tags: ['Historic', 'Preservation', 'Restoration'],
-    location: 'Heritage District',
-    year: '2023',
-    budget: '₦909,600,000', // ~$2.1M
-    duration: '12 months',
-    size: '15,000 sq ft',
-    fullDescription: 'This sensitive restoration project demonstrates our expertise in preserving historical architecture while integrating modern building systems.',
-    highlights: [
-      'Historic preservation approved',
-      'Original facade restoration',
-      'Modern electrical and plumbing',
-      'Seismic retrofitting'
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1760331283499-abccea681c46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidWlsZGluZyUyMHJlbm92YXRpb24lMjBwcm9qZWN0fGVufDF8fHx8MTc2MTUwMjY2M3ww&ixlib=rb-4.1.0&q=80&w=1080'
-    ]
-  },
-  {
-    id: 4,
-    title: 'Lakeside Medical Plaza',
-    category: 'Commercial',
-    description: 'Multi-specialty medical facility with advanced infrastructure for healthcare services.',
-    image: 'https://images.unsplash.com/photo-1694702740570-0a31ee1525c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjBidWlsZGluZ3xlbnwxfHx8fDE3NjE0MjU3MTh8MA&ixlib=rb-4.1.0&q=80&w=1080',
-    tags: ['Healthcare', 'Medical', 'Specialized'],
-    location: 'Lakeside District',
-    year: '2023',
-    budget: '₦2,468,800,000', // ~$5.7M
-    duration: '16 months',
-    size: '42,000 sq ft',
-    fullDescription: 'A specialized medical facility designed to meet stringent healthcare standards while providing a welcoming environment for patients and staff.',
-    highlights: [
-      'Healthcare-grade infrastructure',
-      'Advanced HVAC filtration',
-      'Backup power systems',
-      'ADA compliant throughout'
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1694702740570-0a31ee1525c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjBidWlsZGluZ3xlbnwxfHx8fDE3NjE0MjU3MTh8MA&ixlib=rb-4.1.0&q=80&w=1080'
-    ]
-  },
-  {
-    id: 5,
-    title: 'Sunset Townhome Development',
-    category: 'Residential',
-    description: 'Modern townhome community featuring sustainable design and community amenities.',
-    image: 'https://images.unsplash.com/photo-1580063665421-4c9cbe9ec11b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNpZGVudGlhbCUyMGNvbnN0cnVjdGlvbiUyMGhvdXNlfGVufDF8fHx8MTc2MTM5NDkyMHww&ixlib=rb-4.1.0&q=80&w=1080',
-    tags: ['Community', 'Sustainable', 'Modern Living'],
-    location: 'Sunset Valley',
-    year: '2023',
-    budget: '₦2,944,000,000', // ~$6.8M
-    duration: '20 months',
-    size: '24 units',
-    fullDescription: 'A thoughtfully planned townhome community that combines modern living with sustainable practices and community-focused amenities.',
-    highlights: [
-      '24 luxury townhomes',
-      'Community clubhouse',
-      'Green building practices',
-      'Electric vehicle charging stations'
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1580063665421-4c9cbe9ec11b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNpZGVudGlhbCUyMGNvbnN0cnVjdGlvbiUyMGhvdXNlfGVufDF8fHx8MTc2MTM5NDkyMHww&ixlib=rb-4.1.0&q=80&w=1080'
-    ]
-  },
-  {
-    id: 6,
-    title: 'Industrial Warehouse Complex',
-    category: 'Commercial',
-    description: 'Large-scale warehouse facility with advanced logistics infrastructure and office space.',
-    image: 'https://images.unsplash.com/photo-1652379742283-b1db151d4b70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tZXJjaWFsJTIwY29uc3RydWN0aW9uJTIwYnVpbGRpbmd8ZW58MXx8fHwxNzYxNTAyNjYzfDA&ixlib=rb-4.1.0&q=80&w=1080',
-    tags: ['Industrial', 'Logistics', 'Warehouse'],
-    location: 'Industrial Park',
-    year: '2022',
-    budget: '₦1,862,400,000', // ~$4.3M
-    duration: '10 months',
-    size: '95,000 sq ft',
-    fullDescription: 'A modern warehouse complex designed for efficiency and scalability, meeting the demands of contemporary logistics operations.',
-    highlights: [
-      'Clear-span warehouse design',
-      'Multiple loading docks',
-      'Office and break room facilities',
-      'Advanced security systems'
-    ],
-    gallery: [
-      'https://images.unsplash.com/photo-1652379742283-b1db151d4b70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tZXJjaWFsJTIwY29uc3RydWN0aW9uJTIwYnVpbGRpbmd8ZW58MXx8fHwxNzYxNTAyNjYzfDA&ixlib=rb-4.1.0&q=80&w=1080'
+      '/portfolio/construction/site-work/site-work-01.jpg',
+      '/portfolio/construction/site-work/site-work-02.jpg',
+      '/portfolio/construction/site-work/site-work-03.jpg',
+      '/portfolio/construction/site-work/site-work-04.jpg',
+      '/portfolio/construction/site-work/site-work-05.jpg',
+      '/portfolio/construction/site-work/site-work-06.jpg',
+      '/portfolio/construction/site-work/site-work-07.jpg',
+      '/portfolio/construction/site-work/site-work-08.jpg',
+      '/portfolio/construction/site-work/site-work-09.jpg',
+      '/portfolio/construction/site-work/site-work-10.jpg',
+      '/portfolio/construction/site-work/site-work-11.jpg',
+      '/portfolio/construction/site-work/site-work-12.jpg',
+      '/portfolio/construction/site-work/site-work-13.jpg',
+      '/portfolio/construction/site-work/site-work-14.jpg',
+      '/portfolio/construction/site-work/site-work-15.jpg',
+      '/portfolio/construction/site-work/site-work-16.jpg',
+      '/portfolio/construction/site-work/site-work-17.jpg',
+      '/portfolio/construction/site-work/site-work-18.jpg'
     ]
   }
 ];

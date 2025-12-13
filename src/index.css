@@ -1,4 +1,5 @@
 /*! tailwindcss v4.1.3 | MIT License | https://tailwindcss.com */
+@import "./styles/globals.css";
 @layer properties {
   @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
     *, :before, :after, ::backdrop {
@@ -160,6 +161,7 @@
 
   html, :host {
     -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     tab-size: 4;
     line-height: 1.5;
     font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
@@ -718,6 +720,7 @@
   }
 
   .field-sizing-content {
+    /* Experimental: field-sizing not supported in older browsers */
     field-sizing: content;
   }
 
@@ -1427,6 +1430,7 @@
   }
 
   .bg-gray-800\/50 {
+    background-color: rgba(31, 41, 55, 0.5); /* Fallback for color-mix */
     background-color: color-mix(in srgb, oklch(.278 .033 256.848) 50%, transparent);
   }
 
@@ -3722,45 +3726,45 @@
   --card-foreground: #2b2524;
   --popover: #fff;
   --popover-foreground: #2b2524;
-  --primary: #c9a063;
+  --primary: #AD1457;
   --primary-foreground: #fff;
-  --secondary: #f9f5f0;
-  --secondary-foreground: #2b2524;
-  --muted: #f5ede5;
-  --muted-foreground: #8d7a6d;
-  --accent: #d4af87;
-  --accent-foreground: #2b2524;
-  --gold: #d4af87;
-  --gold-light: #f0e5d8;
-  --gold-dark: #b8935e;
-  --rose-gold: #c9a063;
+  --secondary: #FCE4EC;
+  --secondary-foreground: #1A1A1A;
+  --muted: #F8BBD9;
+  --muted-foreground: #424242;
+  --accent: #E91E63;
+  --accent-foreground: #fff;
+  --gold: #AD1457; /* Updated to magenta */
+  --gold-light: #FCE4EC;
+  --gold-dark: #880E4F;
+  --rose-gold: #E91E63;
   --wood-primary: #8b6f47;
   --wood-secondary: #a68a62;
   --wood-light: #d4c4a8;
   --wood-dark: #6b5636;
   --destructive: #d4183d;
   --destructive-foreground: #fff;
-  --border: #c9a06333;
+  --border: #AD145733;
   --input: transparent;
-  --input-background: #f9f5f0;
-  --switch-background: #ede6de;
+  --input-background: #FCE4EC;
+  --switch-background: #FCE4EC;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #c9a063;
-  --chart-1: #c9a063;
-  --chart-2: #d4af87;
-  --chart-3: #f0e5d8;
-  --chart-4: #8d7a6d;
-  --chart-5: #b8935e;
+  --ring: #AD1457;
+  --chart-1: #AD1457;
+  --chart-2: #E91E63;
+  --chart-3: #FCE4EC;
+  --chart-4: #F8BBD9;
+  --chart-5: #880E4F;
   --radius: .875rem;
-  --sidebar: #f9f5f0;
-  --sidebar-foreground: #2b2524;
-  --sidebar-primary: #c9a063;
+  --sidebar: #FCE4EC;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #AD1457;
   --sidebar-primary-foreground: #fff;
-  --sidebar-accent: #f0e5d8;
-  --sidebar-accent-foreground: #2b2524;
-  --sidebar-border: #c9a06333;
-  --sidebar-ring: #c9a063;
+  --sidebar-accent: #F8BBD9;
+  --sidebar-accent-foreground: #1A1A1A;
+  --sidebar-border: #AD145733;
+  --sidebar-ring: #AD1457;
 }
 
 .dark {
@@ -3815,25 +3819,25 @@ html {
 }
 
 .gold-shimmer {
-  background: linear-gradient(90deg, #c9a0631a 0%, #d4af874d 50%, #c9a0631a 100%) 0 0 / 200% 100%;
-  animation: 3s ease-in-out infinite goldShimmer;
+  background: linear-gradient(90deg, #AD14571a 0%, #E91E634d 50%, #AD14571a 100%) 0 0 / 200% 100%;
+  animation: 4s ease-in-out infinite goldShimmer;
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #c9a063 0%, #d4af87 50%, #b8935e 100%);
+  background: linear-gradient(135deg, #AD1457 0%, #E91E63 50%, #880E4F 100%);
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gold-border {
-  border: 1px solid #c9a0634d;
-  box-shadow: 0 0 20px #c9a0631a;
+  border: 1px solid #AD14574d;
+  box-shadow: 0 0 20px #AD14571a;
 }
 
 .luxe-card {
   background: linear-gradient(135deg, #fff 0%, #fdfcfb 100%);
-  border: 1px solid #c9a06333;
-  box-shadow: 0 4px 20px #c9a06314, inset 0 0 0 1px #ffffff80;
+  border: 1px solid #AD145733;
+  box-shadow: 0 4px 20px #AD145714, inset 0 0 0 1px #ffffff80;
 }
 
 .wood-texture {
@@ -3855,7 +3859,7 @@ html {
 
 .elegant-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px #c9a06333, 0 0 0 1px #c9a0631a;
+  box-shadow: 0 12px 40px #AD145733, 0 0 0 1px #AD14571a;
 }
 
 .gold-accent-line {
@@ -3864,7 +3868,7 @@ html {
 
 .gold-accent-line:after {
   content: "";
-  background: linear-gradient(90deg, #0000, #c9a063, #0000);
+  background: linear-gradient(90deg, #0000, #AD1457, #0000);
   width: 60px;
   height: 2px;
   position: absolute;
@@ -3879,7 +3883,7 @@ html {
 
 .decorative-corner:before, .decorative-corner:after {
   content: "";
-  border: 2px solid #c9a0634d;
+  border: 2px solid #AD14574d;
   width: 20px;
   height: 20px;
   position: absolute;

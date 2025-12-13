@@ -9,35 +9,36 @@ Original design source: [Figma Interior Design Template](https://www.figma.com/d
 
 ## Architecture & Navigation
 
-### Client-Side Routing Pattern
-This is a **SPA with manual state-based routing** (no React Router). Navigation hierarchy:
+### React Router v7 Pattern
+This is a **SPA with React Router v7** using lazy-loaded sub-applications. Navigation hierarchy:
 ```
-App.tsx (root router)
+App.tsx (root router with BrowserRouter)
 ├── LandingPage ("/") - Brand selection
-├── InteriorsApp ("/interiors") - Interior design sub-app
+├── InteriorsApp ("/interiors/*") - Lazy-loaded interior design sub-app
 │   ├── Navigation + Footer (shared layout)
-│   └── Pages: HomePage, AboutPage, PortfolioPage, ServicesPage, DesignProcessPage, ContactPage
-└── ConstructionApp ("/construction") - Construction sub-app
+│   └── Nested Routes: HomePage (/), AboutPage (/about), PortfolioPage (/portfolio), etc.
+└── ConstructionApp ("/construction/*") - Lazy-loaded construction sub-app
     ├── ConstructionNavigation + ConstructionFooter
-    └── Pages: ConstructionHomePage, ConstructionAboutPage, ConstructionPortfolioPage, ConstructionContactPage
+    └── Nested Routes: ConstructionHomePage (/), ConstructionAboutPage (/about), etc.
 ```
 
 **Navigation Implementation:**
-- Use `onNavigate` prop with string-based page names (`'home'`, `'about'`, etc.)
-- Always include `window.scrollTo({ top: 0, behavior: 'smooth' })` on navigation
-- Return to main landing via `onNavigateToMain` callback prop
-- Mobile menu must set `isOpen` state to false after navigation
+- Use React Router's `Link` component or `useNavigate()` hook
+- ScrollToTop component in App.tsx handles automatic scroll on route change
+- Navigation uses standard `<Link to="/about">` patterns within sub-apps
+- Cross-brand navigation: `<Link to="/construction">` or `<Link to="/interiors">`
+- Lazy loading with Suspense provides loading states during code splitting
 
 ## Design System & Styling
 
 ### Dual Theme Architecture
 The project uses **CSS custom properties** for brand-specific theming in `src/styles/globals.css`:
 
-**HOF Interiors Theme:**
-- Primary colors: `--gold` (#d4af87), `--gold-light` (#f0e5d8), `--gold-dark` (#b8935e)
-- Accent: `--rose-gold` (#c9a063)
+**HOF Interiors Theme (Magenta/Pink):**
+- Primary colors: `--primary` (#AD1457), `--magenta-light` (#FCE4EC), `--magenta-dark` (#880E4F)
+- Accents: `--hot-pink` (#E91E63), `--soft-pink` (#F8BBD9), `--blush-pink` (#FCE4EC)
 - Background: `--background` (#fdfcfb)
-- Typography: Playfair Display (headings), Inter (body)
+- Typography: Playfair Display (headings), Inter (body), Cormorant Garamond (accent)
 
 **HOF Construction Theme:**
 - Wood tones: `--wood-primary` (#8b6f47), `--wood-light` (#d4c4a8), `--wood-dark` (#6b5636)
@@ -67,6 +68,23 @@ Always use `font-display` for major headings and `font-elegant` for secondary he
 All spacing must align to 8pt grid (Tailwind spacing scale: 4, 8, 12, 16, 24, 32, 40, 48...).
 
 ## Component Patterns
+
+### Portfolio Data Management
+**Use centralized data file** `src/data/portfolioData.ts` for all portfolio projects:
+```tsx
+import { interiorsProjects, constructionProjects } from '../data/portfolioData';
+
+// Projects support both single images and galleries
+interface BaseProject {
+  image: string;      // Required hero image
+  gallery?: string[]; // Optional multi-image gallery
+  // ... other fields
+}
+```
+- Add images to `public/portfolio/interiors/` or `public/portfolio/construction/`
+- Use relative paths: `/portfolio/interiors/your-image.jpg`
+- Gallery images auto-enable navigation arrows in portfolio pages
+- See `src/data/PROJECT-TEMPLATE.txt` for adding new projects
 
 ### Image Loading
 **Always use `ImageWithFallback`** instead of native `<img>`:
@@ -112,7 +130,7 @@ All UI components in `src/components/ui/` use Radix primitives. Key components:
 
 ### Standard Page Layout
 ```tsx
-export function PageName({ onNavigate }: { onNavigate: (page: string) => void }) {
+export function PageName() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -158,20 +176,38 @@ npm run build        # Production build to /build
 - Path alias: `@/` → `./src/`
 - Output: `build/` directory
 - SWC for fast React compilation
+- **Package resolution:** Vite config includes explicit version aliases (e.g., `'sonner@2.0.3': 'sonner'`) to handle npm package versioning - always import using exact version when specified
+
+### GitHub Pages Deployment
+- **Base path:** Set to `/` in vite.config.ts for GitHub Pages
+- **Custom domain:** CNAME file in public/ with `housoffaridarh.com`
+- **Deployment:** Automated via `.github/workflows/deploy.yml` on push to main
+- **Build output:** Copies to `build/` with 404.html for SPA routing
+- See `GITHUB-PAGES-SETUP.md` for configuration details
 
 ### File Organization
 - Pages: `src/pages/` (Interiors) and `src/pages/construction/` (Construction)
 - Shared components: `src/components/`
 - UI primitives: `src/components/ui/` (shadcn/ui)
 - Styles: `src/styles/globals.css` (custom), `src/index.css` (Tailwind v4 generated)
+- Portfolio data: `src/data/portfolioData.ts` (centralized project data)
+- Assets: `public/` (images, CNAME for custom domain, 404.html for SPA routing)
 
 ## Critical Patterns & Gotchas
 
-### Navigation State Management
-Never use `href` or `<a>` tags. Always use:
+### React Router Navigation
+Use React Router components and hooks:
 ```tsx
-<button onClick={() => onNavigate('page-name')}>Navigate</button>
+import { Link, useNavigate } from 'react-router-dom';
+
+// Link component for navigation
+<Link to="/about">About Us</Link>
+
+// Programmatic navigation
+const navigate = useNavigate();
+navigate('/contact');
 ```
+Never use raw `<a>` tags for internal navigation.
 
 ### Premium Visual Effects
 **Section dividers** (between major content blocks):
@@ -200,10 +236,10 @@ Never use `href` or `<a>` tags. Always use:
 ### Brand-Specific Styling
 Apply brand colors dynamically:
 ```tsx
-// Interiors
-<div className="text-primary bg-gradient-to-br from-gold-light/30 via-primary/10 to-gold/20">
+// Interiors (Magenta/Pink theme)
+<div className="text-primary bg-gradient-to-br from-magenta-light/30 via-primary/10 to-hot-pink/20">
 
-// Construction
+// Construction (Wood tones)
 <div className="text-wood-dark bg-gradient-to-br from-wood-light/30 via-wood-secondary/10 to-wood-primary/20">
 ```
 

@@ -39,20 +39,20 @@ export function AboutPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 px-4 bg-gradient-to-b from-gold-light/20 via-secondary/30 to-white">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--gold)_1px,transparent_1px)] bg-[length:40px_40px]" />
+      <section className="relative pt-24 pb-20 px-4 bg-gradient-to-b from-magenta-light/20 via-secondary/30 to-white">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--magenta)_1px,transparent_1px)] bg-[length:40px_40px]" />
         </div>
         <div className="max-w-7xl mx-auto relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="inline-block px-6 py-2 bg-white/80 backdrop-blur-md rounded-full mb-6 border border-primary/30 shadow-md">
-                <p className="text-sm tracking-widest gold-gradient-text">✦ FOUNDER & LEAD DESIGNER ✦</p>
+                <p className="text-sm tracking-widest magenta-gradient-text">✦ FOUNDER & LEAD DESIGNER ✦</p>
               </div>
               <h1 className="text-5xl sm:text-6xl mb-6">
-                <span className="gold-gradient-text">Meet Faridah</span>
+                <span className="magenta-gradient-text">Meet Faridah</span>
               </h1>
-              <div className="w-20 h-1 bg-gradient-to-r from-gold to-transparent mb-8" />
+              <div className="w-20 h-1 bg-gradient-to-r from-magenta to-transparent mb-8" />
               <p className="text-xl text-muted-foreground leading-relaxed mb-6">
                 A passionate interior designer dedicated to creating spaces that nurture the soul
                 and celebrate the beauty of everyday life.
@@ -60,7 +60,7 @@ export function AboutPage() {
               <Button
                 asChild
                 size="lg"
-                className="bg-gradient-to-r from-primary to-gold-dark hover:from-primary/90 hover:to-gold-dark/90 shadow-lg border border-gold/20"
+                className="bg-gradient-to-r from-primary to-magenta-dark hover:from-primary/90 hover:to-magenta-dark/90 shadow-lg border border-magenta/20"
               >
                 <Link to="/interiors/contact">Start Your Project</Link>
               </Button>

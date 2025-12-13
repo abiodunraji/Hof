@@ -40,9 +40,9 @@ export function WatermarkedImage({
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
-              className="whitespace-nowrap text-white/20 font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-widest transform -rotate-45 select-none"
+              className="whitespace-nowrap text-white/20 font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-widest transform -rotate-45 select-none watermark-shadow"
+              // eslint-disable-next-line no-inline-styles
               style={{
-                textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
                 transform: `rotate(-45deg) translateY(${i * 100 - 200}px)`
               }}
             >
@@ -53,10 +53,7 @@ export function WatermarkedImage({
         
         {/* Center watermark - more prominent */}
         <div
-          className="text-white/30 font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-widest transform -rotate-45 select-none"
-          style={{
-            textShadow: '3px 3px 6px rgba(0,0,0,0.4)'
-          }}
+          className="text-white/30 font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-widest transform -rotate-45 select-none watermark-shadow-strong"
         >
           {watermarkText}
         </div>

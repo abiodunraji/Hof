@@ -141,7 +141,7 @@ export function ConsultationDialog({ open, onOpenChange, serviceType = 'interior
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className={serviceType === 'interiors' ? 'gold-gradient-text' : 'text-wood-dark'}>
+          <DialogTitle className={serviceType === 'interiors' ? 'magenta-gradient-text' : 'text-wood-dark'}>
             Book a Consultation
           </DialogTitle>
           <DialogDescription>
@@ -340,7 +340,7 @@ export function ConsultationDialog({ open, onOpenChange, serviceType = 'interior
               type="submit"
               className={
                 serviceType === 'interiors'
-                  ? 'flex-1 bg-gradient-to-r from-primary to-gold-dark hover:from-primary/90 hover:to-gold-dark/90'
+                  ? 'flex-1 bg-gradient-to-r from-primary to-magenta-dark hover:from-primary/90 hover:to-magenta-dark/90'
                   : 'flex-1 bg-gradient-to-r from-wood-primary to-wood-dark hover:from-wood-primary/90 hover:to-wood-dark/90 text-white'
               }
             >
