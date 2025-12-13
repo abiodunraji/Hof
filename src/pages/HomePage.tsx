@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
-import aboutMeImage from '/about-me.png';
 import { Card, CardContent } from '../components/ui/card';
 import { ConsultationDialog } from '../components/ConsultationDialog';
 import { Home, MessageCircle, Layout, Palette, Box, Sofa } from 'lucide-react';
@@ -10,9 +9,9 @@ import { Home, MessageCircle, Layout, Palette, Box, Sofa } from 'lucide-react';
 const featuredProjects = [
   {
     id: 1,
-    title: 'Contemporary Lagos Residence',
+    title: 'Contemporary Residence',
     category: 'Living Rooms',
-    image: '/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg',
+    image: '/portfolio/interiors/contemporary-lagos-residence/dining-area.png',
   },
   {
     id: 2,
@@ -22,9 +21,9 @@ const featuredProjects = [
   },
   {
     id: 3,
-    title: 'Modern Athletic Sanctuary',
-    category: 'Bedrooms',
-    image: '/portfolio/interiors/modern-athletic-bedroom/bedroom-media-wall.jpg',
+    title: 'Urban Sports & Entertainment Lounge',
+    category: 'Commercial',
+    image: '/portfolio/interiors/urban-sports-lounge/basketball-mural-wall.jpg',
   },
 ];
 
@@ -63,6 +62,7 @@ const services = [
 
 export function HomePage() {
   const [showConsultationDialog, setShowConsultationDialog] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen">
@@ -81,26 +81,26 @@ export function HomePage() {
           <div className="mb-8 animate-fade-in-up">
             <div className="inline-block backdrop-elegant rounded-full mb-6 shadow-lg hover-lift">
               <div className="px-6 py-2">
-                <p className="text-luxury-spacing gold-gradient-text">✦ INTERIOR DESIGN & STYLING ✦</p>
+                <p className="text-luxury-spacing magenta-gradient-text">✦ INTERIOR DESIGN & STYLING ✦</p>
               </div>
             </div>
           </div>
-          <div className="animate-sophisticated-zoom" style={{animationDelay: '0.3s'}}>
+          <div className="animate-sophisticated-zoom animate-delay-300">
             <h1 className="font-display text-5xl sm:text-6xl lg:text-8xl mb-8 text-white drop-shadow-2xl tracking-tight text-reveal">
               House of Faridah
             </h1>
           </div>
-          <div className="inline-block px-8 py-1 mb-8 animate-elegant-slide" style={{animationDelay: '0.5s'}}>
+          <div className="inline-block px-8 py-1 mb-8 animate-elegant-slide animate-delay-500">
             <p className="text-xl sm:text-2xl text-white/95 drop-shadow-lg italic animate-parallax-float">
               Where elegance meets comfort, and every space tells a beautiful story
             </p>
             <div className="h-px bg-gradient-to-r from-transparent via-white/60 to-transparent mt-6 animate-luxury-glow" />
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-premium-rotate" style={{animationDelay: '0.7s'}}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-premium-rotate animate-delay-700">
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-primary to-gold-dark hover:from-primary/90 hover:to-gold-dark/90 shadow-xl border border-white/20 luxury-hover premium-card-3d"
+              className="bg-gradient-to-r from-primary to-magenta-dark hover:from-primary/90 hover:to-magenta-dark/90 shadow-xl border border-white/20 luxury-hover premium-card-3d"
             >
               <Link to="/interiors/portfolio">View Portfolio</Link>
             </Button>
@@ -121,7 +121,7 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 animate-fade-in-up">
             <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
-              <p className="text-luxury-spacing gold-gradient-text">Featured Work</p>
+              <p className="text-luxury-spacing magenta-gradient-text">Featured Work</p>
             </div>
             <h2 className="font-elegant text-4xl sm:text-5xl mb-4">Featured Projects</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -135,6 +135,7 @@ export function HomePage() {
                 key={project.id}
                 className={`overflow-hidden group cursor-pointer hover:shadow-xl transition-all border-primary/20 luxury-hover premium-card-3d stagger-animation`}
                 style={{animationDelay: `${0.7 + index * 0.15}s`}}
+                onClick={() => navigate(`/interiors/portfolio?project=${project.id}`)}
               >
                 <CardContent className="p-0">
                   <div className="relative overflow-hidden aspect-[3/4]">
@@ -143,12 +144,12 @@ export function HomePage() {
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    {/* Mobile: Simple title bar at bottom (no gold overlay) */}
+                    {/* Mobile: Simple title bar at bottom (no magenta overlay) */}
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 md:hidden">
                       <p className="text-sm mb-1 text-white/80">{project.category}</p>
                       <h3 className="text-xl text-white font-elegant">{project.title}</h3>
                     </div>
-                    {/* Desktop: Gold overlay with content on hover */}
+                    {/* Desktop: Magenta overlay with content on hover */}
                     <div className="hidden md:flex absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 p-6 flex-col justify-end text-white">
                       <p className="text-sm mb-1 opacity-90 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300">{project.category}</p>
                       <h3 className="text-xl font-elegant transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 delay-75">{project.title}</h3>
@@ -175,11 +176,11 @@ export function HomePage() {
       {/* Services Preview */}
       <section className="py-20 px-4 bg-secondary/30">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 animate-fade-in-up" style={{animationDelay: '1.0s'}}>
+          <div className="text-center mb-12 animate-fade-in-up animate-delay-1000">
             <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
-              <p className="text-luxury-spacing gold-gradient-text">Our Services</p>
+              <p className="text-luxury-spacing magenta-gradient-text">Our Services</p>
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl mb-4 text-luxury-spacing">What I Offer</h2>
+            <h2 className="font-display text-4xl sm:text-5xl mb-4">What We Offer</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Personalized design services to transform your vision into reality
             </p>
@@ -218,11 +219,11 @@ export function HomePage() {
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1 animate-fade-in-up" style={{animationDelay: '1.5s'}}>
+            <div className="order-2 lg:order-1 animate-fade-in-up animate-delay-1500">
               <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
-                <p className="text-luxury-spacing gold-gradient-text">About</p>
+                <p className="text-luxury-spacing magenta-gradient-text">About</p>
               </div>
-              <h2 className="font-display text-4xl sm:text-5xl mb-6 text-luxury-spacing">Meet Faridah</h2>
+              <h2 className="font-display text-4xl sm:text-5xl mb-6">Meet Faridah</h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 With a passion for creating spaces that nurture the soul, I bring a unique blend
                 of elegance, warmth, and sophistication to every project. My design philosophy
@@ -242,9 +243,9 @@ export function HomePage() {
               </Button>
             </div>
 
-            <div className="order-1 lg:order-2 relative h-[500px] rounded-2xl overflow-hidden shadow-xl animate-fade-in-up hover-lift" style={{animationDelay: '1.7s'}}>
+            <div className="order-1 lg:order-2 relative h-[500px] rounded-2xl overflow-hidden shadow-xl animate-fade-in-up hover-lift animate-delay-1700">
               <ImageWithFallback
-                src={aboutMeImage}
+                src="/about-me.png"
                 alt="Faridah - Interior Designer"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />
@@ -255,11 +256,11 @@ export function HomePage() {
 
       {/* Design Process Preview */}
       <section className="py-20 px-4 bg-gradient-to-br from-primary to-primary/80 text-white">
-        <div className="max-w-7xl mx-auto text-center animate-fade-in-up" style={{animationDelay: '1.9s'}}>
+        <div className="max-w-7xl mx-auto text-center animate-fade-in-up animate-delay-1900">
           <div className="inline-block px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6 shadow-md hover-lift">
             <p className="text-luxury-spacing text-white/90">Process</p>
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl mb-6 text-luxury-spacing">Our Design Journey</h2>
+          <h2 className="font-display text-4xl sm:text-5xl mb-6">Our Design Journey</h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
             From our first conversation to the final reveal, we guide you through a thoughtful, 
             collaborative process designed to bring your dream space to life.

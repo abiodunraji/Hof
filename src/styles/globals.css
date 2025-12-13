@@ -4,9 +4,9 @@
   --font-size: 16px;
   
   /* Premium Typography */
-  --font-heading: 'Playfair Display', 'Cormorant Garamond', serif;
+  --font-heading: 'Fraunces', serif;
   --font-body: 'Inter', 'Avenir Next', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-accent: 'Cormorant Garamond', serif;
+  --font-accent: 'Fraunces', serif;
   
   /* Enhanced Color Palette */
   --background: #fdfcfb;
@@ -16,57 +16,89 @@
   --popover: #ffffff;
   --popover-foreground: #2b2524;
   
-  /* Enhanced Luxurious Color Palette */
-  --primary: #c9a063;
+/* Enhanced Luxurious Color Palette - Feminine Magenta Theme */
+  --primary: #AD1457;
   --primary-foreground: #ffffff;
-  --secondary: #f9f5f0;
-  --secondary-foreground: #2b2524;
-  --muted: #f5ede5;
-  --muted-foreground: #8d7a6d;
-  --accent: #d4af87;
-  --accent-foreground: #2b2524;
+  --secondary: #FCE4EC;
+  --secondary-foreground: #1A1A1A;
+  --muted: #F8BBD9;
+  --muted-foreground: #424242;
+  --accent: #E91E63;
+  --accent-foreground: #ffffff;
   
-  /* Premium Gold & Luxury Accents */
-  --gold: #d4af87;
-  --gold-light: #f0e5d8;
-  --gold-dark: #b8935e;
-  --rose-gold: #c9a063;
-  --champagne: #F7E7CE;
-  --pearl: #FAFAFA;
-  --deep-gold: #B8860B;
-  --sage: #9CAF88;
-  --blush: #F8E8E7;
-  --charcoal: #36454F;
+  /* Premium Refined Magenta & Pink Accents - Enhanced for Femininity */
+  --magenta: #AD1457;
+  --magenta-light: #FCE4EC;
+  --magenta-dark: #880E4F;
+  --hot-pink: #E91E63;
+  --soft-pink: #F8BBD9;
+  --blush-pink: #FCE4EC;
+  --deep-magenta: #880E4F;
+  --rose-pink: #E91E63;
+  --pale-pink: #FCE4EC;
+  --charcoal: #212121;
   
   /* Wood tones for construction */
   --wood-primary: #8b6f47;
   --wood-secondary: #a68a62;
   --wood-light: #d4c4a8;
   --wood-dark: #6b5636;
+
+  /* Landing split-panel hover overlays (tweak here) */
+  --landing-overlay-duration: 700ms;
+  --landing-overlay-ease: ease-out;
+  --landing-interiors-overlay: rgba(173, 20, 87, 0.35);
+  --landing-construction-overlay: rgba(139, 111, 71, 0.45);
   
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
-  --border: rgba(201, 160, 99, 0.2);
+  --border: rgba(173, 20, 87, 0.15);
   --input: transparent;
-  --input-background: #f9f5f0;
-  --switch-background: #ede6de;
+  --input-background: #FCE4EC;
+  --switch-background: #FCE4EC;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #c9a063;
-  --chart-1: #c9a063;
-  --chart-2: #d4af87;
-  --chart-3: #f0e5d8;
-  --chart-4: #8d7a6d;
-  --chart-5: #b8935e;
+  --ring: #AD1457;
+  --chart-1: #AD1457;
+  --chart-2: #E91E63;
+  --chart-3: #FCE4EC;
+  --chart-4: #F8BBD9;
+  --chart-5: #880E4F;
   --radius: 0.875rem;
-  --sidebar: #f9f5f0;
-  --sidebar-foreground: #2b2524;
-  --sidebar-primary: #c9a063;
+  --sidebar: #FCE4EC;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #AD1457;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f0e5d8;
-  --sidebar-accent-foreground: #2b2524;
-  --sidebar-border: rgba(201, 160, 99, 0.2);
-  --sidebar-ring: #c9a063;
+  --sidebar-accent: #F8BBD9;
+  --sidebar-accent-foreground: #1A1A1A;
+  --sidebar-border: rgba(173, 20, 87, 0.15);
+  --sidebar-ring: #AD1457;
+}
+
+/* Landing split-panel overlays */
+.landing-panel-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--landing-panel-overlay-color);
+  opacity: 0;
+  transform: scale(1.03);
+  transition:
+    opacity var(--landing-overlay-duration) var(--landing-overlay-ease),
+    transform var(--landing-overlay-duration) var(--landing-overlay-ease);
+  pointer-events: none;
+}
+
+.group:hover .landing-panel-overlay {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.landing-overlay-interiors {
+  --landing-panel-overlay-color: var(--landing-interiors-overlay);
+}
+
+.landing-overlay-construction {
+  --landing-panel-overlay-color: var(--landing-construction-overlay);
 }
 
 .dark {
@@ -180,8 +212,8 @@ html {
   font-size: var(--font-size);
 }
 
-/* Luxurious gold shimmer effect */
-@keyframes goldShimmer {
+/* Luxurious magenta shimmer effect - enhanced with feminine pinks */
+@keyframes magentaShimmer {
   0% {
     background-position: -200% center;
   }
@@ -190,37 +222,207 @@ html {
   }
 }
 
-.gold-shimmer {
+.magenta-shimmer {
   background: linear-gradient(
     90deg,
-    rgba(201, 160, 99, 0.1) 0%,
-    rgba(212, 175, 135, 0.3) 50%,
-    rgba(201, 160, 99, 0.1) 100%
+    rgba(248, 187, 217, 0.1) 0%, /* soft-pink */
+    rgba(173, 20, 87, 0.3) 50%, /* primary */
+    rgba(248, 187, 217, 0.1) 100% /* soft-pink */
   );
   background-size: 200% 100%;
-  animation: goldShimmer 3s ease-in-out infinite;
+  animation: magentaShimmer 4s ease-in-out infinite; /* slowed down for elegance */
 }
 
-/* Gold gradient text */
-.gold-gradient-text {
-  background: linear-gradient(135deg, #c9a063 0%, #d4af87 50%, #b8935e 100%);
+/* Magenta gradient text */
+.magenta-gradient-text {
+  background: linear-gradient(135deg, #AD1457 0%, #E91E63 50%, #880E4F 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Elegant gold border */
-.gold-border {
-  border: 1px solid rgba(201, 160, 99, 0.3);
-  box-shadow: 0 0 20px rgba(201, 160, 99, 0.1);
+/* Interiors logo styling */
+.site-brand {
+  display: inline-flex;
+  align-items: center;
 }
 
-/* Luxe card effect */
+.interiors-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: inline-block;
+  border-radius: 8px;
+  background: transparent;
+}
+
+@media (min-width: 640px) {
+  .interiors-logo {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .interiors-logo {
+    width: 120px;
+    height: 120px;
+    /* allow a slight negative margin to visually anchor the logo if desired */
+    margin-top: -8px;
+  }
+}
+
+/* Medium screens (tablet) larger logo */
+@media (min-width: 768px) {
+  .interiors-logo {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* BEGIN landing-hero styles */
+/* Container for landing hero: holds LQIP blur layer, high-res overlay, and content card */
+.landing-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 60vh; /* use larger value in page if needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background); /* graceful background color fallback */
+  isolation: isolate; /* create new stacking context for safe z-indexing */
+}
+
+/* Image layer: low-quality blurred placeholder via CSS var; expectation: set --landing-hero-lqip or use inline <img> */
+.landing-hero__img {
+  position: absolute;
+  inset: 0;
+  z-index: 0; /* bottom-most visual layer */
+  background-color: rgba(0,0,0,0.03);
+  background-image: var(--landing-hero-lqip, none); /* LQIP data URL or small image URL */
+  background-size: cover;
+  background-position: center center;
+  filter: blur(22px) saturate(1.05);
+  transform: scale(1.02);
+  transition: filter 700ms cubic-bezier(.2,.9,.2,1), opacity 700ms ease, transform 700ms ease;
+  will-change: filter, opacity, transform;
+  pointer-events: none;
+}
+
+/* High-res overlay expectation: author may add an element with this class or set --landing-hero-img-url var; this overlay fades in atop the LQIP */
+.landing-hero__img--hires,
+.landing-hero__img[data-hires="true"] {
+  position: absolute;
+  inset: 0;
+  z-index: 2; /* above LQIP */
+  background-image: var(--landing-hero-img-url, none); /* set to url('...') via inline style or CSS var */
+  background-size: cover;
+  background-position: center center;
+  opacity: 0;
+  transition: opacity 900ms cubic-bezier(.2,.9,.2,1);
+  pointer-events: none;
+}
+
+/* When JS or markup toggles a 'loaded' state, fade the hires image in and reduce LQIP blur */
+.landing-hero.loaded .landing-hero__img--hires {
+  opacity: 1;
+}
+.landing-hero.loaded .landing-hero__img {
+  filter: none;
+  transform: scale(1);
+}
+
+/* Semi-opaque overlay for better contrast for text / accessibility */
+.landing-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5; /* sits above images */
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 40%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Content card placed above everything; use backdrop and soft card color for legibility */
+.landing-hero__card {
+  position: relative;
+  z-index: 10; /* top-most content */
+  max-width: 1200px;
+  width: calc(100% - 48px);
+  margin: 0 24px;
+  padding: 2rem; /* adjust per design */
+  border-radius: calc(var(--radius, 0.875rem));
+  background-color: rgba(255, 255, 255, 0.8); /* Fallback for color-mix() */
+  box-shadow: 0 10px 30px rgba(16, 16, 16, 0.12);
+  -webkit-backdrop-filter: blur(6px) saturate(1.02);
+  backdrop-filter: blur(6px) saturate(1.02);
+  transition: transform 600ms cubic-bezier(.2,.9,.2,1), opacity 600ms ease;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* Fade-in + slide-up animation helper (applied to card when container has .loaded or via JS) */
+.landing-hero.loaded .landing-hero__card {
+  opacity: 1;
+  transform: none;
+}
+
+/* Small utility: when using an <img> inside .landing-hero__img use object-fit and full size */
+.landing-hero__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Respect user motion preferences: remove non-essential animation */
+@media (prefers-reduced-motion: reduce) {
+  .landing-hero__img,
+  .landing-hero__img--hires,
+  .landing-hero__card {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 640px) {
+  .landing-hero { min-height: 68vh; }
+  .landing-hero__card { padding: 2.5rem; width: calc(100% - 96px); }
+}
+@media (min-width: 1024px) {
+  .landing-hero { min-height: 80vh; }
+  .landing-hero__card { padding: 3rem; width: 1100px; }
+}
+
+/* END landing-hero styles */
+
+/* Feminine blush gradient text */
+.feminine-gradient-text {
+  background: linear-gradient(135deg, var(--soft-pink) 0%, var(--primary) 50%, var(--blush-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Elegant magenta border */
+.magenta-border {
+  border: 1px solid rgba(173, 20, 87, 0.3);
+  box-shadow: 0 0 20px rgba(173, 20, 87, 0.1);
+}
+
+/* Feminine gradient background */
+.feminine-bg {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--muted) 50%, var(--blush-pink) 100%);
+}
+
+/* Luxe card effect - now with magenta accents */
 .luxe-card {
   background: linear-gradient(135deg, #ffffff 0%, #fdfcfb 100%);
-  border: 1px solid rgba(201, 160, 99, 0.2);
+  border: 1px solid rgba(173, 20, 87, 0.15);
   box-shadow: 
-    0 4px 20px rgba(201, 160, 99, 0.08),
+    0 4px 20px rgba(173, 20, 87, 0.08),
     0 0 0 1px rgba(255, 255, 255, 0.5) inset;
 }
 
@@ -244,7 +446,7 @@ html {
   pointer-events: none;
 }
 
-/* Elegant hover effect for interiors */
+/* Elegant hover effect for interiors - now magenta */
 .elegant-hover {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -252,11 +454,11 @@ html {
 .elegant-hover:hover {
   transform: translateY(-4px);
   box-shadow: 
-    0 12px 40px rgba(201, 160, 99, 0.2),
-    0 0 0 1px rgba(201, 160, 99, 0.1);
+    0 12px 40px rgba(173, 20, 87, 0.2),
+    0 0 0 1px rgba(173, 20, 87, 0.1);
 }
 
-/* Gold accent line */
+/* Gold accent line - now magenta */
 .gold-accent-line {
   position: relative;
 }
@@ -269,10 +471,10 @@ html {
   transform: translateX(-50%);
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #c9a063, transparent);
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
 }
 
-/* Decorative corner for luxury elements */
+/* Decorative corner for luxury elements - now magenta */
 .decorative-corner {
   position: relative;
 }
@@ -283,7 +485,7 @@ html {
   position: absolute;
   width: 20px;
   height: 20px;
-  border: 2px solid rgba(201, 160, 99, 0.3);
+  border: 2px solid rgba(173, 20, 87, 0.3);
 }
 
 .decorative-corner::before {
@@ -343,6 +545,23 @@ html {
   animation-delay: 0.3s;
 }
 
+/* Hero-specific tiny delays (avoid inline styles) */
+.delay-50 {
+  animation-delay: 0.05s;
+}
+
+.delay-120 {
+  animation-delay: 0.12s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-280 {
+  animation-delay: 0.28s;
+}
+
 .delay-500 {
   animation-delay: 0.5s;
 }
@@ -366,22 +585,37 @@ html {
   line-height: 1.3;
 }
 
-/* Safe backdrop effect */
+.hero-title-shadow {
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.22), 0 8px 18px rgba(0, 0, 0, 0.65);
+}
+
+.hero-subtitle-shadow {
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
+}
+
+/* Hero text glow effect */
+.hero-glow {
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3))
+          drop-shadow(0 0 40px rgba(255, 255, 255, 0.2))
+          drop-shadow(0 0 80px rgba(255, 255, 255, 0.1));
+}
+
+/* Safe backdrop effect - now magenta */
 .backdrop-elegant {
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   backdrop-filter: blur(12px) saturate(150%);
   background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(201, 160, 99, 0.25);
+  border: 1px solid rgba(173, 20, 87, 0.25);
 }
 
-/* Gentle hover effects that won't break layout */
+/* Gentle hover effects that won't break layout - now magenta */
 .hover-lift {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(201, 160, 99, 0.15);
+  box-shadow: 0 8px 25px rgba(173, 20, 87, 0.15);
 }
 
 /* Complex Advanced Animations */
@@ -399,10 +633,10 @@ html {
 
 @keyframes luxuryGlow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(201, 160, 99, 0.2);
+    box-shadow: 0 0 20px rgba(173, 20, 87, 0.2);
   }
   50% {
-    box-shadow: 0 0 30px rgba(201, 160, 99, 0.4), 0 0 40px rgba(212, 175, 135, 0.2);
+    box-shadow: 0 0 30px rgba(173, 20, 87, 0.4), 0 0 40px rgba(252, 228, 236, 0.2);
   }
 }
 
@@ -412,8 +646,8 @@ html {
     filter: brightness(1);
   }
   50% {
-    transform: scale(1.02);
-    filter: brightness(1.1);
+    transform: scale(1.01); /* softer scale */
+    filter: brightness(1.05);
   }
 }
 
@@ -439,15 +673,17 @@ html {
   }
 }
 
-@keyframes premiumRotate {
-  from {
-    transform: perspective(1000px) rotateX(10deg) rotateY(-5deg);
-    opacity: 0;
+@keyframes feminineGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(248, 187, 217, 0.3), 0 0 30px rgba(173, 20, 87, 0.1);
   }
-  to {
-    transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
-    opacity: 1;
+  50% {
+    box-shadow: 0 0 25px rgba(248, 187, 217, 0.5), 0 0 50px rgba(173, 20, 87, 0.2);
   }
+}
+
+.animate-feminine-glow {
+  animation: feminineGlow 4s ease-in-out infinite;
 }
 
 /* Complex Animation Classes */
@@ -460,7 +696,7 @@ html {
 }
 
 .animate-prestige-pulse {
-  animation: prestigePulse 2s ease-in-out infinite;
+  animation: prestigePulse 3s ease-in-out infinite; /* slower for femininity */
 }
 
 .animate-elegant-slide {
@@ -478,6 +714,11 @@ html {
   opacity: 0;
 }
 
+/* New feminine animation class */
+.animate-feminine-glow {
+  animation: feminineGlow 4s ease-in-out infinite;
+}
+
 /* Refined Hover Effects */
 .luxury-hover {
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -492,7 +733,7 @@ html {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(201, 160, 99, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(173, 20, 87, 0.1), transparent);
   transition: left 0.6s ease;
 }
 
@@ -503,7 +744,7 @@ html {
 .luxury-hover:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 
-    0 15px 40px rgba(201, 160, 99, 0.25),
+    0 15px 40px rgba(173, 20, 87, 0.25),
     0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -544,7 +785,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(201, 160, 99, 0.8), transparent);
+  background: linear-gradient(90deg, transparent, rgba(173, 20, 87, 0.8), transparent);
   transform: translateX(-100%);
   animation: textRevealSweep 1.5s ease-out forwards;
 }
@@ -574,7 +815,7 @@ html {
   color: white;
   border-color: var(--primary);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(201, 160, 99, 0.3);
+  box-shadow: 0 10px 25px rgba(173, 20, 87, 0.3);
 }
 
 .btn-outline-white {
@@ -592,20 +833,20 @@ html {
   box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
 }
 
-/* Special CTA button style - white background with black text, gold on hover with white text */
-.btn-cta-white-to-gold {
+/* Special CTA button style - white background with black text, magenta on hover with white text */
+.btn-cta-white-to-magenta {
   background-color: white !important;
   color: #1f2937 !important;
   border: 2px solid #e5e7eb !important;
   transition: all 0.3s ease;
 }
 
-.btn-cta-white-to-gold:hover {
-  background: linear-gradient(to right, #f59e0b, #d97706) !important;
+.btn-cta-white-to-magenta:hover {
+  background: linear-gradient(to right, #E6007E, #B30062) !important;
   color: white !important;
   border-color: transparent !important;
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 10px 25px rgba(230, 0, 126, 0.3);
 }
 
 /* ========================================
@@ -663,4 +904,50 @@ html {
   opacity: 0;
   transform: translateY(-20px);
   transition: opacity 300ms ease-in, transform 300ms ease-in;
+}
+
+/* Watermark styles */
+.watermark-shadow {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.watermark-shadow-strong {
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+}
+
+/* Portfolio page inline style replacements */
+.animate-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animate-delay-500 {
+  animation-delay: 0.5s;
+}
+
+.animate-delay-700 {
+  animation-delay: 0.7s;
+}
+
+.animate-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animate-delay-1500 {
+  animation-delay: 1.5s;
+}
+
+.animate-delay-1700 {
+  animation-delay: 1.7s;
+}
+
+.animate-delay-1900 {
+  animation-delay: 1.9s;
+}
+
+.gallery-nav-button {
+  top: 54%;
+}
+
+.gallery-image-counter {
+  top: 48px;
 }
