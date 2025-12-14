@@ -170,6 +170,50 @@ export const interiorsProjects: InteriorsProject[] = [
       '/portfolio/interiors/modern-athletic-bedroom/mirror-detail-view.jpg'
     ]
   },
+  {
+    id: 5,
+    title: 'Executive Luxury Residence',
+    category: 'Bathrooms',
+    description: 'A sophisticated multi-space residence featuring spa-inspired bathrooms with copper accents, a boutique-style luxury closet, and an industrial-modern executive office.',
+    image: '/portfolio/interiors/executive-luxury-residence/bathroom-copper-vanity.jpg',
+    tags: ['Luxury', 'Spa-Inspired', 'Boutique', 'Executive', 'Industrial-Chic'],
+    location: '',
+    year: '2024',
+    budget: '',
+    duration: '10 weeks',
+    size: '2,200 sq ft',
+    fullDescription: 'This executive luxury residence is a masterclass in sophisticated, multi-functional living spaces that cater to the discerning modern professional. The design seamlessly integrates three distinct yet harmonious zones: spa-inspired bathrooms, a boutique-style luxury closet, and an industrial-modern executive workspace. The bathrooms feature stunning copper and gold accent lighting that transforms functional spaces into wellness retreats, with large-format gray tiles, natural wood elements, and rainfall shower systems creating a five-star hotel experience at home. The walk-in closet transcends traditional storage, reimagined as a personal luxury boutique with dramatic deep red accent walls, floor-to-ceiling illuminated glass shelving, and a stunning floral art installation that elevates the space to gallery status. The executive office combines raw industrial elements—exposed concrete ceilings with bold yellow conduit—with refined modern furnishings and curated artwork, creating an inspiring workspace that celebrates both creativity and professionalism. Throughout, warm wood tones, sophisticated gray palettes, and strategic metallic accents unify the design language, proving that luxury living is about creating intentional spaces that enhance daily rituals.',
+    highlights: [
+      'Spa-inspired bathrooms with copper LED accent lighting',
+      'Large-format gray porcelain tiles with wood-tone accents',
+      'Circular backlit mirrors with modern vessel sinks',
+      'Rainfall shower systems with glass partitions',
+      'Boutique-style luxury closet with illuminated display shelving',
+      'Dramatic deep red accent walls with textured finish',
+      'Custom floral mural artwork in soft pink tones',
+      'Designer handbag gallery with museum-quality lighting',
+      'Modern sputnik chandelier with globe pendants',
+      'Industrial-modern executive office with exposed concrete',
+      'Bold yellow conduit ceiling details for architectural interest',
+      'Custom reception desk with integrated LED lighting',
+      'Curated black-and-white photography collection',
+      'Black metal grid partitions for spatial definition',
+      'Sophisticated wood flooring throughout living spaces'
+    ],
+    gallery: [
+      '/portfolio/interiors/executive-luxury-residence/bathroom-copper-vanity.jpg',
+      '/portfolio/interiors/executive-luxury-residence/bathroom-rain-shower.jpg',
+      '/portfolio/interiors/executive-luxury-residence/bathroom-warm-tiles.jpg',
+      '/portfolio/interiors/executive-luxury-residence/bathroom-modern-fixtures.jpg',
+      '/portfolio/interiors/executive-luxury-residence/luxury-closet-entrance.jpg',
+      '/portfolio/interiors/executive-luxury-residence/luxury-closet-gallery.jpg',
+      '/portfolio/interiors/executive-luxury-residence/closet-chandelier-view.jpg',
+      '/portfolio/interiors/executive-luxury-residence/closet-boutique-detail.jpg',
+      '/portfolio/interiors/executive-luxury-residence/industrial-office-workspace.jpg',
+      '/portfolio/interiors/executive-luxury-residence/office-reception-desk.jpg',
+      '/portfolio/interiors/executive-luxury-residence/office-artwork-detail.jpg'
+    ]
+  },
 ];
 
 // ==================== HOF CONSTRUCTION PORTFOLIO ====================
