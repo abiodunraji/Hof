@@ -49,7 +49,7 @@ export const interiorsProjects: InteriorsProject[] = [
     title: 'Contemporary Residence',
     category: 'Living Rooms',
     description: 'A stunning contemporary home featuring curated African art, natural stone accents, and sophisticated modern furnishings.',
-    image: '/portfolio/interiors/contemporary-lagos-residence/dining-area.png',
+    image: '/portfolio/interiors/contemporary-lagos-residence/lifestyle-shot.jpg',
     tags: ['Contemporary', 'Art-Centric', 'Sophisticated', 'Modern'],
     location: '',
     year: '2024',

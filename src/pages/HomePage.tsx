@@ -11,7 +11,7 @@ const featuredProjects = [
     id: 1,
     title: 'Contemporary Residence',
     category: 'Living Rooms',
-    image: '/portfolio/interiors/contemporary-lagos-residence/dining-area.png',
+    image: '/portfolio/interiors/contemporary-lagos-residence/lifestyle-shot.jpg',
   },
   {
     id: 2,
