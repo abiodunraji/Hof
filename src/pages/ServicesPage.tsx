@@ -18,7 +18,7 @@ const services = [
       'Project scope and timeline discussion',
       'Budget planning and feasibility review'
     ],
-    image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdWx0YXRpb24lMjBpbnRlcmlvcnxlbnwwfHx8fDE3NjEwNjI0NzR8MA&ixlib=rb-4.1.0&q=80&w=800',
+    image: '/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg',
     duration: '2-3 hours',
     deliverables: 'Initial concept presentation, project roadmap'
   },
@@ -35,7 +35,7 @@ const services = [
       'Furniture placement strategies',
       'Storage and organization solutions'
     ],
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmbG9vcCUyMHBsYW58ZW58MHx8fHwxNzYxMDYyNDc0fDA&ixlib=rb-4.1.0&q=80&w=800',
+    image: '/portfolio/interiors/contemporary-lagos-residence/bedroom-detail.jpg',
     duration: '1-2 weeks',
     deliverables: 'CAD drawings, 2D floor plans, furniture layouts'
   },
@@ -52,7 +52,7 @@ const services = [
       'Style direction and theme establishment',
       'Visual concept presentations'
     ],
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb29kYm9hcmQlMjBkZXNpZ258ZW58MHx8fHwxNzYxMDYyNDc0fDA&ixlib=rb-4.1.0&q=80&w=800',
+    image: '/portfolio/interiors/contemporary-lagos-residence/bedroom-mirrors.png',
     duration: '1-2 weeks',
     deliverables: 'Design moodboards, color schemes, material samples'
   },
@@ -69,7 +69,7 @@ const services = [
       'Material and finish previews',
       'Virtual walkthroughs available'
     ],
-    image: 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHwzZCUyMHJlbmRlciUyMGludGVyaW9yfGVufDB8fHx8MTc2MTA2MjQ3NHww&ixlib=rb-4.1.0&q=80&w=800',
+    image: '/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
     duration: '2-3 weeks',
     deliverables: 'High-resolution 3D renders, virtual tour files'
   },
@@ -86,7 +86,7 @@ const services = [
       'Professional installation management',
       'Quality assurance and warranty support'
     ],
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmdXJuaXR1cmUlMjBkZXNpZ258ZW58MHx8fHwxNzYxMDYyNDc0fDA&ixlib=rb-4.1.0&q=80&w=800',
+    image: '/portfolio/interiors/modern-athletic-bedroom/bedroom-full-view.jpg',
     duration: '4-8 weeks',
     deliverables: 'Custom furniture pieces, installation oversight'
   },
@@ -103,7 +103,7 @@ const services = [
       'Quality control and inspections',
       'Final styling and placement'
     ],
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21wbGV0ZSUyMGludGVyaW9yfGVufDB8fHx8MTc2MTA2MjQ3NHww&ixlib=rb-4.1.0&q=80&w=800',
+    image: '/portfolio/interiors/executive-luxury-residence/luxury-closet-gallery.jpg',
     duration: '3-6 months',
     deliverables: 'Fully furnished and styled space, project documentation'
   }
@@ -303,9 +303,10 @@ export function ServicesPage() {
                 <div className="group relative">
                   <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5 transition-all duration-700 group-hover:shadow-3xl group-hover:scale-[1.02] group-hover:ring-primary/20 animate-fade-in-up" style={{animationDelay: '0.3s'}}>
                       <ImageWithFallback
-                        src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwbGl2aW5nJTIwcm9vbXxlbnwwfHx8fDE3NjEwNjI0NzR8MA&ixlib=rb-4.1.0&q=80&w=600"
+                        src="/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg"
                         alt="Elegant living space with premium furnishings"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        style={{ objectPosition: 'center 40%' }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                       
@@ -320,9 +321,10 @@ export function ServicesPage() {
                 <div className="group relative">
                   <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5 transition-all duration-700 group-hover:shadow-3xl group-hover:scale-[1.02] group-hover:ring-primary/20 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
                     <ImageWithFallback
-                      src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxraXRjaGVuJTIwZGVzaWdufGVufDB8fHx8MTc2MTA2MjQ3NHww&ixlib=rb-4.1.0&q=80&w=600"
+                      src="/portfolio/interiors/luxury-gold-kitchen/kitchen-full-view.jpg"
                       alt="Functional kitchen with elegant finishes"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      style={{ objectPosition: 'center 35%' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                     
@@ -337,9 +339,10 @@ export function ServicesPage() {
                   <div className="group relative">
                     <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5 transition-all duration-700 group-hover:shadow-3xl group-hover:scale-[1.02] group-hover:ring-primary/20 animate-fade-in-up" style={{animationDelay: '0.5s'}}>
                       <ImageWithFallback
-                        src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBiZWRyb29tfGVufDB8fHx8MTc2MTA2MjQ3NHww&ixlib=rb-4.1.0&q=80&w=600"
+                        src="/portfolio/interiors/modern-athletic-bedroom/bedroom-full-view.jpg"
                         alt="Modern bedroom with contemporary styling"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        style={{ objectPosition: 'center 45%' }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                       
@@ -354,9 +357,10 @@ export function ServicesPage() {
                 <div className="group relative">
                   <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5 transition-all duration-700 group-hover:shadow-3xl group-hover:scale-[1.02] group-hover:ring-primary/20 animate-fade-in-up" style={{animationDelay: '0.6s'}}>
                     <ImageWithFallback
-                      src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaW5pbmclMjByb29tfGVufDB8fHx8MTc2MTA2MjQ3NHww&ixlib=rb-4.1.0&q=80&w=600"
+                      src="/portfolio/interiors/contemporary-lagos-residence/dining-area.png"
                       alt="Sophisticated dining room arrangement"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      style={{ objectPosition: 'center center' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                     

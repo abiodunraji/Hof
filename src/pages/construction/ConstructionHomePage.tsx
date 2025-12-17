@@ -9,19 +9,19 @@ const services = [
     icon: Building2,
     title: 'Residential Construction',
     description: 'Custom home building from foundation to finish, crafted to your exact specifications.',
-    image: 'https://images.unsplash.com/photo-1580063665421-4c9cbe9ec11b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNpZGVudGlhbCUyMGNvbnN0cnVjdGlvbiUyMGhvdXNlfGVufDF8fHx8MTc2MTM5NDkyMHww&ixlib=rb-4.1.0&q=80&w=1080'
+    image: '/portfolio/construction/site-work/site-work-04.jpg'
   },
   {
     icon: HardHat,
     title: 'Commercial Building',
     description: 'Professional commercial construction services for offices, retail, and industrial spaces.',
-    image: 'https://images.unsplash.com/photo-1694702740570-0a31ee1525c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjBidWlsZGluZ3xlbnwxfHx8fDE3NjE0MjU3MTh8MA&ixlib=rb-4.1.0&q=80&w=1080'
+    image: '/portfolio/construction/site-work/site-work-08.jpg'
   },
   {
     icon: Hammer,
     title: 'Renovations & Additions',
     description: 'Transform existing spaces with expert renovation and seamless home additions.',
-    image: 'https://images.unsplash.com/photo-1760331283499-abccea681c46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidWlsZGluZyUyMHJlbm92YXRpb24lMjBwcm9qZWN0fGVufDF8fHx8MTc2MTUwMjY2M3ww&ixlib=rb-4.1.0&q=80&w=1080'
+    image: '/portfolio/construction/site-work/site-work-12.jpg'
   }
 ];
 
@@ -67,8 +67,8 @@ export function ConstructionHomePage() {
       <section className="relative h-[600px] md:h-[700px] flex items-center">
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1741026414013-b0e8908a6862?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBzaXRlJTIwbW9kZXJufGVufDF8fHx8MTc2MTQwODAxMXww&ixlib=rb-4.1.0&q=80&w=1080"
-            alt="Construction Site"
+            src="/portfolio/construction/site-work/site-work-10.jpg"
+            alt="HOF Construction Site"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/50" />

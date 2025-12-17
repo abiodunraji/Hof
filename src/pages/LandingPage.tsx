@@ -1,21 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { interiorsProjects, constructionProjects } from '../data/portfolioData';
 
-// Generate image arrays from portfolio data
-const interiorsImages = interiorsProjects.flatMap(project => [
-  project.image,
-  ...(project.gallery || [])
-]);
-
-const constructionImages = constructionProjects.flatMap(project => [
-  project.image,
-  ...(project.gallery || [])
-]);
-
 export function LandingPage() {
+  // Memoize image arrays for performance
+  const interiorsImages = useMemo(() => 
+    interiorsProjects.flatMap(project => [
+      project.image,
+      ...(project.gallery || [])
+    ]),
+    []
+  );
+
+  const constructionImages = useMemo(() =>
+    constructionProjects.flatMap(project => [
+      project.image,
+      ...(project.gallery || [])
+    ]),
+    []
+  );
   const [interiorsIndex, setInteriorsIndex] = useState(0);
   const [constructionIndex, setConstructionIndex] = useState(0);
 
@@ -50,10 +55,11 @@ export function LandingPage() {
             {/* Image carousel */}
             {interiorsImages.map((image, idx) => (
               <ImageWithFallback
-                key={image}
+                key={`interiors-${idx}`}
                 src={image}
                 alt="HOF Interiors Portfolio"
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                loading={idx === 0 ? 'eager' : 'lazy'}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 will-change-opacity ${
                   idx === interiorsIndex ? 'opacity-100' : 'opacity-0'
                 }`}
               />
@@ -132,10 +138,11 @@ export function LandingPage() {
             {/* Image carousel */}
             {constructionImages.map((image, idx) => (
               <ImageWithFallback
-                key={image}
+                key={`construction-${idx}`}
                 src={image}
                 alt="HOF Construction Portfolio"
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                loading={idx === 0 ? 'eager' : 'lazy'}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 will-change-opacity ${
                   idx === constructionIndex ? 'opacity-100' : 'opacity-0'
                 }`}
               />

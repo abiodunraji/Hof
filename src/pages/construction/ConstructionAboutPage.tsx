@@ -78,8 +78,8 @@ export function ConstructionAboutPage() {
       <section className="relative h-[400px] md:h-[500px] flex items-center">
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1760963301666-582b92218a19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjB0ZWFtJTIwbWVldGluZ3xlbnwxfHx8fDE3NjE0Nzg4MDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
-            alt="Our Team"
+            src="/portfolio/construction/site-work/site-work-06.jpg"
+            alt="HOF Construction Team"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-foreground/70" />
@@ -116,8 +116,8 @@ export function ConstructionAboutPage() {
 
             <div className="relative">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1690473768383-a1f56b6f92c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjB3b3JrZXJzJTIwc2FmZXR5fGVufDF8fHx8MTc2MTUwMjY2NHww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Construction Workers"
+                src="/portfolio/construction/site-work/site-work-14.jpg"
+                alt="HOF Construction Workers"
                 className="rounded-lg shadow-xl w-full"
               />
             </div>
