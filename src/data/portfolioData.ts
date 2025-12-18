@@ -46,10 +46,10 @@ export const interiorsCategories = ['All', 'Living Rooms', 'Bedrooms', 'Kitchens
 export const interiorsProjects: InteriorsProject[] = [
   {
     id: 1,
-    title: 'Contemporary Residence',
+    title: 'Contemporary Abuja residence',
     category: 'Living Rooms',
     description: 'A stunning contemporary home featuring curated African art, natural stone accents, and sophisticated modern furnishings.',
-    image: '/portfolio/interiors/contemporary-lagos-residence/lifestyle-shot.jpg',
+    image: '/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg',
     tags: ['Contemporary', 'Art-Centric', 'Sophisticated', 'Modern'],
     location: '',
     year: '2024',
@@ -68,19 +68,19 @@ export const interiorsProjects: InteriorsProject[] = [
       'Statement marble dining table with designer chairs'
     ],
     gallery: [
-      '/portfolio/interiors/contemporary-lagos-residence/dining-area.png',
-      '/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg',
-      '/portfolio/interiors/contemporary-lagos-residence/bedroom-detail.jpg',
-      '/portfolio/interiors/contemporary-lagos-residence/bedroom-mirrors.png',
-      '/portfolio/interiors/contemporary-lagos-residence/lifestyle-shot.jpg'
+      '/portfolio/interiors/contemporary-abuja-residence/dining-area.png',
+      '/portfolio/interiors/contemporary-abuja-residence/living-room-view.jpg',
+      '/portfolio/interiors/contemporary-abuja-residence/bedroom-detail.jpg',
+      '/portfolio/interiors/contemporary-abuja-residence/bedroom-mirrors.png',
+      '/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg'
     ]
   },
   {
     id: 2,
-    title: 'Glamorous Gold & Crystal Kitchen',
+    title: 'Modern kitchen design',
     category: 'Kitchens',
     description: 'An opulent kitchen featuring cascading crystal chandeliers, gold accents, and luxurious marble surfaces that redefine culinary elegance.',
-    image: '/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
+    image: '/portfolio/interiors/modern-kitchen-design/kitchen-detail-chandelier.jpg',
     tags: ['Luxury', 'Glamorous', 'Gold Accents', 'Crystal Lighting'],
     location: '',
     year: '2024',
@@ -100,19 +100,19 @@ export const interiorsProjects: InteriorsProject[] = [
       'Sophisticated neutral color palette with metallic accents'
     ],
     gallery: [
-      '/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
-      '/portfolio/interiors/luxury-gold-kitchen/island-seating-view.jpg',
-      '/portfolio/interiors/luxury-gold-kitchen/dining-chandelier-view.jpg',
-      '/portfolio/interiors/luxury-gold-kitchen/kitchen-workspace.jpg',
-      '/portfolio/interiors/luxury-gold-kitchen/kitchen-full-view.jpg'
+      '/portfolio/interiors/modern-kitchen-design/kitchen-detail-chandelier.jpg',
+      '/portfolio/interiors/modern-kitchen-design/island-seating-view.jpg',
+      '/portfolio/interiors/modern-kitchen-design/dining-chandelier-view.jpg',
+      '/portfolio/interiors/modern-kitchen-design/kitchen-workspace.jpg',
+      '/portfolio/interiors/modern-kitchen-design/kitchen-full-view.jpg'
     ]
   },
   {
     id: 3,
-    title: 'Urban Sports & Entertainment Lounge',
+    title: 'Sports inspired sneakers store',
     category: 'Commercial',
     description: 'A vibrant sports-themed entertainment space featuring bold street art, dynamic basketball court design, and energetic retail displays.',
-    image: '/portfolio/interiors/urban-sports-lounge/basketball-mural-wall.jpg',
+    image: '/portfolio/interiors/sports-inspired-sneakers-store/basketball-mural-wall.jpg',
     tags: ['Sports Theme', 'Urban', 'Bold', 'Entertainment'],
     location: '',
     year: '2024',
@@ -133,18 +133,18 @@ export const interiorsProjects: InteriorsProject[] = [
       'Urban street art aesthetic throughout'
     ],
     gallery: [
-      '/portfolio/interiors/urban-sports-lounge/basketball-mural-wall.jpg',
-      '/portfolio/interiors/urban-sports-lounge/court-view-with-hoop.jpg',
-      '/portfolio/interiors/urban-sports-lounge/brand-wall-portrait.png',
-      '/portfolio/interiors/urban-sports-lounge/retail-display-wall.png'
+      '/portfolio/interiors/sports-inspired-sneakers-store/basketball-mural-wall.jpg',
+      '/portfolio/interiors/sports-inspired-sneakers-store/court-view-with-hoop.jpg',
+      '/portfolio/interiors/sports-inspired-sneakers-store/brand-wall-portrait.png',
+      '/portfolio/interiors/sports-inspired-sneakers-store/retail-display-wall.png'
     ]
   },
   {
     id: 4,
-    title: 'Modern Athletic Sanctuary',
+    title: 'Minimalist bedroom design',
     category: 'Bedrooms',
     description: 'A contemporary bedroom retreat blending athletic inspiration with refined elegance through textured walls, golden wood accents, and curated artwork.',
-    image: '/portfolio/interiors/modern-athletic-bedroom/bedroom-media-wall.jpg',
+    image: '/portfolio/interiors/minimalist-bedroom-design/mirror-detail-view.jpg',
     tags: ['Contemporary', 'Athletic-Inspired', 'Textured', 'Sophisticated'],
     location: '',
     year: '2024',
@@ -165,17 +165,17 @@ export const interiorsProjects: InteriorsProject[] = [
       'Ambient lighting design with multiple layers'
     ],
     gallery: [
-      '/portfolio/interiors/modern-athletic-bedroom/bedroom-media-wall.jpg',
-      '/portfolio/interiors/modern-athletic-bedroom/bedroom-full-view.jpg',
-      '/portfolio/interiors/modern-athletic-bedroom/mirror-detail-view.jpg'
+      '/portfolio/interiors/minimalist-bedroom-design/bedroom-media-wall.jpg',
+      '/portfolio/interiors/minimalist-bedroom-design/bedroom-full-view.jpg',
+      '/portfolio/interiors/minimalist-bedroom-design/mirror-detail-view.jpg'
     ]
   },
   {
     id: 5,
-    title: 'Executive Luxury Residence',
+    title: 'Executive luxury bathroom',
     category: 'Bathrooms',
     description: 'A sophisticated multi-space residence featuring spa-inspired bathrooms with copper accents, a boutique-style luxury closet, and an industrial-modern executive office.',
-    image: '/portfolio/interiors/executive-luxury-residence/bathroom-copper-vanity.jpg',
+    image: '/portfolio/interiors/executive-luxury-bathroom/bathroom-copper-vanity.jpg',
     tags: ['Luxury', 'Spa-Inspired', 'Boutique', 'Executive', 'Industrial-Chic'],
     location: '',
     year: '2024',
@@ -201,17 +201,40 @@ export const interiorsProjects: InteriorsProject[] = [
       'Sophisticated wood flooring throughout living spaces'
     ],
     gallery: [
-      '/portfolio/interiors/executive-luxury-residence/bathroom-copper-vanity.jpg',
-      '/portfolio/interiors/executive-luxury-residence/bathroom-rain-shower.jpg',
-      '/portfolio/interiors/executive-luxury-residence/bathroom-warm-tiles.jpg',
-      '/portfolio/interiors/executive-luxury-residence/bathroom-modern-fixtures.jpg',
-      '/portfolio/interiors/executive-luxury-residence/luxury-closet-entrance.jpg',
-      '/portfolio/interiors/executive-luxury-residence/luxury-closet-gallery.jpg',
-      '/portfolio/interiors/executive-luxury-residence/closet-chandelier-view.jpg',
-      '/portfolio/interiors/executive-luxury-residence/closet-boutique-detail.jpg',
-      '/portfolio/interiors/executive-luxury-residence/industrial-office-workspace.jpg',
-      '/portfolio/interiors/executive-luxury-residence/office-reception-desk.jpg',
-      '/portfolio/interiors/executive-luxury-residence/office-artwork-detail.jpg'
+      '/portfolio/interiors/executive-luxury-bathroom/bathroom-copper-vanity.jpg',
+      '/portfolio/interiors/executive-luxury-bathroom/bathroom-rain-shower.jpg',
+      '/portfolio/interiors/executive-luxury-bathroom/bathroom-modern-fixtures.jpg'
+    ]
+  },
+  {
+    id: 6,
+    title: 'Gfly Archives',
+    category: 'Commercial',
+    description: 'A sophisticated fashion boutique featuring curated designer collections, premium display systems, and an immersive retail experience that elevates luxury fashion presentation.',
+    image: '/portfolio/interiors/executive-luxury-bathroom/bathroom-warm-tiles.jpg',
+    tags: ['Fashion Boutique', 'Luxury Retail', 'Designer Collections', 'Premium Display', 'Immersive Shopping'],
+    location: '',
+    year: '2024',
+    budget: '',
+    duration: '6 weeks',
+    size: '800 sq ft',
+    fullDescription: 'Gfly Archives represents the pinnacle of modern fashion retail design, where luxury meets functionality in a curated shopping experience. This boutique space transforms traditional retail into an immersive gallery-like environment that showcases high-end fashion collections with sophisticated elegance. The design incorporates premium display systems, ambient lighting, and carefully curated spatial arrangements that create an intimate yet expansive feeling. Every detail, from the custom shelving and lighting fixtures to the spatial flow and material selections, has been meticulously planned to enhance the presentation of designer garments and accessories. The result is a fashion destination that not only displays products beautifully but also creates memorable shopping experiences that reflect the exclusivity and artistry of the Gfly Archives brand.',
+    highlights: [
+      'Curated designer fashion collections with premium presentation',
+      'Custom illuminated display shelving and boutique fixtures',
+      'Sophisticated lighting design with LED accent systems',
+      'Immersive retail environment with gallery-like ambiance',
+      'Luxury material selections including premium woods and metals',
+      'Strategic spatial planning for optimal product visibility',
+      'Designer chandelier installations for dramatic focal points',
+      'Artistic boutique details that enhance brand storytelling'
+    ],
+    gallery: [
+      '/portfolio/interiors/executive-luxury-bathroom/luxury-closet-entrance.jpg',
+      '/portfolio/interiors/executive-luxury-bathroom/luxury-closet-gallery.jpg',
+      '/portfolio/interiors/executive-luxury-bathroom/closet-chandelier-view.jpg',
+      '/portfolio/interiors/executive-luxury-bathroom/closet-boutique-detail.jpg',
+      '/portfolio/interiors/executive-luxury-bathroom/bathroom-warm-tiles.jpg'
     ]
   },
 ];

@@ -968,3 +968,8 @@ html {
 .gallery-image-counter {
   top: 48px;
 }
+
+/* Hide navigation when modal is open */
+.modal-open nav {
+  display: none;
+}

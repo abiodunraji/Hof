@@ -90,7 +90,17 @@ function PortfolioModalContent({
     if (open) {
       setImageLoading(true);
       setImageError(false);
+      // Hide navigation when modal is open
+      document.body.classList.add('modal-open');
+    } else {
+      // Show navigation when modal is closed
+      document.body.classList.remove('modal-open');
     }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
   }, [open, safeProject?.id]);
 
   useEffect(() => {
@@ -162,7 +172,7 @@ function PortfolioModalContent({
           <DialogPrimitive.Portal forceMount>
             <DialogPrimitive.Overlay asChild>
               <motion.div
-                className="fixed inset-0 z-[140] bg-black/95 backdrop-blur-md"
+                className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-md"
                 style={{ willChange: 'opacity' }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -173,7 +183,7 @@ function PortfolioModalContent({
 
             <DialogPrimitive.Content asChild>
               <motion.div
-                className="fixed inset-0 z-[150] w-screen h-screen overflow-hidden"
+                className="fixed inset-0 z-[10000] w-screen h-screen overflow-hidden"
                 style={{ willChange: 'transform, opacity' }}
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -187,7 +197,7 @@ function PortfolioModalContent({
                   Image gallery for {safeProject.title}
                 </DialogPrimitive.Description>
 
-                <div className="absolute top-0 left-0 right-0 z-[200] p-4 sm:p-6 flex justify-between items-start">
+                <div className="absolute top-0 left-0 right-0 z-[10005] p-4 sm:p-6 flex justify-between items-start">
                   <div>
                     <Badge 
                       variant="outline" 
@@ -199,10 +209,10 @@ function PortfolioModalContent({
                     </Badge>
                   </div>
 
-                  <div className="flex gap-2 z-[210]">
+                  <div className="flex gap-2 z-[10010]">
                     <button
                       onClick={handleShare}
-                      style={{ backgroundColor: '#1f2937', zIndex: 210 }}
+                      style={{ backgroundColor: '#1f2937', zIndex: 10010 }}
                       className="h-12 w-12 rounded-lg border-2 border-white/40 flex items-center justify-center text-white hover:bg-gray-600 hover:scale-105 transition-all duration-300"
                       aria-label="Share Project"
                       title="Share this project"
@@ -212,7 +222,7 @@ function PortfolioModalContent({
 
                     <button
                       onClick={(e) => { e.stopPropagation(); onOpenChange(false); }}
-                      style={{ backgroundColor: '#dc2626', zIndex: 210 }}
+                      style={{ backgroundColor: '#dc2626', zIndex: 10010 }}
                       className="h-14 w-14 rounded-full border-4 border-white flex items-center justify-center text-white hover:opacity-90 hover:scale-105 transition-all duration-300 shadow-2xl cursor-pointer"
                       aria-label="Close Gallery"
                       type="button"
@@ -290,7 +300,7 @@ function PortfolioModalContent({
                         onClick={prev}
                         disabled={!hasPrev}
                         aria-label="Previous image"
-                        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-black/20 hover:bg-black/60 backdrop-blur-sm border border-white/5 hover:border-white/20 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 group z-[155] hidden sm:flex cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-black/20 hover:bg-black/60 backdrop-blur-sm border border-white/5 hover:border-white/20 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 group z-[295] hidden sm:flex cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
                       >
                         <ChevronLeft size={32} className="group-hover:-translate-x-1 transition-transform duration-300" />
                       </button>
@@ -298,7 +308,7 @@ function PortfolioModalContent({
                         onClick={next}
                         disabled={!hasNext}
                         aria-label="Next image"
-                        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-black/20 hover:bg-black/60 backdrop-blur-sm border border-white/5 hover:border-white/20 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 group z-[155] hidden sm:flex cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-black/20 hover:bg-black/60 backdrop-blur-sm border border-white/5 hover:border-white/20 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 group z-[295] hidden sm:flex cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
                       >
                         <ChevronRight size={32} className="group-hover:translate-x-1 transition-transform duration-300" />
                       </button>
@@ -306,7 +316,7 @@ function PortfolioModalContent({
                   )}
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 z-[160] bg-gradient-to-t from-black via-black/90 to-transparent pt-12 pb-6 px-6">
+                <div className="absolute bottom-0 left-0 right-0 z-[285] bg-gradient-to-t from-black via-black/90 to-transparent pt-12 pb-6 px-6">
                   <div className="max-w-7xl mx-auto w-full flex flex-col gap-6">
                     
                     {images.length > 1 && (

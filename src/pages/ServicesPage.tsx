@@ -18,7 +18,7 @@ const services = [
       'Project scope and timeline discussion',
       'Budget planning and feasibility review'
     ],
-    image: '/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg',
+    image: '/portfolio/interiors/contemporary-abuja-residence/living-room-view.jpg',
     duration: '2-3 hours',
     deliverables: 'Initial concept presentation, project roadmap'
   },
@@ -35,7 +35,7 @@ const services = [
       'Furniture placement strategies',
       'Storage and organization solutions'
     ],
-    image: '/portfolio/interiors/contemporary-lagos-residence/bedroom-detail.jpg',
+    image: '/portfolio/interiors/contemporary-abuja-residence/bedroom-detail.jpg',
     duration: '1-2 weeks',
     deliverables: 'CAD drawings, 2D floor plans, furniture layouts'
   },
@@ -52,7 +52,7 @@ const services = [
       'Style direction and theme establishment',
       'Visual concept presentations'
     ],
-    image: '/portfolio/interiors/contemporary-lagos-residence/bedroom-mirrors.png',
+    image: '/portfolio/interiors/contemporary-abuja-residence/bedroom-mirrors.png',
     duration: '1-2 weeks',
     deliverables: 'Design moodboards, color schemes, material samples'
   },
@@ -69,7 +69,7 @@ const services = [
       'Material and finish previews',
       'Virtual walkthroughs available'
     ],
-    image: '/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
+    image: '/portfolio/interiors/modern-kitchen-design/kitchen-detail-chandelier.jpg',
     duration: '2-3 weeks',
     deliverables: 'High-resolution 3D renders, virtual tour files'
   },
@@ -86,7 +86,7 @@ const services = [
       'Professional installation management',
       'Quality assurance and warranty support'
     ],
-    image: '/portfolio/interiors/modern-athletic-bedroom/bedroom-full-view.jpg',
+    image: '/portfolio/interiors/minimalist-bedroom-design/bedroom-full-view.jpg',
     duration: '4-8 weeks',
     deliverables: 'Custom furniture pieces, installation oversight'
   },
@@ -103,7 +103,7 @@ const services = [
       'Quality control and inspections',
       'Final styling and placement'
     ],
-    image: '/portfolio/interiors/executive-luxury-residence/luxury-closet-gallery.jpg',
+    image: '/portfolio/interiors/executive-luxury-bathroom/luxury-closet-gallery.jpg',
     duration: '3-6 months',
     deliverables: 'Fully furnished and styled space, project documentation'
   }
@@ -303,7 +303,7 @@ export function ServicesPage() {
                 <div className="group relative">
                   <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5 transition-all duration-700 group-hover:shadow-3xl group-hover:scale-[1.02] group-hover:ring-primary/20 animate-fade-in-up" style={{animationDelay: '0.3s'}}>
                       <ImageWithFallback
-                        src="/portfolio/interiors/contemporary-lagos-residence/living-room-view.jpg"
+                        src="/portfolio/interiors/contemporary-abuja-residence/living-room-view.jpg"
                         alt="Elegant living space with premium furnishings"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         style={{ objectPosition: 'center 40%' }}
@@ -321,7 +321,7 @@ export function ServicesPage() {
                 <div className="group relative">
                   <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5 transition-all duration-700 group-hover:shadow-3xl group-hover:scale-[1.02] group-hover:ring-primary/20 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
                     <ImageWithFallback
-                      src="/portfolio/interiors/luxury-gold-kitchen/kitchen-full-view.jpg"
+                      src="/portfolio/interiors/modern-kitchen-design/kitchen-full-view.jpg"
                       alt="Functional kitchen with elegant finishes"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       style={{ objectPosition: 'center 35%' }}
@@ -339,7 +339,7 @@ export function ServicesPage() {
                   <div className="group relative">
                     <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5 transition-all duration-700 group-hover:shadow-3xl group-hover:scale-[1.02] group-hover:ring-primary/20 animate-fade-in-up" style={{animationDelay: '0.5s'}}>
                       <ImageWithFallback
-                        src="/portfolio/interiors/modern-athletic-bedroom/bedroom-full-view.jpg"
+                        src="/portfolio/interiors/minimalist-bedroom-design/bedroom-full-view.jpg"
                         alt="Modern bedroom with contemporary styling"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         style={{ objectPosition: 'center 45%' }}
@@ -357,7 +357,7 @@ export function ServicesPage() {
                 <div className="group relative">
                   <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5 transition-all duration-700 group-hover:shadow-3xl group-hover:scale-[1.02] group-hover:ring-primary/20 animate-fade-in-up" style={{animationDelay: '0.6s'}}>
                     <ImageWithFallback
-                      src="/portfolio/interiors/contemporary-lagos-residence/dining-area.png"
+                      src="/portfolio/interiors/contemporary-abuja-residence/dining-area.png"
                       alt="Sophisticated dining room arrangement"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       style={{ objectPosition: 'center center' }}

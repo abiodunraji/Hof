@@ -9,21 +9,21 @@ import { Home, MessageCircle, Layout, Palette, Box, Sofa } from 'lucide-react';
 const featuredProjects = [
   {
     id: 1,
-    title: 'Contemporary Residence',
+    title: 'Contemporary Abuja residence',
     category: 'Living Rooms',
-    image: '/portfolio/interiors/contemporary-lagos-residence/lifestyle-shot.jpg',
+    image: '/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg',
   },
   {
     id: 2,
-    title: 'Glamorous Gold & Crystal Kitchen',
+    title: 'Modern kitchen design',
     category: 'Kitchens',
-    image: '/portfolio/interiors/luxury-gold-kitchen/kitchen-detail-chandelier.jpg',
+    image: '/portfolio/interiors/modern-kitchen-design/kitchen-detail-chandelier.jpg',
   },
   {
     id: 3,
-    title: 'Urban Sports & Entertainment Lounge',
+    title: 'Sports inspired sneakers store',
     category: 'Commercial',
-    image: '/portfolio/interiors/urban-sports-lounge/basketball-mural-wall.jpg',
+    image: '/portfolio/interiors/sports-inspired-sneakers-store/basketball-mural-wall.jpg',
   },
 ];
 
@@ -70,7 +70,7 @@ export function HomePage() {
       <section className="relative h-screen flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <ImageWithFallback
-            src="/portfolio/interiors/luxury-gold-kitchen/kitchen-full-view.jpg"
+            src="/portfolio/interiors/modern-kitchen-design/kitchen-full-view.jpg"
             alt="Elegant interior design"
             className="w-full h-full object-cover"
           />
