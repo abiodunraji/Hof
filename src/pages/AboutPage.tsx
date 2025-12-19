@@ -3,8 +3,7 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Award, Heart, Sparkles, Star, Users, Home } from 'lucide-react';
-import faridahAboutImage from '/faridah-about.png';
-
+const faridahAboutImage = '/faridah-about.png';
 const values = [
   {
     icon: Heart,
