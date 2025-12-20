@@ -25,19 +25,19 @@
   </g>
   
   <!-- Accent dot -->
-  <circle cx="32" cy="52" r="1.5" fill="#F0E5D8"/>
+  <circle cx="32" cy="52" r="1.5" fill="#FCE4EC"/>
   
   <!-- Gradients -->
   <defs>
     <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#B8935E;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#D4AF87;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#B8935E;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#AD1457;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#E91E63;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#880E4F;stop-opacity:1" />
     </linearGradient>
     
     <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#F0E5D8;stop-opacity:0.5" />
-      <stop offset="100%" style="stop-color:#F0E5D8;stop-opacity:0.8" />
+      <stop offset="0%" style="stop-color:#FCE4EC;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#F8BBD9;stop-opacity:0.8" />
     </linearGradient>
   </defs>
 </svg>
