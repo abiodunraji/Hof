@@ -72,7 +72,8 @@ export const interiorsProjects: InteriorsProject[] = [
       '/portfolio/interiors/contemporary-abuja-residence/living-room-view.jpg',
       '/portfolio/interiors/contemporary-abuja-residence/bedroom-detail.jpg',
       '/portfolio/interiors/contemporary-abuja-residence/bedroom-mirrors.png',
-      '/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg'
+      '/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg',
+      '/portfolio/interiors/contemporary-abuja-residence/wall-artwork.jpeg'
     ]
   },
   {
@@ -230,11 +231,39 @@ export const interiorsProjects: InteriorsProject[] = [
       'Artistic boutique details that enhance brand storytelling'
     ],
     gallery: [
+      '/portfolio/interiors/executive-luxury-bathroom/closet-chandelier-view.jpg',
+      '/portfolio/interiors/executive-luxury-bathroom/bathroom-warm-tiles.jpg'
+    ]
+  },
+  {
+    id: 7,
+    title: 'Luxury walk in closet',
+    category: 'Bedrooms',
+    description: 'A bespoke walk-in closet transformed into a personal luxury boutique, featuring illuminated display shelving, dramatic accent walls, and sophisticated storage solutions.',
+    image: '/portfolio/interiors/executive-luxury-bathroom/luxury-closet-entrance.jpg',
+    tags: ['Luxury', 'Walk-in Closet', 'Boutique Style', 'Custom Storage', 'Illuminated Display'],
+    location: '',
+    year: '2024',
+    budget: '',
+    duration: '4 weeks',
+    size: '200 sq ft',
+    fullDescription: 'This luxury walk-in closet transcends traditional storage, reimagined as a personal boutique that celebrates fashion and lifestyle. The space features dramatic deep red accent walls that create a sophisticated backdrop for curated wardrobe collections. Floor-to-ceiling illuminated glass shelving provides museum-quality display for designer handbags and accessories, while custom storage solutions accommodate clothing, shoes, and jewelry with elegant functionality. A stunning floral mural artwork adds artistic flair, and ambient lighting throughout ensures every item is beautifully showcased. The design combines practicality with luxury, creating a serene and inspiring space for daily rituals of dressing and self-expression.',
+    highlights: [
+      'Dramatic deep red accent walls with textured finish',
+      'Floor-to-ceiling illuminated glass display shelving',
+      'Custom floral mural artwork in soft pink tones',
+      'Designer handbag gallery with museum-quality lighting',
+      'Modern sputnik chandelier with globe pendants',
+      'Sophisticated storage solutions for clothing and accessories',
+      'Ambient LED lighting throughout the space',
+      'Premium materials including glass, metal, and wood',
+      'Curated display areas for jewelry and personal items',
+      'Seamless integration with adjacent living spaces'
+    ],
+    gallery: [
       '/portfolio/interiors/executive-luxury-bathroom/luxury-closet-entrance.jpg',
       '/portfolio/interiors/executive-luxury-bathroom/luxury-closet-gallery.jpg',
-      '/portfolio/interiors/executive-luxury-bathroom/closet-chandelier-view.jpg',
-      '/portfolio/interiors/executive-luxury-bathroom/closet-boutique-detail.jpg',
-      '/portfolio/interiors/executive-luxury-bathroom/bathroom-warm-tiles.jpg'
+      '/portfolio/interiors/executive-luxury-bathroom/closet-boutique-detail.jpg'
     ]
   },
 ];

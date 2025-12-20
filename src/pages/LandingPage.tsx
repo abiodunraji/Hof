@@ -16,7 +16,7 @@ export function LandingPage() {
       image: interiorsProjects[0]?.image || '/portfolio/interiors/contemporary-abuja-residence/living-room-view.jpg',
       overlayImage: interiorsProjects[1]?.image || '/portfolio/interiors/modern-kitchen-design/kitchen-full-view.jpg',
       title: 'OVER',
-      titleLarge: '45 YEARS',
+      titleLarge: '7 YEARS',
       titleBottom: 'OF DESIGN INNOVATION',
       description: 'Creating timeless spaces with elegance and sophistication',
     },
@@ -164,7 +164,7 @@ export function LandingPage() {
                   <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-6 rounded-xl shadow-xl">
                     <div className="grid grid-cols-3 gap-4">
                       <div className="text-center">
-                        <div className="text-3xl font-display text-primary mb-1">45+</div>
+                        <div className="text-3xl font-display text-primary mb-1">7+</div>
                         <div className="text-xs uppercase tracking-wider text-neutral-600">Years</div>
                       </div>
                       <div className="text-center border-x border-neutral-200">
@@ -295,7 +295,7 @@ export function LandingPage() {
               <div className="absolute top-1/3 left-1/4 bg-white/95 backdrop-blur-sm p-8 shadow-xl border border-neutral-100 z-10">
                 <div className="text-center">
                   <Award className="w-12 h-12 text-primary mx-auto mb-3" />
-                  <div className="text-4xl font-display text-neutral-900 mb-2">45+</div>
+                  <div className="text-4xl font-display text-neutral-900 mb-2">7+</div>
                   <div className="text-xs uppercase tracking-widest text-neutral-500">Years Excellence</div>
                 </div>
               </div>

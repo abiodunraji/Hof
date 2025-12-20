@@ -21,7 +21,7 @@ const heroSlides = [
     category: 'Living Rooms'
   },
   {
-    image: '/portfolio/interiors/executive-luxury-bathroom/luxury-bathroom-vanity-detail.jpg',
+    image: '/portfolio/interiors/executive-luxury-bathroom/bathroom-copper-vanity.jpg',
     title: 'Sophisticated Retreats',
     subtitle: 'Private sanctuaries of comfort',
     category: 'Bathrooms'
@@ -155,8 +155,8 @@ export function HomePage() {
               <div className="text-white space-y-8">
                 {/* Category Badge */}
                 <div className="inline-flex items-center gap-3 backdrop-elegant rounded-full px-6 py-3 animate-fade-in-up">
-                  <Sparkles className="w-4 h-4 text-white/90" />
-                  <span className="text-sm tracking-[0.2em] uppercase font-medium text-white/90">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  <span className="text-sm tracking-[0.2em] uppercase font-medium text-primary">
                     {heroSlides[currentSlide].category}
                   </span>
                 </div>
@@ -191,7 +191,7 @@ export function HomePage() {
                     asChild
                     size="lg"
                     variant="outline"
-                    className="border-2 border-white text-white hover:bg-white hover:text-primary backdrop-blur-sm hover:scale-105 transition-transform duration-300"
+                    className="border-2 border-primary text-primary bg-white/95 backdrop-blur-sm hover:bg-primary hover:text-white hover:scale-105 transition-transform duration-300"
                   >
                     <Link to="/interiors/contact">Start Your Project</Link>
                   </Button>
@@ -304,7 +304,7 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 animate-fade-in-up">
             <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
-              <p className="text-luxury-spacing magenta-gradient-text">Featured Work</p>
+              <p className="text-luxury-spacing text-primary font-semibold">Featured Work</p>
             </div>
             <h2 className="font-elegant text-4xl sm:text-5xl mb-4">Featured Projects</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -361,7 +361,7 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 animate-fade-in-up animate-delay-1000">
             <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
-              <p className="text-luxury-spacing magenta-gradient-text">Our Services</p>
+              <p className="text-luxury-spacing text-primary font-semibold">Our Services</p>
             </div>
             <h2 className="font-display text-4xl sm:text-5xl mb-4">What We Offer</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -404,7 +404,7 @@ export function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 animate-fade-in-up animate-delay-1500">
               <div className="inline-block px-6 py-2 backdrop-elegant rounded-full mb-6 shadow-md hover-lift">
-                <p className="text-luxury-spacing magenta-gradient-text">About</p>
+                <p className="text-luxury-spacing text-primary font-semibold">About</p>
               </div>
               <h2 className="font-display text-4xl sm:text-5xl mb-6">Meet Faridah Tella</h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
