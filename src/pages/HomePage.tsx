@@ -419,7 +419,7 @@ export function HomePage() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90 hover-lift"
               >
-                <Link to="/interiors/about">Learn More About Me</Link>
+                <Link to="/interiors/about">Learn More About Us</Link>
               </Button>
             </div>
 

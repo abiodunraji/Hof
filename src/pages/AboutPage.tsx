@@ -3,7 +3,7 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Award, Heart, Sparkles, Star, Users, Home } from 'lucide-react';
-const faridahAboutImage = '/faridah-about.png';
+const faridahAboutImage = '/about-me.png';
 const values = [
   {
     icon: Heart,
@@ -13,12 +13,12 @@ const values = [
   {
     icon: Sparkles,
     title: 'Timeless Elegance',
-    description: 'I believe in designs that transcend trends, focusing on classic beauty that lasts.',
+    description: 'We believe in designs that transcend trends, focusing on classic beauty that lasts.',
   },
   {
     icon: Users,
     title: 'Client-Centered',
-    description: 'Your vision, your story, your home. I listen deeply to create spaces uniquely yours.',
+    description: 'Your vision, your story, your home. We listen deeply to create spaces uniquely yours.',
   },
   {
     icon: Star,
@@ -49,11 +49,11 @@ export function AboutPage() {
                 <p className="text-sm tracking-widest magenta-gradient-text">✦ FOUNDER & LEAD DESIGNER ✦</p>
               </div>
               <h1 className="text-5xl sm:text-6xl mb-6">
-                <span className="magenta-gradient-text">Meet Faridah</span>
+                <span className="magenta-gradient-text">Meet Faridah Tella</span>
               </h1>
               <div className="w-20 h-1 bg-gradient-to-r from-magenta to-transparent mb-8" />
               <p className="text-xl text-muted-foreground leading-relaxed mb-6">
-                A passionate interior designer dedicated to creating spaces that nurture the soul
+                A passionate team of interior designers dedicated to creating spaces that nurture the soul
                 and celebrate the beauty of everyday life.
               </p>
               <Button
@@ -83,46 +83,47 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* Story Section */}
-      <section id="my-story" className="py-20 px-4 bg-white">
+      {/* Story Section - Commented out for future use */}
+      {/*
+      <section id="our-story" className="py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl mb-8 text-center">My Story</h2>
+          <h2 className="text-4xl mb-8 text-center">Our Story</h2>
           <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
             <p>
-              My journey into interior design began over 15 years ago, fueled by a deep love for
-              creating beautiful, harmonious spaces. I've always believed that our homes are more
+              Our journey into interior design began over 15 years ago, fueled by a deep passion for
+              creating beautiful, harmonious spaces. We've always believed that our homes are more
               than just places to live—they're sanctuaries where we grow, create memories, and
               find peace.
             </p>
             <p>
-              After completing my degree in Interior Design from the prestigious Design Institute,
-              I spent years working with luxury design firms, honing my craft and developing my
-              unique aesthetic. In 2015, I founded House of Faridah with a clear vision: to bring
+              After establishing our foundation in the industry, our team spent years working with luxury design firms, honing our craft and developing our
+              unique aesthetic. In 2015, House of Faridah was founded with a clear vision: to bring
               personalized, elegant design to homes and create spaces that truly reflect the souls
               who inhabit them.
             </p>
             <p>
-              What sets my approach apart is the deep connection I build with each client. I don't
-              just design rooms; I listen to your stories, understand your dreams, and translate
+              What sets our approach apart is the deep connection we build with each client. We don't
+              just design rooms; we listen to your stories, understand your dreams, and translate
               them into spaces that feel authentically yours. Every color choice, every texture,
               every piece of furniture is carefully selected to create harmony and beauty.
             </p>
             <p>
-              Today, I'm grateful to have transformed over 500 homes, each one a unique expression
+              Today, we're proud to have transformed over 500 homes, each one a unique expression
               of the people who live there. Whether it's a cozy apartment or a grand family home,
-              I approach every project with the same passion and dedication to excellence.
+              we approach every project with the same passion and dedication to excellence.
             </p>
           </div>
         </div>
       </section>
+      */}
 
       {/* Values Section */}
       <section className="py-20 px-4 bg-secondary/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl mb-4">My Design Philosophy</h2>
+            <h2 className="text-4xl sm:text-5xl mb-4">Our Design Philosophy</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              The core values that guide every project I undertake
+              The core values that guide every project we undertake
             </p>
           </div>
 
@@ -179,7 +180,7 @@ export function AboutPage() {
             </div>
 
             <div>
-              <h2 className="text-4xl mb-6">My Creative Process</h2>
+              <h2 className="text-4xl mb-6">Our Creative Process</h2>
               <div className="space-y-4">
                 <div className="flex gap-4">
                   <div className="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center">
@@ -200,7 +201,7 @@ export function AboutPage() {
                   <div>
                     <h3 className="text-xl mb-2">Concept Development</h3>
                     <p className="text-muted-foreground">
-                      I create mood boards and design concepts that capture the essence of your unique style.
+                      We create mood boards and design concepts that capture the essence of your unique style.
                     </p>
                   </div>
                 </div>
@@ -224,7 +225,7 @@ export function AboutPage() {
                   <div>
                     <h3 className="text-xl mb-2">Transformation</h3>
                     <p className="text-muted-foreground">
-                      I oversee every detail of the implementation to ensure your vision comes to life perfectly.
+                      We oversee every detail of the implementation to ensure your vision comes to life perfectly.
                     </p>
                   </div>
                 </div>
@@ -256,7 +257,7 @@ export function AboutPage() {
               variant="outline"
               className="btn-outline-white"
             >
-              <Link to="/interiors/portfolio">View My Work</Link>
+              <Link to="/interiors/portfolio">View Our Work</Link>
             </Button>
           </div>
         </div>

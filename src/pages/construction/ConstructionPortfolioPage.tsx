@@ -134,14 +134,6 @@ export function ConstructionPortfolioPage() {
         open={isModalOpen}
         onOpenChange={(open) => (open ? setIsModalOpen(true) : closeModal())}
         project={selectedProject}
-        onPrimaryCta={() => {
-          closeModal();
-          navigate('/construction/contact');
-        }}
-        onSecondaryCta={() => {
-          closeModal();
-          navigate('/construction/contact');
-        }}
       />
 
       {/* CTA Section */}

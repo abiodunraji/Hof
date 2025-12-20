@@ -23,7 +23,7 @@ export function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Thank you for reaching out! I\'ll get back to you within 24 hours.');
+    toast.success('Thank you for reaching out! We\'ll get back to you within 24 hours.');
     setFormData({
       name: '',
       email: '',
@@ -52,7 +52,7 @@ export function ContactPage() {
           </h1>
           <div className="w-20 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-8" />
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Ready to transform your space? I'd love to hear about your vision and discuss how we can
+            Ready to transform your space? We'd love to hear about your vision and discuss how we can
             create something beautiful together. Fill out the form below or reach out directly.
           </p>
         </div>
@@ -68,7 +68,7 @@ export function ContactPage() {
                 <CardHeader>
                   <CardTitle className="text-3xl">Start Your Project</CardTitle>
                   <p className="text-muted-foreground">
-                    Complete the form below and I'll respond within 24 hours
+                    Complete the form below and we'll respond within 24 hours
                   </p>
                 </CardHeader>
                 <CardContent>
@@ -334,7 +334,7 @@ export function ContactPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  My design process is collaborative and personalized. We start with a consultation to understand your vision, followed by concept development, detailed design, sourcing, and finally installation. Throughout the process, you'll be involved in key decisions while I handle all the details.
+                  My design process is collaborative and personalized. We start with a consultation to understand your vision, followed by concept development, detailed design, sourcing, and finally installation. Throughout the process, you'll be involved in key decisions while we handle all the details.
                 </p>
               </CardContent>
             </Card>
@@ -345,7 +345,7 @@ export function ContactPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Yes! I work with various budgets and pride myself on creating beautiful spaces regardless of investment level. During our initial consultation, we'll discuss your budget and I'll create a plan that maximizes your investment.
+                  Yes! We work with various budgets and pride ourselves on creating beautiful spaces regardless of investment level. During our initial consultation, we'll discuss your budget and we'll create a plan that maximizes your investment.
                 </p>
               </CardContent>
             </Card>
@@ -367,7 +367,7 @@ export function ContactPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Absolutely! My E-Design services are perfect for clients who prefer remote collaboration or have budget constraints. You'll receive detailed design plans, shopping lists, and implementation guides—all done virtually.
+                  Absolutely! Our E-Design services are perfect for clients who prefer remote collaboration or have budget constraints. You'll receive detailed design plans, shopping lists, and implementation guides—all done virtually.
                 </p>
               </CardContent>
             </Card>

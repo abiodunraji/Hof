@@ -52,14 +52,14 @@ export function PortfolioPage() {
         
         <div className="max-w-4xl mx-auto text-center relative">
           <div className="inline-block px-6 py-2 rounded-full bg-white/80 backdrop-blur-md border border-primary/30 text-primary mb-8 shadow-lg">
-            <span className="text-sm tracking-wider magenta-gradient-text">✦ MY WORK ✦</span>
+            <span className="text-sm tracking-wider magenta-gradient-text">✦ OUR WORK ✦</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-7xl mb-6 text-foreground tracking-tight">
             <span className="magenta-gradient-text">Portfolio</span>
           </h1>
           <div className="w-20 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-8" />
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Explore my collection of thoughtfully designed spaces where elegance meets functionality.
+            Explore our collection of thoughtfully designed spaces where elegance meets functionality.
             Each project tells a unique story of transformation and beauty.
           </p>
         </div>
@@ -159,14 +159,6 @@ export function PortfolioPage() {
           else setIsModalOpen(true);
         }}
         project={selectedProject}
-        onPrimaryCta={() => {
-          closeModal();
-          navigate('/interiors/contact');
-        }}
-        onSecondaryCta={() => {
-          closeModal();
-          navigate('/interiors/contact');
-        }}
       />
     </div>
   );
