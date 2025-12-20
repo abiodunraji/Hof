@@ -49,7 +49,7 @@ export const interiorsProjects: InteriorsProject[] = [
     title: 'Contemporary Abuja residence',
     category: 'Living Rooms',
     description: 'A stunning contemporary home featuring curated African art, natural stone accents, and sophisticated modern furnishings.',
-    image: '/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg',
+    image: '/portfolio/interiors/contemporary-abuja-residence/living-room-view.jpg',
     tags: ['Contemporary', 'Art-Centric', 'Sophisticated', 'Modern'],
     location: '',
     year: '2024',
@@ -137,7 +137,10 @@ export const interiorsProjects: InteriorsProject[] = [
       '/portfolio/interiors/sports-inspired-sneakers-store/basketball-mural-wall.jpg',
       '/portfolio/interiors/sports-inspired-sneakers-store/court-view-with-hoop.jpg',
       '/portfolio/interiors/sports-inspired-sneakers-store/brand-wall-portrait.png',
-      '/portfolio/interiors/sports-inspired-sneakers-store/retail-display-wall.png'
+      '/portfolio/interiors/sports-inspired-sneakers-store/retail-display-wall.png',
+      '/portfolio/interiors/sports-inspired-sneakers-store/store-entrance.jpg',
+      '/portfolio/interiors/sports-inspired-sneakers-store/display-showcase.jpg',
+      '/portfolio/interiors/sports-inspired-sneakers-store/retail-area.jpg'
     ]
   },
   {
@@ -145,7 +148,7 @@ export const interiorsProjects: InteriorsProject[] = [
     title: 'Minimalist bedroom design',
     category: 'Bedrooms',
     description: 'A contemporary bedroom retreat blending athletic inspiration with refined elegance through textured walls, golden wood accents, and curated artwork.',
-    image: '/portfolio/interiors/minimalist-bedroom-design/mirror-detail-view.jpg',
+    image: '/portfolio/interiors/minimalist-bedroom-design/bedroom-full-view.jpg',
     tags: ['Contemporary', 'Athletic-Inspired', 'Textured', 'Sophisticated'],
     location: '',
     year: '2024',

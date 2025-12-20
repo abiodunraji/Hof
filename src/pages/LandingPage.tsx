@@ -13,7 +13,7 @@ export function LandingPage() {
   // Hero carousel slides with sophisticated imagery
   const heroSlides = [
     {
-      image: interiorsProjects[0]?.image || '/portfolio/interiors/contemporary-abuja-residence/living-room-view.jpg',
+      image: '/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg',
       overlayImage: interiorsProjects[1]?.image || '/portfolio/interiors/modern-kitchen-design/kitchen-full-view.jpg',
       title: 'OVER',
       titleLarge: '7 YEARS',
@@ -314,7 +314,7 @@ export function LandingPage() {
               className="group relative aspect-[3/4] overflow-hidden"
             >
               <ImageWithFallback
-                src={interiorsProjects[0]?.image}
+                src="/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg"
                 alt="Residential"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -397,7 +397,7 @@ export function LandingPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center mb-24 sm:mb-28 md:mb-32 lg:mb-36">
             <div className="relative aspect-[4/5] overflow-hidden">
               <ImageWithFallback
-                src={interiorsProjects[1]?.image}
+                src={interiorsProjects[3]?.image}
                 alt="Featured project"
                 className="w-full h-full object-cover"
               />
@@ -405,10 +405,10 @@ export function LandingPage() {
             <div className="space-y-8">
               <div>
                 <h3 className="font-display text-4xl sm:text-5xl md:text-6xl text-neutral-900 mb-6 leading-tight">
-                  {interiorsProjects[1]?.title || 'Contemporary Excellence'}
+                  {interiorsProjects[3]?.title || 'Contemporary Excellence'}
                 </h3>
                 <p className="text-neutral-600 text-lg leading-relaxed font-light">
-                  {interiorsProjects[1]?.description || 'A sophisticated blend of timeless design and modern living, where every detail has been carefully considered to create an environment of understated luxury.'}
+                  {interiorsProjects[3]?.description || 'A sophisticated blend of timeless design and modern living, where every detail has been carefully considered to create an environment of understated luxury.'}
                 </p>
               </div>
 
@@ -416,19 +416,19 @@ export function LandingPage() {
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-neutral-200">
                 <div>
                   <div className="text-3xl font-display text-neutral-900 mb-2">
-                    {interiorsProjects[1]?.year || '2024'}
+                    {interiorsProjects[3]?.year || '2024'}
                   </div>
                   <div className="text-xs uppercase tracking-wider text-neutral-500">Year</div>
                 </div>
                 <div>
                   <div className="text-3xl font-display text-neutral-900 mb-2">
-                    {interiorsProjects[1]?.size || '3,500'}
+                    {interiorsProjects[3]?.size || '3,500'}
                   </div>
                   <div className="text-xs uppercase tracking-wider text-neutral-500">Sq Ft</div>
                 </div>
                 <div>
                   <div className="text-3xl font-display text-neutral-900 mb-2">
-                    {interiorsProjects[1]?.duration || '6M'}
+                    {interiorsProjects[3]?.duration || '6M'}
                   </div>
                   <div className="text-xs uppercase tracking-wider text-neutral-500">Duration</div>
                 </div>

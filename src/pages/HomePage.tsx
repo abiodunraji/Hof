@@ -15,7 +15,7 @@ const heroSlides = [
     category: 'Kitchens'
   },
   {
-    image: '/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg',
+    image: '/portfolio/interiors/contemporary-abuja-residence/living-room-view.jpg',
     title: 'Contemporary Living',
     subtitle: 'Spaces that inspire everyday moments',
     category: 'Living Rooms'
@@ -39,7 +39,7 @@ const featuredProjects = [
     id: 1,
     title: 'Contemporary Abuja residence',
     category: 'Living Rooms',
-    image: '/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg',
+    image: '/portfolio/interiors/contemporary-abuja-residence/living-room-view.jpg',
   },
   {
     id: 2,
