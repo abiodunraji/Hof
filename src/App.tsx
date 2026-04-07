@@ -6,6 +6,7 @@ import { Toaster } from './components/ui/sonner';
 // Lazy load sub-applications for better performance
 const InteriorsApp = lazy(() => import('./InteriorsApp').then(module => ({ default: module.InteriorsApp })));
 const ConstructionApp = lazy(() => import('./ConstructionApp').then(module => ({ default: module.ConstructionApp })));
+const AdminApp = lazy(() => import('./AdminApp').then(module => ({ default: module.AdminApp })));
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/interiors/*" element={<InteriorsApp />} />
           <Route path="/construction/*" element={<ConstructionApp />} />
+          <Route path="/.admin/*" element={<AdminApp />} />
         </Routes>
       </Suspense>
       <Toaster />

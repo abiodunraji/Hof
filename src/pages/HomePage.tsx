@@ -162,7 +162,7 @@ export function HomePage() {
                 </div>
 
                 {/* Large Title */}
-                <div className="space-y-4 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+                <div className="space-y-4 animate-fade-in-up [animation-delay:0.2s]">
                   <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tight">
                     {heroSlides[currentSlide].title}
                   </h1>
@@ -172,14 +172,14 @@ export function HomePage() {
                 </div>
 
                 {/* Divider */}
-                <div className="flex items-center gap-4 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+                <div className="flex items-center gap-4 animate-fade-in-up [animation-delay:0.4s]">
                   <div className="w-16 h-px bg-gradient-to-r from-white/60 to-transparent"></div>
                   <div className="w-2 h-2 rounded-full bg-white/60"></div>
                   <div className="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
                 </div>
 
                 {/* CTAs */}
-                <div className="flex flex-wrap gap-4 animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+                <div className="flex flex-wrap gap-4 animate-fade-in-up [animation-delay:0.6s]">
                   <Button
                     asChild
                     size="lg"
@@ -200,7 +200,7 @@ export function HomePage() {
 
               {/* Right: Floating Stats Card */}
               <div className="hidden lg:block">
-                <div className="backdrop-elegant rounded-3xl p-8 border border-white/20 shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:scale-105 animate-fade-in-up" style={{animationDelay: '0.8s'}}>
+                <div className="backdrop-elegant rounded-3xl p-8 border border-white/20 shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:scale-105 animate-fade-in-up [animation-delay:0.8s]">
                   <div className="space-y-8">
                     <div className="flex items-start gap-4 group">
                       <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">

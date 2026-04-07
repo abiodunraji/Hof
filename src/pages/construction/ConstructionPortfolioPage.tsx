@@ -6,7 +6,7 @@ import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
 import { Calendar, Building2 } from 'lucide-react';
 import { EnhancedPortfolioModal } from '../../components/EnhancedPortfolioModal';
-import { constructionProjects, constructionCategories } from '../../data/portfolioData';
+import { usePortfolioData } from '../../hooks/usePortfolioData';
 
 export function ConstructionPortfolioPage() {
   const navigate = useNavigate();
@@ -14,8 +14,10 @@ export function ConstructionPortfolioPage() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filteredProjects = selectedCategory === 'All' 
-    ? constructionProjects 
+  const { constructionProjects, constructionCategories } = usePortfolioData();
+
+  const filteredProjects = selectedCategory === 'All'
+    ? constructionProjects
     : constructionProjects.filter(p => p.category === selectedCategory);
 
   const handleProjectClick = (project: any) => {

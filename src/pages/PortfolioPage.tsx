@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { EnhancedPortfolioModal } from '../components/EnhancedPortfolioModal';
-import { interiorsProjects, interiorsCategories } from '../data/portfolioData';
+import { usePortfolioData } from '../hooks/usePortfolioData';
 
 export function PortfolioPage() {
   const navigate = useNavigate();
@@ -13,6 +13,8 @@ export function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { interiorsProjects, interiorsCategories } = usePortfolioData();
 
   // Check for project ID in URL parameters and open modal
   useEffect(() => {
@@ -26,7 +28,7 @@ export function PortfolioPage() {
         navigate('/interiors/portfolio', { replace: true });
       }
     }
-  }, [searchParams, navigate]);
+  }, [searchParams, navigate, interiorsProjects]);
 
   const filteredProjects = activeCategory === 'All'
     ? interiorsProjects

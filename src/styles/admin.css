@@ -1,0 +1,1745 @@
+/* =============================================================================
+   HOF Admin Panel — Brand Stylesheet
+   Mirrors the House of Faridah visual identity across every admin screen.
+   Import order: load after globals.css so site variables are already defined.
+   ============================================================================= */
+
+/* ─── 1. Admin Design Tokens ─────────────────────────────────────────────── */
+
+.admin-login,
+.admin-layout {
+  /* Surface hierarchy */
+  --admin-bg:          #fdfcfb;
+  --admin-surface:     rgba(255, 255, 255, 0.92);
+  --admin-surface-alt: rgba(252, 228, 236, 0.18);  /* blush tint */
+  --admin-border:      rgba(173, 20, 87, 0.12);
+  --admin-border-mid:  rgba(173, 20, 87, 0.22);
+
+  /* Typography */
+  --admin-text:        #2b2524;
+  --admin-text-muted:  rgba(43, 37, 36, 0.5);
+  --admin-text-faint:  rgba(43, 37, 36, 0.35);
+  --admin-eyebrow:     rgba(173, 20, 87, 0.55);
+
+  /* Brand palette */
+  --admin-primary:     #AD1457;
+  --admin-primary-dk:  #880E4F;
+  --admin-blush:       #FCE4EC;
+  --admin-blush-mid:   #F8BBD9;
+  --admin-gold:        #C9A961;
+
+  /* Shadows */
+  --admin-shadow-sm:
+    0 1px 3px rgba(173, 20, 87, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+  --admin-shadow-md:
+    0 4px 16px rgba(173, 20, 87, 0.10),
+    0 2px 8px  rgba(0, 0, 0, 0.06);
+  --admin-shadow-lg:
+    0 12px 40px rgba(173, 20, 87, 0.14),
+    0 4px 16px rgba(0, 0, 0, 0.08);
+
+  /* Motion */
+  --admin-ease:        cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --admin-duration:    240ms;
+
+  font-family: var(--font-body);
+  color: var(--admin-text);
+}
+
+
+/* ─── 2. Login Page ──────────────────────────────────────────────────────── */
+
+.admin-login {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(248, 187, 217, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 110% 80%, rgba(173, 20, 87, 0.08) 0%, transparent 60%),
+    var(--admin-bg);
+  /* Subtle dot mesh */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(248, 187, 217, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 110% 80%, rgba(173, 20, 87, 0.08) 0%, transparent 60%),
+    radial-gradient(circle, rgba(173, 20, 87, 0.06) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 36px 36px;
+}
+
+.admin-login__inner {
+  width: 100%;
+  max-width: 22rem;
+  will-change: transform, opacity;
+  animation: adminFadeUp 0.5s var(--admin-ease) both;
+}
+
+/* Brand block above the card */
+.admin-login__brand {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.admin-login__eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--admin-eyebrow);
+  margin-bottom: 0.4rem;
+}
+
+.admin-login__title {
+  font-family: var(--font-heading);
+  font-size: 1.625rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--admin-text);
+  line-height: 1.15;
+  /* Thin magenta accent line beneath */
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.9rem;
+}
+
+.admin-login__title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--admin-primary), transparent);
+}
+
+/* Login card */
+.admin-login__card {
+  background: var(--admin-surface);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid var(--admin-border);
+  border-radius: 1.25rem;
+  padding: 2.25rem 2rem;
+  box-shadow:
+    var(--admin-shadow-lg),
+    /* inner shimmer top edge */
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(173, 20, 87, 0.06);
+  /* Animated border shimmer */
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-login__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 187, 217, 0.18) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(173, 20, 87, 0.06) 100%
+  );
+  pointer-events: none;
+}
+
+.admin-login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.375rem;
+}
+
+/* Error alert */
+.admin-login__error {
+  font-size: 0.8125rem;
+  color: #c0392b;
+  background: #fdf2f2;
+  border: 1px solid #fad7d7;
+  border-radius: 0.625rem;
+  padding: 0.625rem 0.875rem;
+  line-height: 1.45;
+}
+
+/* Footer note */
+.admin-login__footer {
+  text-align: center;
+  font-size: 0.6875rem;
+  color: var(--admin-text-faint);
+  margin-top: 1.5rem;
+  letter-spacing: 0.03em;
+}
+
+
+/* ─── 3. Dashboard Layout ────────────────────────────────────────────────── */
+
+.admin-layout {
+  min-height: 100svh;
+  background:
+    radial-gradient(ellipse 100% 50% at 50% 0%, rgba(252, 228, 236, 0.22) 0%, transparent 55%),
+    var(--admin-bg);
+  background-size: 100% 100%, 100% 100%;
+}
+
+.admin-main {
+  max-width: 56rem;       /* 896px – roomy but focused */
+  margin: 0 auto;
+  padding: 2.25rem 1.5rem 4rem;
+}
+
+
+/* ─── 4. Sticky Header ───────────────────────────────────────────────────── */
+
+.admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(253, 252, 251, 0.88);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid var(--admin-border);
+  /* Subtle shimmer line at top */
+  box-shadow:
+    0 0 0 0 transparent,
+    0 1px 0 rgba(173, 20, 87, 0.08) inset;
+}
+
+.admin-header__inner {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.admin-header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.admin-header__eyebrow {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--admin-eyebrow);
+  line-height: 1;
+}
+
+.admin-header__title {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--admin-text);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.admin-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+
+
+/* ─── 5. Tab Navigation ──────────────────────────────────────────────────── */
+
+/*
+  Targets the Radix Tabs primitives rendered as role="tablist" / role="tab".
+  Scoped under .admin-main so they don't affect the main site.
+*/
+
+.admin-main [role="tablist"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+  background: rgba(252, 228, 236, 0.45);
+  border: 1px solid var(--admin-border);
+  border-radius: 0.875rem;
+  padding: 0.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--admin-shadow-sm);
+  width: 100%;
+  overflow-x: auto;
+  /* Hide scrollbar — webkit (Chrome/Safari) handled below; Firefox auto-hides */
+}
+
+.admin-main [role="tablist"]::-webkit-scrollbar {
+  display: none;
+}
+
+.admin-main [role="tab"] {
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--admin-text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 0.625rem;
+  padding: 0.4375rem 0.9375rem;
+  cursor: pointer;
+  transition:
+    color var(--admin-duration) var(--admin-ease),
+    background var(--admin-duration) var(--admin-ease),
+    box-shadow var(--admin-duration) var(--admin-ease);
+  white-space: nowrap;
+  outline: none;
+}
+
+.admin-main [role="tab"]:hover:not([data-state="active"]) {
+  color: var(--admin-primary);
+  background: rgba(173, 20, 87, 0.06);
+}
+
+.admin-main [role="tab"][data-state="active"] {
+  color: #fff;
+  background: var(--admin-primary);
+  box-shadow:
+    0 2px 8px rgba(173, 20, 87, 0.30),
+    0 1px 2px rgba(0, 0, 0, 0.10);
+}
+
+.admin-main [role="tab"]:focus-visible {
+  box-shadow: 0 0 0 2px rgba(173, 20, 87, 0.35);
+}
+
+/* Second-level tabs (inside Projects tab — Interiors / Construction) */
+.admin-main [role="tabpanel"] [role="tablist"] {
+  background: rgba(252, 228, 236, 0.25);
+  border-color: rgba(173, 20, 87, 0.08);
+  margin-bottom: 1.25rem;
+  width: auto;
+}
+
+.admin-main [role="tabpanel"] [role="tab"] {
+  font-size: 0.8rem;
+  padding: 0.375rem 0.875rem;
+}
+
+
+/* ─── 6. Content Panels ──────────────────────────────────────────────────── */
+
+.admin-panel {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 1.125rem;
+  box-shadow: var(--admin-shadow-md);
+  padding: 1.625rem;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, opacity;
+  animation: adminFadeUp 0.3s var(--admin-ease) both;
+}
+
+/* Decorative corner accent top-left */
+.admin-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--admin-primary) 0%, transparent 100%);
+  border-radius: 0 0 3px 0;
+}
+
+.admin-panel__header {
+  margin-bottom: 1rem;
+}
+
+.admin-panel__title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--admin-text);
+  margin: 0 0 0.2rem;
+  line-height: 1.3;
+}
+
+.admin-panel__subtitle {
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Divider inside panel */
+.admin-panel hr,
+.admin-panel [data-orientation="horizontal"] {
+  border: none;
+  height: 1px;
+  background: var(--admin-border);
+  margin: 0;
+}
+
+
+/* ─── 7. Form Fields ─────────────────────────────────────────────────────── */
+
+/* Label */
+.admin-main label,
+.admin-login__form label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: rgba(43, 37, 36, 0.65);
+  margin-bottom: 0.3rem;
+  line-height: 1;
+}
+
+/* Text inputs */
+/* ── Dashboard inputs (compact) ── */
+.admin-main input[type="text"],
+.admin-main input[type="email"],
+.admin-main input[type="tel"],
+.admin-main input[type="url"],
+.admin-main input[type="password"],
+.admin-main input[type="number"] {
+  width: 100%;
+  height: 2.25rem;
+  padding: 0 0.8125rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--admin-text);
+  background: rgba(252, 228, 236, 0.18);
+  border: 1px solid rgba(173, 20, 87, 0.15);
+  border-radius: 0.625rem;
+  outline: none;
+  transition:
+    border-color var(--admin-duration) var(--admin-ease),
+    background var(--admin-duration) var(--admin-ease),
+    box-shadow var(--admin-duration) var(--admin-ease);
+}
+
+.admin-main input[type="text"]:hover,
+.admin-main input[type="email"]:hover,
+.admin-main input[type="tel"]:hover,
+.admin-main input[type="url"]:hover,
+.admin-main input[type="password"]:hover,
+.admin-main input[type="number"]:hover {
+  border-color: rgba(173, 20, 87, 0.30);
+  background: rgba(252, 228, 236, 0.25);
+}
+
+.admin-main input[type="text"]:focus,
+.admin-main input[type="email"]:focus,
+.admin-main input[type="tel"]:focus,
+.admin-main input[type="url"]:focus,
+.admin-main input[type="password"]:focus,
+.admin-main input[type="number"]:focus {
+  border-color: var(--admin-primary);
+  background: rgba(252, 228, 236, 0.30);
+  box-shadow:
+    0 0 0 3px rgba(173, 20, 87, 0.10),
+    0 1px 3px rgba(173, 20, 87, 0.08);
+}
+
+.admin-main input::placeholder {
+  color: rgba(43, 37, 36, 0.28);
+}
+
+/* ── Login card inputs (full-size, conventional) ── */
+.admin-login__card input {
+  display: block;
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--admin-text);
+  background: rgba(252, 228, 236, 0.20);
+  border: 1.5px solid rgba(173, 20, 87, 0.18);
+  border-radius: 0.75rem;
+  outline: none;
+  transition:
+    border-color var(--admin-duration) var(--admin-ease),
+    background var(--admin-duration) var(--admin-ease),
+    box-shadow var(--admin-duration) var(--admin-ease);
+  /* Prevent browsers from shrinking the field */
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.admin-login__card input:hover {
+  border-color: rgba(173, 20, 87, 0.35);
+  background: rgba(252, 228, 236, 0.30);
+}
+
+.admin-login__card input:focus {
+  border-color: var(--admin-primary);
+  background: rgba(252, 228, 236, 0.35);
+  box-shadow:
+    0 0 0 3.5px rgba(173, 20, 87, 0.12),
+    0 1px 4px rgba(173, 20, 87, 0.10);
+}
+
+.admin-login__card input::placeholder {
+  color: rgba(43, 37, 36, 0.30);
+}
+
+/* Textareas */
+.admin-main textarea {
+  width: 100%;
+  padding: 0.6rem 0.8125rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--admin-text);
+  background: rgba(252, 228, 236, 0.15);
+  border: 1px solid rgba(173, 20, 87, 0.14);
+  border-radius: 0.625rem;
+  outline: none;
+  resize: vertical;
+  min-height: 4rem;
+  transition:
+    border-color var(--admin-duration) var(--admin-ease),
+    background var(--admin-duration) var(--admin-ease),
+    box-shadow var(--admin-duration) var(--admin-ease);
+}
+
+.admin-main textarea:hover {
+  border-color: rgba(173, 20, 87, 0.28);
+  background: rgba(252, 228, 236, 0.22);
+}
+
+.admin-main textarea:focus {
+  border-color: var(--admin-primary);
+  background: rgba(252, 228, 236, 0.28);
+  box-shadow:
+    0 0 0 3px rgba(173, 20, 87, 0.09),
+    0 1px 3px rgba(173, 20, 87, 0.07);
+}
+
+.admin-main textarea::placeholder {
+  color: rgba(43, 37, 36, 0.26);
+}
+
+/* ── Select / dropdown ── */
+.admin-main select {
+  width: 100%;
+  height: 2.25rem;
+  padding: 0 2.25rem 0 0.8125rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--admin-text);
+  background:
+    rgba(252, 228, 236, 0.18)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23AD1457' d='M6 8L1 3h10z'/%3E%3C/svg%3E")
+    no-repeat right 0.75rem center;
+  border: 1px solid rgba(173, 20, 87, 0.15);
+  border-radius: 0.625rem;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  transition:
+    border-color var(--admin-duration) var(--admin-ease),
+    background-color var(--admin-duration) var(--admin-ease),
+    box-shadow var(--admin-duration) var(--admin-ease);
+}
+
+.admin-main select:hover {
+  border-color: rgba(173, 20, 87, 0.30);
+  background-color: rgba(252, 228, 236, 0.25);
+}
+
+.admin-main select:focus {
+  border-color: var(--admin-primary);
+  background-color: rgba(252, 228, 236, 0.30);
+  box-shadow:
+    0 0 0 3px rgba(173, 20, 87, 0.10),
+    0 1px 3px rgba(173, 20, 87, 0.08);
+}
+
+/* Two-column field grid */
+.admin-field-grid-2 {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-field-grid-3 {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 560px) {
+  .admin-field-grid-2 { grid-template-columns: 1fr 1fr; }
+  .admin-field-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+
+/* ─── 8. Toggle / Switch Rows ────────────────────────────────────────────── */
+
+.admin-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.25rem 0;
+}
+
+.admin-toggle__copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-toggle__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  line-height: 1.3;
+}
+
+.admin-toggle__desc {
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+  margin-top: 0.2rem;
+  line-height: 1.4;
+}
+
+/* Switch track — targets Radix Switch rendered element */
+.admin-main button[role="switch"] {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 1.375rem;
+  background: rgba(173, 20, 87, 0.15);
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background var(--admin-duration) var(--admin-ease);
+  outline: none;
+}
+
+.admin-main button[role="switch"][data-state="checked"] {
+  background: var(--admin-primary);
+}
+
+.admin-main button[role="switch"]:focus-visible {
+  box-shadow: 0 0 0 3px rgba(173, 20, 87, 0.25);
+}
+
+.admin-main button[role="switch"] > span {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 0.1875rem;
+  transform: translateY(-50%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  transition: left var(--admin-duration) var(--admin-ease);
+}
+
+.admin-main button[role="switch"][data-state="checked"] > span {
+  left: calc(100% - 1.1875rem);
+}
+
+
+/* ─── 9. Buttons ─────────────────────────────────────────────────────────── */
+
+/* Primary button */
+.admin-btn-primary,
+.admin-main button.admin-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0 1.125rem;
+  height: 2.25rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-primary-dk) 100%);
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow:
+    0 2px 8px rgba(173, 20, 87, 0.28),
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition:
+    background var(--admin-duration) var(--admin-ease),
+    box-shadow var(--admin-duration) var(--admin-ease),
+    transform 150ms var(--admin-ease);
+  outline: none;
+}
+
+.admin-btn-primary:hover,
+.admin-main button.admin-btn-primary:hover {
+  background: linear-gradient(135deg, #b8185e 0%, var(--admin-primary) 100%);
+  box-shadow:
+    0 4px 14px rgba(173, 20, 87, 0.38),
+    0 2px 4px rgba(0, 0, 0, 0.10);
+  transform: translateY(-1px);
+}
+
+.admin-btn-primary:active,
+.admin-main button.admin-btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(173, 20, 87, 0.22);
+}
+
+.admin-btn-primary:disabled,
+.admin-main button.admin-btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.admin-btn-primary:focus-visible,
+.admin-main button.admin-btn-primary:focus-visible {
+  box-shadow: 0 0 0 3px rgba(173, 20, 87, 0.30);
+}
+
+/* Ghost / sign-out button */
+.admin-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.875rem;
+  height: 2.25rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--admin-text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color var(--admin-duration) var(--admin-ease),
+    border-color var(--admin-duration) var(--admin-ease),
+    background var(--admin-duration) var(--admin-ease);
+  outline: none;
+}
+
+.admin-btn-ghost:hover {
+  color: var(--admin-text);
+  border-color: var(--admin-border);
+  background: rgba(43, 37, 36, 0.04);
+}
+
+.admin-btn-ghost:focus-visible {
+  box-shadow: 0 0 0 2px rgba(173, 20, 87, 0.25);
+}
+
+/* Small icon action buttons (▲ ▼ ✏ 🗑 👁) */
+.admin-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: rgba(43, 37, 36, 0.38);
+  background: transparent;
+  border: none;
+  border-radius: 0.4375rem;
+  cursor: pointer;
+  transition:
+    color var(--admin-duration) var(--admin-ease),
+    background var(--admin-duration) var(--admin-ease);
+  outline: none;
+}
+
+.admin-icon-btn:hover {
+  color: var(--admin-primary);
+  background: rgba(252, 228, 236, 0.65);
+}
+
+.admin-icon-btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.admin-icon-btn:focus-visible {
+  box-shadow: 0 0 0 2px rgba(173, 20, 87, 0.22);
+}
+
+.admin-icon-btn--danger:hover {
+  color: #c0392b;
+  background: rgba(220, 38, 38, 0.07);
+}
+
+/* Inline text-link buttons (reset, cancel) */
+.admin-text-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--admin-duration) var(--admin-ease);
+  outline: none;
+}
+
+.admin-text-btn--faint {
+  color: var(--admin-text-faint);
+}
+
+.admin-text-btn--faint:hover {
+  color: #c0392b;
+}
+
+.admin-text-btn--danger {
+  color: #c0392b;
+  font-weight: 500;
+}
+
+.admin-text-btn--cancel {
+  color: var(--admin-text-muted);
+}
+
+.admin-text-btn--cancel:hover {
+  color: var(--admin-text);
+}
+
+
+/* ─── 10. Save Banner (Toast) ────────────────────────────────────────────── */
+
+.admin-save-banner {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-primary-dk) 100%);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 0.75rem 1.125rem;
+  border-radius: 0.875rem;
+  box-shadow:
+    0 8px 24px rgba(173, 20, 87, 0.35),
+    0 2px 8px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  will-change: transform, opacity;
+  animation: adminSlideInRight 0.35s var(--admin-ease) both;
+}
+
+.admin-save-banner__dismiss {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--admin-duration) ease;
+  outline: none;
+}
+
+.admin-save-banner__dismiss:hover {
+  color: #fff;
+}
+
+
+/* ─── 10b. Session Timeout Warning ──────────────────────────────────────── */
+
+.admin-session-warning {
+  position: fixed;
+  bottom: 5rem;
+  right: 1.5rem;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 22rem;
+  background: #fff;
+  border: 1.5px solid rgba(173, 20, 87, 0.35);
+  border-radius: 1rem;
+  padding: 1rem 1.125rem;
+  box-shadow:
+    0 8px 28px rgba(173, 20, 87, 0.18),
+    0 2px 8px rgba(0, 0, 0, 0.10);
+  will-change: transform, opacity;
+  animation: adminSlideInRight 0.35s var(--admin-ease) both;
+}
+
+.admin-session-warning__text {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  line-height: 1.45;
+}
+
+.admin-session-warning__text::before {
+  content: '⏱ ';
+}
+
+.admin-session-warning__actions {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.admin-session-warning__stay {
+  flex: 1;
+  height: 2rem;
+  padding: 0 0.875rem;
+  background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-primary-dk) 100%);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: opacity var(--admin-duration) ease;
+}
+
+.admin-session-warning__stay:hover {
+  opacity: 0.88;
+}
+
+.admin-session-warning__out {
+  height: 2rem;
+  padding: 0 0.875rem;
+  background: none;
+  color: rgba(43, 37, 36, 0.55);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid var(--admin-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: color var(--admin-duration) ease, border-color var(--admin-duration) ease;
+}
+
+.admin-session-warning__out:hover {
+  color: var(--admin-text);
+  border-color: var(--admin-border-mid);
+}
+
+@media (max-width: 480px) {
+  .admin-session-warning {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+  }
+}
+
+
+/* ─── 11. Project List Rows ──────────────────────────────────────────────── */
+
+.admin-project-row {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem;
+  background: #fff;
+  border: 1px solid var(--admin-border);
+  border-radius: 0.75rem;
+  transition:
+    border-color var(--admin-duration) var(--admin-ease),
+    box-shadow var(--admin-duration) var(--admin-ease),
+    background var(--admin-duration) var(--admin-ease);
+}
+
+.admin-project-row:hover {
+  border-color: var(--admin-border-mid);
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.admin-project-row--hidden {
+  background: rgba(43, 37, 36, 0.025);
+  border-color: rgba(43, 37, 36, 0.08);
+  opacity: 0.62;
+}
+
+/* Thumbnail */
+.admin-project-thumb {
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  background: rgba(252, 228, 236, 0.4);
+  border: 1px solid var(--admin-border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  color: rgba(173, 20, 87, 0.3);
+}
+
+.admin-project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Info area */
+.admin-project-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-project-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.admin-project-title--untitled {
+  color: var(--admin-text-faint);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.admin-project-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+}
+
+/* Category badge */
+.admin-project-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--admin-primary);
+  background: var(--admin-blush);
+  border-radius: 999px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.admin-project-year {
+  font-size: 0.6875rem;
+  color: var(--admin-text-faint);
+}
+
+.admin-project-hidden-tag {
+  font-size: 0.6875rem;
+  color: var(--admin-text-faint);
+  font-style: italic;
+}
+
+/* Action buttons container */
+.admin-project-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  flex-shrink: 0;
+}
+
+/* Delete confirm inline */
+.admin-delete-confirm {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.admin-delete-confirm__yes {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #c0392b;
+  background: rgba(220, 38, 38, 0.07);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+  border-radius: 0.375rem;
+  padding: 0.1875rem 0.5rem;
+  cursor: pointer;
+  transition: background var(--admin-duration) ease, color var(--admin-duration) ease;
+  outline: none;
+}
+
+.admin-delete-confirm__yes:hover {
+  background: rgba(220, 38, 38, 0.12);
+}
+
+.admin-delete-confirm__cancel {
+  font-size: 0.6875rem;
+  color: var(--admin-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.1875rem 0.25rem;
+  transition: color var(--admin-duration) ease;
+  outline: none;
+}
+
+.admin-delete-confirm__cancel:hover {
+  color: var(--admin-text);
+}
+
+
+/* ─── 12. Project Form (Add / Edit) ──────────────────────────────────────── */
+
+.admin-project-form {
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid var(--admin-border-mid);
+  border-radius: 0.875rem;
+  box-shadow:
+    var(--admin-shadow-md),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  will-change: transform, opacity;
+  animation: adminFadeUp 0.25s var(--admin-ease) both;
+}
+
+.admin-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.375rem;
+  border-bottom: 1px solid var(--admin-border);
+  /* Left accent bar */
+  position: relative;
+}
+
+.admin-form-header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--admin-primary) 0%, var(--admin-blush-mid) 100%);
+  border-radius: 0 2px 2px 0;
+}
+
+.admin-form-header__title {
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--admin-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.admin-form-header__close {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--admin-text-faint);
+  background: none;
+  border: none;
+  border-radius: 0.4375rem;
+  cursor: pointer;
+  transition:
+    color var(--admin-duration) ease,
+    background var(--admin-duration) ease;
+  outline: none;
+  flex-shrink: 0;
+}
+
+.admin-form-header__close:hover {
+  color: var(--admin-text);
+  background: rgba(43, 37, 36, 0.06);
+}
+
+.admin-form-body {
+  padding: 1.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Section label inside form */
+.admin-form-section-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--admin-primary);
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--admin-border);
+  margin-bottom: 0;
+}
+
+.admin-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  padding: 0.875rem 1.375rem;
+  border-top: 1px solid var(--admin-border);
+  background: rgba(252, 228, 236, 0.10);
+  border-radius: 0 0 0.875rem 0.875rem;
+}
+
+/* Visibility toggle row inside form */
+.admin-form-visibility {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(252, 228, 236, 0.12);
+  border: 1px solid var(--admin-border);
+  border-radius: 0.625rem;
+}
+
+.admin-form-visibility__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  margin: 0;
+}
+
+.admin-form-visibility__desc {
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+  margin: 0.15rem 0 0;
+}
+
+
+/* ─── 13. Section Toolbar (count + add button) ───────────────────────────── */
+
+.admin-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--admin-border);
+  margin-bottom: 0.875rem;
+}
+
+.admin-toolbar__stat {
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+  letter-spacing: 0.01em;
+}
+
+.admin-toolbar__stat strong {
+  color: var(--admin-primary);
+  font-weight: 600;
+}
+
+
+/* ─── 14. Empty State ────────────────────────────────────────────────────── */
+
+.admin-empty-state {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  color: var(--admin-text-muted);
+  font-size: 0.875rem;
+  border: 1px dashed rgba(173, 20, 87, 0.18);
+  border-radius: 0.875rem;
+  background: rgba(252, 228, 236, 0.06);
+  line-height: 1.5;
+}
+
+
+/* ─── 15. Footer Action Row (reset / save) ───────────────────────────────── */
+
+.admin-footer-actions {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--admin-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.admin-footer-actions--sm {
+  margin-top: 1rem;
+}
+
+.admin-reset-confirm {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.admin-reset-confirm__prompt {
+  font-size: 0.75rem;
+  color: #c0392b;
+}
+
+
+/* ─── 16. Responsive Adjustments ─────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .admin-login__card {
+    padding: 1.75rem 1.375rem;
+  }
+
+  .admin-header__inner {
+    padding: 0.75rem 1rem;
+  }
+
+  .admin-main {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .admin-panel {
+    padding: 1.25rem 1.125rem;
+  }
+
+  .admin-main [role="tablist"] {
+    border-radius: 0.75rem;
+  }
+
+  .admin-form-body {
+    padding: 1rem;
+  }
+
+  .admin-form-header,
+  .admin-form-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .admin-project-actions {
+    gap: 0;
+  }
+
+  .admin-save-banner {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .admin-footer-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 639px) {
+  .admin-project-row {
+    flex-wrap: wrap;
+  }
+
+  .admin-project-actions {
+    width: 100%;
+    justify-content: flex-end;
+    padding-top: 0.375rem;
+    border-top: 1px solid var(--admin-border);
+    margin-top: 0.375rem;
+  }
+}
+
+
+/* ─── 17. Keyframe Animations ────────────────────────────────────────────── */
+
+@keyframes adminFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes adminSlideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Project list container */
+.admin-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Stagger helper for project list items */
+.admin-project-list > * {
+  will-change: transform, opacity;
+  animation: adminFadeUp 0.25s var(--admin-ease) both;
+}
+
+.admin-project-list > *:nth-child(1)  { animation-delay: 0ms;  }
+.admin-project-list > *:nth-child(2)  { animation-delay: 30ms; }
+.admin-project-list > *:nth-child(3)  { animation-delay: 60ms; }
+.admin-project-list > *:nth-child(4)  { animation-delay: 90ms; }
+.admin-project-list > *:nth-child(5)  { animation-delay: 110ms; }
+.admin-project-list > *:nth-child(n+6) { animation-delay: 130ms; }
+
+
+/* ─── 18. Dashboard layout helpers ──────────────────────────────────────── */
+
+/* Single form field wrapper (label + input stacked) */
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+/* Content area that appears after a <Separator> inside a panel */
+.admin-panel-body {
+  margin-top: 1.25rem;
+}
+
+/* Vertical stack of fields (Business tab) */
+.admin-field-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+/* Toggle list (Features tab) — no gap, separators provide spacing */
+.admin-toggle-stack {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.25rem;
+}
+
+/* ─── 19. Image Uploader ─────────────────────────────────────────────────── */
+
+.admin-uploader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+  border: 2px dashed rgba(173, 20, 87, 0.22);
+  border-radius: 0.875rem;
+  background: rgba(252, 228, 236, 0.10);
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    border-color var(--admin-duration) var(--admin-ease),
+    background var(--admin-duration) var(--admin-ease);
+}
+
+.admin-uploader:hover,
+.admin-uploader:focus-visible {
+  border-color: rgba(173, 20, 87, 0.45);
+  background: rgba(252, 228, 236, 0.18);
+  outline: none;
+}
+
+.admin-uploader--drag {
+  border-color: var(--admin-primary);
+  background: rgba(252, 228, 236, 0.28);
+}
+
+.admin-uploader--busy {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.admin-uploader--error {
+  border-color: #c0392b;
+  background: rgba(192, 57, 43, 0.04);
+}
+
+.admin-uploader--gallery {
+  min-height: 5rem;
+  margin-top: 0.5rem;
+}
+
+/* Visible field label above the drop zone (styled like .admin-main label) */
+.admin-uploader__field-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: rgba(43, 37, 36, 0.65);
+  margin-bottom: 0.3rem;
+  line-height: 1;
+}
+
+/* Hidden native file input inside the <label> drop zone */
+.admin-uploader__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* "Replace image" label in the actions row — styled as a text button */
+.admin-uploader__replace-label {
+  cursor: pointer;
+}
+.admin-uploader__replace-label .admin-uploader__input {
+  /* already hidden via the shared rule above */
+}
+
+/* Preview image (hero uploader) */
+.admin-uploader__preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  display: block;
+}
+
+/* Prompt content (empty state) */
+.admin-uploader__prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 1.25rem;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.admin-uploader__icon {
+  font-size: 1.5rem;
+  color: var(--admin-primary);
+  opacity: 0.65;
+  line-height: 1;
+}
+
+.admin-uploader__headline {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  margin: 0;
+}
+
+.admin-uploader__sub {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  color: var(--admin-text-muted);
+  margin: 0;
+}
+
+.admin-uploader__required {
+  color: var(--admin-primary);
+}
+
+/* Progress state */
+.admin-uploader__progress-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  width: 100%;
+  max-width: 16rem;
+}
+
+.admin-uploader__progress-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+  margin: 0;
+}
+
+/* Native <progress> element styled to match brand */
+.admin-uploader__progress-bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  border: none;
+  overflow: hidden;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(173, 20, 87, 0.12);
+}
+
+.admin-uploader__progress-bar::-webkit-progress-bar {
+  background: rgba(173, 20, 87, 0.12);
+  border-radius: 999px;
+}
+
+.admin-uploader__progress-bar::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--admin-primary) 0%, var(--admin-primary-lt) 100%);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.admin-uploader__progress-bar::-moz-progress-bar {
+  background: linear-gradient(90deg, var(--admin-primary) 0%, var(--admin-primary-lt) 100%);
+  border-radius: 999px;
+}
+
+/* Spinner */
+.admin-uploader__spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2.5px solid rgba(173, 20, 87, 0.18);
+  border-top-color: var(--admin-primary);
+  border-radius: 50%;
+  will-change: transform;
+  animation: adminSpin 0.7s linear infinite;
+}
+
+@keyframes adminSpin {
+  from { rotate: 0deg; }
+  to   { rotate: 360deg; }
+}
+
+/* Actions row below uploader (replace / remove) */
+.admin-uploader__actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.375rem;
+}
+
+/* Error message below uploader */
+.admin-uploader__error {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: #c0392b;
+  margin-top: 0.25rem;
+}
+
+/* ── Gallery grid ── */
+
+.admin-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.admin-gallery-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 0.625rem;
+  overflow: hidden;
+  border: 1px solid var(--admin-border);
+  background: rgba(252, 228, 236, 0.18);
+}
+
+.admin-gallery-item__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.admin-gallery-item__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  border-radius: 0.625rem;
+}
+
+.admin-gallery-item:hover .admin-gallery-item__overlay {
+  opacity: 1;
+}
+
+.admin-gallery-item__btn {
+  width: 1.75rem;
+  height: 1.75rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: none;
+  border-radius: 50%;
+  font-size: 0.6875rem;
+  color: var(--admin-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+  padding: 0;
+}
+
+.admin-gallery-item__btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.admin-gallery-item__btn:hover:not(:disabled) {
+  background: #fff;
+}
+
+.admin-gallery-item__btn--remove {
+  background: rgba(192, 57, 43, 0.88);
+  color: #fff;
+  font-size: 0.875rem;
+}
+
+.admin-gallery-item__btn--remove:hover:not(:disabled) {
+  background: #c0392b;
+}
+
+
+/* ─── 20. Login-specific helpers ────────────────────────────────────────── */
+
+.admin-login__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.admin-login__submit {
+  width: 100%;
+  height: 2.625rem;
+  font-size: 0.9375rem;
+}
+
+/* ─── 19. Accessibility ──────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-login,
+  .admin-layout,
+  .admin-login *,
+  .admin-layout * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
