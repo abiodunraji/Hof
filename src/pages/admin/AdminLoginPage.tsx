@@ -76,7 +76,7 @@ export function AdminLoginPage() {
         </div>
 
         <p className="admin-login__footer">
-          This page is not indexed or linked publicly.
+          Restricted access — do not share this URL or leave this page open on unattended devices.
         </p>
       </div>
     </div>
