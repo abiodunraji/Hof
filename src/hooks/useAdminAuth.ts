@@ -1,7 +1,9 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 
-const SESSION_KEY       = 'hofAdminAuth';
-const SESSION_TS_KEY    = 'hofAdminAuthAt';
+const SESSION_KEY         = 'hofAdminAuth';
+const SESSION_TS_KEY      = 'hofAdminAuthAt';
+const PW_OVERRIDE_KEY     = 'hofAdminPwHash';   // localStorage override for password
+const USERNAME_OVERRIDE_KEY = 'hofAdminUsername'; // localStorage override for username
 
 /** 30-minute idle timeout; warn at 28 minutes. */
 export const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
@@ -12,28 +14,19 @@ const LOGOUT_EVENT = 'hofAdminLogout';
 
 /**
  * Admin credentials — configure via .env.local (gitignored).
+ * localStorage overrides (set via the Settings tab) take precedence over env vars.
  *
- * USERNAME
- *   VITE_ADMIN_USERNAME   (plaintext, case-insensitive)
- *   Default: "admin"
- *
- * PASSWORD
- *   VITE_ADMIN_PASSWORD_HASH  (SHA-256 hex of your chosen password)
- *   Default password: "hofadmin2024"
- *   Default hash:      eaee66ec5977653082e5193a25f9dfcbd46d14a56cd0563ae8b78fa4de3ae935
- *
- * To generate a hash for a new password, paste this in your browser console:
- *   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword'));
- *   console.log([...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join(''));
+ * USERNAME  → VITE_ADMIN_USERNAME   (plaintext, case-insensitive)
+ * PASSWORD  → VITE_ADMIN_PASSWORD_HASH  (SHA-256 hex)
  */
-const EXPECTED_USERNAME: string =
+const ENV_USERNAME: string =
   (import.meta.env.VITE_ADMIN_USERNAME as string | undefined) ?? 'admin';
 
-const EXPECTED_PASSWORD_HASH: string =
+const ENV_PASSWORD_HASH: string =
   (import.meta.env.VITE_ADMIN_PASSWORD_HASH as string | undefined) ??
   'eaee66ec5977653082e5193a25f9dfcbd46d14a56cd0563ae8b78fa4de3ae935';
 
-async function sha256hex(message: string): Promise<string> {
+export async function sha256hex(message: string): Promise<string> {
   const buf = await crypto.subtle.digest(
     'SHA-256',
     new TextEncoder().encode(message),
@@ -41,6 +34,16 @@ async function sha256hex(message: string): Promise<string> {
   return [...new Uint8Array(buf)]
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('');
+}
+
+/** Returns the active expected username (localStorage override > env var). */
+function getExpectedUsername(): string {
+  return localStorage.getItem(USERNAME_OVERRIDE_KEY) ?? ENV_USERNAME;
+}
+
+/** Returns the active expected password hash (localStorage override > env var). */
+function getExpectedPasswordHash(): string {
+  return localStorage.getItem(PW_OVERRIDE_KEY) ?? ENV_PASSWORD_HASH;
 }
 
 function clearSession() {
@@ -59,7 +62,6 @@ export function useAdminAuth() {
     clearSession();
     setIsAuthenticated(false);
     setError(reason ?? '');
-    // Broadcast to all hook instances in this tab so ProtectedRoute navigates away
     window.dispatchEvent(new CustomEvent(LOGOUT_EVENT));
   }, []);
 
@@ -68,16 +70,15 @@ export function useAdminAuth() {
     setError('');
     try {
       const usernameMatch =
-        username.trim().toLowerCase() === EXPECTED_USERNAME.trim().toLowerCase();
+        username.trim().toLowerCase() === getExpectedUsername().trim().toLowerCase();
       const passwordHash = await sha256hex(password);
-      const passwordMatch = passwordHash === EXPECTED_PASSWORD_HASH;
+      const passwordMatch = passwordHash === getExpectedPasswordHash();
 
       if (usernameMatch && passwordMatch) {
         sessionStorage.setItem(SESSION_KEY, 'true');
         sessionStorage.setItem(SESSION_TS_KEY, Date.now().toString());
         setIsAuthenticated(true);
       } else {
-        // Deliberate: don't reveal which field was wrong
         setError('Invalid credentials. Please try again.');
       }
     } catch {
@@ -91,12 +92,45 @@ export function useAdminAuth() {
 }
 
 /**
- * Idle session timeout — call once inside the authenticated dashboard.
- *
- * Resets idle timer on any user interaction. Fires `onWarn` at SESSION_WARN_MS
- * and `onExpire` at SESSION_TIMEOUT_MS.
- *
- * Returns `resetTimer` so the caller can defer expiry manually (e.g., on "Stay signed in").
+ * Verifies the current password and saves new credentials to localStorage.
+ * Returns an error string on failure, or null on success.
+ */
+export async function changeCredentials({
+  currentPassword,
+  newUsername,
+  newPassword,
+}: {
+  currentPassword: string;
+  newUsername?: string;
+  newPassword?: string;
+}): Promise<string | null> {
+  const currentHash = await sha256hex(currentPassword);
+  if (currentHash !== getExpectedPasswordHash()) {
+    return 'Current password is incorrect.';
+  }
+
+  if (newUsername) {
+    const trimmed = newUsername.trim();
+    if (trimmed.length < 3) return 'Username must be at least 3 characters.';
+    localStorage.setItem(USERNAME_OVERRIDE_KEY, trimmed);
+  }
+
+  if (newPassword) {
+    if (newPassword.length < 8) return 'New password must be at least 8 characters.';
+    const newHash = await sha256hex(newPassword);
+    localStorage.setItem(PW_OVERRIDE_KEY, newHash);
+  }
+
+  return null;
+}
+
+/** Returns the currently active username (what the admin logs in with). */
+export function getActiveUsername(): string {
+  return getExpectedUsername();
+}
+
+/**
+ * Idle session timeout hook — call once inside the authenticated dashboard.
  */
 export function useSessionTimeout({
   enabled,
@@ -112,7 +146,6 @@ export function useSessionTimeout({
   const onWarnRef   = useRef(onWarn);
   const onExpireRef = useRef(onExpire);
 
-  // Keep refs current so timers don't close over stale callbacks
   useEffect(() => { onWarnRef.current   = onWarn;   }, [onWarn]);
   useEffect(() => { onExpireRef.current = onExpire; }, [onExpire]);
 
@@ -130,7 +163,7 @@ export function useSessionTimeout({
 
     const EVENTS = ['mousemove', 'keydown', 'pointerdown', 'scroll'] as const;
     EVENTS.forEach((e) => window.addEventListener(e, resetTimer, { passive: true }));
-    resetTimer(); // start immediately
+    resetTimer();
 
     return () => {
       EVENTS.forEach((e) => window.removeEventListener(e, resetTimer));
@@ -142,5 +175,4 @@ export function useSessionTimeout({
   return { resetTimer };
 }
 
-/** Name of the logout broadcast event — used by ProtectedRoute. */
 export { LOGOUT_EVENT };

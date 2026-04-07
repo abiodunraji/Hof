@@ -6,6 +6,7 @@ import { useAdminAuth, useSessionTimeout } from '../../hooks/useAdminAuth';
 import { loadConfig, saveConfig, resetConfig } from '../../hooks/useSiteConfig';
 import { defaultConfig, type SiteConfig } from '../../data/siteConfig';
 import { ProjectsTab } from './ProjectsTab';
+import { SettingsTab } from './SettingsTab';
 
 // ── Field components ──────────────────────────────────────────────────────────
 
@@ -180,6 +181,7 @@ export function AdminDashboard() {
             <TabsTrigger value="business">Business</TabsTrigger>
             <TabsTrigger value="features">Features</TabsTrigger>
             <TabsTrigger value="projects">Projects</TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
 
           {/* ── Contact ── */}
@@ -279,6 +281,11 @@ export function AdminDashboard() {
           {/* ── Projects ── */}
           <TabsContent value="projects">
             <ProjectsTab onSaved={() => setSaved(true)} />
+          </TabsContent>
+
+          {/* ── Settings ── */}
+          <TabsContent value="settings">
+            <SettingsTab onSaved={() => setSaved(true)} />
           </TabsContent>
 
         </Tabs>
