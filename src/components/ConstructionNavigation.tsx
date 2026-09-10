@@ -19,7 +19,7 @@ export function ConstructionNavigation() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const currentPage = location.pathname.split('/').pop() || 'home';
+  const currentPage = location.pathname.replace(/\/+$/, '').split('/').pop() || 'home';
 
   const navLinks = [
     { label: 'Home', page: 'home', path: '/construction' },

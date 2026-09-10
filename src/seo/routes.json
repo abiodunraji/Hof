@@ -1,0 +1,72 @@
+{
+  "siteOrigin": "https://houseoffaridah.com",
+  "siteName": "House of Faridah",
+  "routes": [
+    {
+      "path": "/",
+      "title": "House of Faridah | Interior Design & Construction in Nigeria",
+      "description": "House of Faridah is a Nigerian design-and-build house pairing HOF Interiors' bespoke residential and commercial interiors with HOF Construction's residential and commercial building services.",
+      "image": "/about-me.png"
+    },
+    {
+      "path": "/interiors",
+      "title": "HOF Interiors | Luxury Interior Design in Nigeria",
+      "description": "HOF Interiors designs timeless, personalized homes and commercial spaces across Nigeria — explore featured kitchens, living rooms, bedrooms and our full range of design services.",
+      "image": "/assets/hof-interiors-logo.png"
+    },
+    {
+      "path": "/interiors/about",
+      "title": "About HOF Interiors | Meet Faridah Tella",
+      "description": "Meet Faridah Tella and the HOF Interiors team, a Nigeria-based interior design studio dedicated to client-centered, timeless design across residential and commercial spaces.",
+      "image": "/assets/hof-interiors-logo.png"
+    },
+    {
+      "path": "/interiors/portfolio",
+      "title": "Interior Design Portfolio | HOF Interiors",
+      "description": "Browse HOF Interiors' portfolio of completed projects in Nigeria, including the Contemporary Abuja Residence, Modern Kitchen Design and Executive Luxury Bathroom.",
+      "image": "/assets/hof-interiors-logo.png"
+    },
+    {
+      "path": "/interiors/services",
+      "title": "Interior Design Services | HOF Interiors",
+      "description": "From consultation and space planning to design concepts, 3D renderings and furniture furnishing, HOF Interiors offers full-service interior design across Nigeria.",
+      "image": "/assets/hof-interiors-logo.png"
+    },
+    {
+      "path": "/interiors/process",
+      "title": "Our Design Process | HOF Interiors",
+      "description": "HOF Interiors' interior design journey runs from sharing your vision through a site visit, design development and project launch — see how each step works.",
+      "image": "/assets/hof-interiors-logo.png"
+    },
+    {
+      "path": "/interiors/contact",
+      "title": "Contact HOF Interiors | Gwarinpa, Abuja, Nigeria",
+      "description": "Reach HOF Interiors at Bolien House, Gwarinpa, Abuja, Nigeria to start an interior design project or book a complimentary consultation.",
+      "image": "/assets/hof-interiors-logo.png"
+    },
+    {
+      "path": "/construction",
+      "title": "HOF Construction | Building Excellence in Nigeria",
+      "description": "HOF Construction delivers residential construction, commercial building, and renovations and additions across Nigeria, backed by a licensed and insured team.",
+      "image": "/assets/hof-construction-logo.png"
+    },
+    {
+      "path": "/construction/about",
+      "title": "About HOF Construction | Our Story & Values",
+      "description": "HOF Construction is a licensed Nigerian construction company built on safety, quality craftsmanship, integrity and innovation across residential and commercial projects.",
+      "image": "/assets/hof-construction-logo.png"
+    },
+    {
+      "path": "/construction/portfolio",
+      "title": "Construction Portfolio | HOF Construction",
+      "description": "Explore HOF Construction's completed projects in Nigeria, including the Riverside Corporate Center, showcasing residential, commercial and renovation craftsmanship.",
+      "image": "/assets/hof-construction-logo.png"
+    },
+    {
+      "path": "/construction/contact",
+      "title": "Contact HOF Construction | Gwarinpa, Abuja, Nigeria",
+      "description": "Reach HOF Construction at Bolien House, Gwarinpa, Abuja, Nigeria to request a free quote for your residential or commercial construction project.",
+      "image": "/assets/hof-construction-logo.png"
+    }
+  ]
+}

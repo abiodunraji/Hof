@@ -58,10 +58,12 @@ export function resetPortfolioStore(): void {
 
 /** Used by public portfolio pages — returns only visible projects. */
 export function usePortfolioData() {
-  const [store, setStore] = useState<PortfolioStore>(() => loadPortfolioStore());
+  const [store, setStore] = useState<PortfolioStore>(DEFAULTS);
 
   useEffect(() => {
     const refresh = () => setStore(loadPortfolioStore());
+    // Apply any admin overrides after the initial (server-matching) render.
+    refresh();
     // Cross-tab updates
     const storageHandler = (e: StorageEvent) => {
       if (e.key === PORTFOLIO_KEY) refresh();

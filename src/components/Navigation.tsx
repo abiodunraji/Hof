@@ -10,7 +10,7 @@ export function Navigation() {
 
   // Determine current page from pathname
   const getCurrentPage = () => {
-    const path = location.pathname.split('/').pop() || 'home';
+    const path = location.pathname.replace(/\/+$/, '').split('/').pop() || 'home';
     return path === 'interiors' ? 'home' : path;
   };
 
