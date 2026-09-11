@@ -139,6 +139,8 @@ export function HomePage() {
                 src={slide.image}
                 alt={slide.title}
                 className="w-full h-full object-cover"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding={index === 0 ? undefined : 'async'}
               />
               {/* Gradient overlays */}
               <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
@@ -326,6 +328,8 @@ export function HomePage() {
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
                     />
                     {/* Mobile: Simple title bar at bottom (no magenta overlay) */}
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 md:hidden">
@@ -428,6 +432,8 @@ export function HomePage() {
                 src="/about-me.png"
                 alt="Faridah - Interior Designer"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>

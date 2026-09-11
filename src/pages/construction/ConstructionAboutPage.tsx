@@ -119,6 +119,8 @@ export function ConstructionAboutPage() {
                 src="/portfolio/construction/site-work/site-work-14.jpg"
                 alt="HOF Construction Workers"
                 className="rounded-lg shadow-xl w-full"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>

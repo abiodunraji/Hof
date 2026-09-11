@@ -81,6 +81,8 @@ export function LandingPage() {
                 src={slide.image}
                 alt="Interior design background"
                 className="w-full h-full object-cover"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding={index === 0 ? undefined : 'async'}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
             </div>
@@ -288,6 +290,8 @@ export function LandingPage() {
                   src="/portfolio/construction/site-work/site-work-06.jpg"
                   alt="Featured design"
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 
@@ -317,6 +321,8 @@ export function LandingPage() {
                 src="/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg"
                 alt="Residential"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
@@ -334,6 +340,8 @@ export function LandingPage() {
                 src={interiorsProjects[4]?.image || interiorsProjects[0]?.image}
                 alt="Commercial"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
@@ -351,6 +359,8 @@ export function LandingPage() {
                 src={constructionProjects[0]?.image || interiorsProjects[2]?.image}
                 alt="Construction"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
@@ -368,6 +378,8 @@ export function LandingPage() {
                 src={interiorsProjects[3]?.image || interiorsProjects[1]?.image}
                 alt="Outdoor Spaces"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
@@ -400,6 +412,8 @@ export function LandingPage() {
                 src={interiorsProjects[3]?.image}
                 alt="Featured project"
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="space-y-8">
@@ -460,6 +474,8 @@ export function LandingPage() {
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div>
