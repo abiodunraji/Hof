@@ -157,6 +157,8 @@ export function ServicesPage() {
                         src={service.image}
                         alt={`${service.title} - ${service.subtitle}`}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
                       />
                       {/* Gradient Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
@@ -307,6 +309,8 @@ export function ServicesPage() {
                         alt="Elegant living space with premium furnishings"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         style={{ objectPosition: 'center 40%' }}
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                       
@@ -325,6 +329,8 @@ export function ServicesPage() {
                       alt="Functional kitchen with elegant finishes"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       style={{ objectPosition: 'center 35%' }}
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                     
@@ -343,6 +349,8 @@ export function ServicesPage() {
                         alt="Modern bedroom with contemporary styling"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         style={{ objectPosition: 'center 45%' }}
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                       
@@ -361,6 +369,8 @@ export function ServicesPage() {
                       alt="Sophisticated dining room arrangement"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       style={{ objectPosition: 'center center' }}
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                     

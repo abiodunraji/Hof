@@ -136,6 +136,8 @@ export function ConstructionHomePage() {
                       src={service.image}
                       alt={service.title}
                       className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent" />
                     <div className="absolute bottom-4 left-4">
@@ -212,6 +214,8 @@ export function ConstructionHomePage() {
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute top-4 right-4">
                     <span className="px-3 py-1 rounded-full bg-background/90 backdrop-blur-sm text-sm">
