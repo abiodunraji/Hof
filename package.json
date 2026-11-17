@@ -60,7 +60,7 @@
       },
       "scripts": {
             "dev": "vite",
-            "build": "vite build && node -e \"const fs = require('fs'); fs.copyFileSync('build/index.html', 'build/404.html');\" && vite build --ssr src/entry-server.tsx --outDir build-ssr && node scripts/prerender.mjs",
+            "build": "node -e \"const fs=require('fs');fs.rmSync('build',{recursive:true,force:true});fs.mkdirSync('build',{recursive:true});for(const f of ['index.html','404.html'])fs.copyFileSync('notice/index.html','build/'+f);fs.copyFileSync('public/CNAME','build/CNAME');\"",
             "optimize:images": "node scripts/optimize-images.mjs",
             "preview": "vite preview"
       }
