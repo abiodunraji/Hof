@@ -1,27 +1,41 @@
 /**
  * Site Configuration
  *
- * Default values for site-wide settings the admin can override.
- * Overrides are stored in localStorage under the key "hofAdminConfig".
+ * DEFAULT values for the site-wide settings the admin panel can change.
+ * Every default below is exactly what the public pages showed before the
+ * panel was connected to the Worker, so an empty or unreachable Worker gives
+ * today's site.
  *
- * To use config values in a page component:
- *   import { useSiteConfig } from '../hooks/useSiteConfig';
- *   const config = useSiteConfig();
- *   config.contactPhone   // e.g. "+234 ..."
+ * The values the owner saves live on the Worker (Cloudflare KV), not in the
+ * browser. Public pages read them through `useSiteConfig()`.
+ *
+ * Where each setting shows up:
+ *   contactPhone         Interiors contact page, Construction contact page (and its
+ *                        emergency line), Construction footer. "A / B" = two numbers.
+ *   contactEmail         the same three places
+ *   contactAddress       both contact pages, the map block, Construction footer.
+ *                        One line per row; the footer joins the rows with ", ".
+ *   socialInstagram,
+ *   socialFacebook,
+ *   socialLinkedIn       Interiors footer and the "Follow Me" card (empty = icon hidden)
+ *   interiorsTagline     Interiors footer paragraph
+ *   constructionTagline  Construction footer paragraph
+ *   consultationCtaText  the button on the Interiors contact page that opens the
+ *                        consultation form
+ *   showConsultationCta  the "Complimentary Consultation" card on that page
+ *   portfolioEnabled     the Portfolio link in both navigation bars and the footer
  */
 
 export interface SiteConfig {
   // Contact
   contactPhone: string;
   contactEmail: string;
-  contactWhatsApp: string;
   contactAddress: string;
 
   // Social
   socialInstagram: string;
   socialFacebook: string;
   socialLinkedIn: string;
-  socialPinterest: string;
 
   // Business
   interiorsTagline: string;
@@ -30,32 +44,31 @@ export interface SiteConfig {
 
   // Feature toggles
   showConsultationCta: boolean;
-  showWhatsAppButton: boolean;
   portfolioEnabled: boolean;
 }
 
 export const defaultConfig: SiteConfig = {
   // Contact
-  contactPhone: '',
-  contactEmail: '',
-  contactWhatsApp: '',
-  contactAddress: '',
+  contactPhone: '09039330335 / 07040654539',
+  contactEmail: 'Houseoffaridahh@gmail.com',
+  contactAddress: 'Bolien House, 90 4th Ave\nGwarinpa, Abuja 900108\nFederal Capital Territory',
 
   // Social
-  socialInstagram: '',
-  socialFacebook: '',
-  socialLinkedIn: '',
-  socialPinterest: '',
+  socialInstagram: 'https://instagram.com/houseoffaridah',
+  socialFacebook: 'https://facebook.com/houseoffaridah',
+  socialLinkedIn: 'https://linkedin.com/company/houseoffaridah',
 
   // Business
-  interiorsTagline: 'Luxury interior design tailored to your lifestyle.',
-  constructionTagline: 'Building excellence, crafted with precision.',
-  consultationCtaText: 'Book a Free Consultation',
+  interiorsTagline:
+    'Creating beautiful, timeless spaces that nurture the soul and celebrate the art of living. Every design tells a unique story of elegance and comfort.',
+  constructionTagline:
+    'Building excellence since 2010. Quality construction and renovation services you can trust.',
+  consultationCtaText: 'Book Consultation',
 
   // Feature toggles
   showConsultationCta: true,
-  showWhatsAppButton: false,
   portfolioEnabled: true,
 };
 
-export const STORAGE_KEY = 'hofAdminConfig';
+/** The keys the Worker accepts for `config`; anything else is rejected. */
+export const CONFIG_KEYS = Object.keys(defaultConfig) as (keyof SiteConfig)[];

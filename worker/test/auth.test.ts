@@ -107,3 +107,21 @@ describe('hash format', () => {
     expect((await login(env, TEST_USER, 'another-Pass-77')).status).toBe(200);
   });
 });
+
+describe('scripts/hash-password.mjs', () => {
+  it('prints a value the Worker accepts at login, with a different salt each time', async () => {
+    const { execFileSync } = await import('node:child_process');
+    const run = () =>
+      execFileSync(process.execPath, ['scripts/hash-password.mjs'], { input: 'Pass-From-Script-9\n', encoding: 'utf8' }).trim();
+    const a = run();
+    const b = run();
+    expect(a).toMatch(/^pbkdf2-sha256\$100000\$[\w-]+\$[\w-]+$/);
+    expect(a).not.toBe(b);
+    expect(a).not.toContain('Pass-From-Script-9');
+    const env = makeEnv({ ADMIN_PASSWORD_HASH: a });
+    expect((await login(env, TEST_USER, 'Pass-From-Script-9')).status).toBe(200);
+    expect((await login(env, TEST_USER, 'not-it', '10.9.9.1')).status).toBe(401);
+    const secret = execFileSync(process.execPath, ['scripts/hash-password.mjs', '--secret'], { encoding: 'utf8' }).trim();
+    expect(secret.length).toBeGreaterThanOrEqual(48);
+  });
+});

@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { defaultConfig } from '../../src/data/siteConfig';
+import { constructionCategories, constructionProjects, interiorsCategories, interiorsProjects } from '../../src/data/portfolioData';
 import { GOOD_PROJECT, call, loginToken, makeEnv } from './helpers';
 
 afterEach(() => vi.useRealTimers());
@@ -87,6 +88,26 @@ describe('saving and reading', () => {
     const body = (await (await call(env, 'GET', '/api/content')).json()) as any;
     expect(body.config).toEqual(defaultConfig);
     expect(body.portfolio).toBeNull();
+  });
+});
+
+describe('what the site ships with passes the strict validation', () => {
+  it('the built-in settings and every built-in project can be saved unchanged (the panel sends them all on the first save)', async () => {
+    const env = makeEnv();
+    const token = await loginToken(env);
+    const res = await call(env, 'PUT', '/api/content', {
+      token,
+      body: {
+        config: defaultConfig,
+        portfolio: { interiors: interiorsProjects, construction: constructionProjects, interiorsCategories, constructionCategories },
+      },
+    });
+    expect(await res.clone().text()).toContain('ok');
+    expect(res.status).toBe(200);
+    const body = (await (await call(env, 'GET', '/api/content')).json()) as any;
+    expect(body.portfolio.interiors).toHaveLength(interiorsProjects.length);
+    expect(body.portfolio.construction).toHaveLength(constructionProjects.length);
+    expect(body.config).toEqual(defaultConfig);
   });
 });
 
