@@ -389,8 +389,8 @@ export function HomePage() {
 
             <div className="order-1 lg:order-2 relative h-[500px] rounded-2xl overflow-hidden shadow-xl animate-fade-in-up hover-lift animate-delay-1700">
               <ImageWithFallback
-                src="/about-me.png"
-                alt="Faridah - Interior Designer"
+                src="/faridah-tella.jpg"
+                alt="Faridah Tella in front of the House of Faridah Interior Studio sign"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 loading="lazy"
                 decoding="async"

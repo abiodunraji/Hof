@@ -3,7 +3,7 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Heart, Sparkles, Star, Users } from 'lucide-react';
-const faridahAboutImage = '/about-me.png';
+const faridahAboutImage = '/faridah-tella.jpg';
 const values = [
   {
     icon: Heart,
@@ -65,7 +65,7 @@ export function AboutPage() {
               <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl luxe-card">
                 <ImageWithFallback
                   src={faridahAboutImage}
-                  alt="Faridah - Interior Designer"
+                  alt="Faridah Tella in front of the House of Faridah Interior Studio sign"
                   className="w-full h-full object-cover"
                 />
               </div>
