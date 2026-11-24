@@ -83,21 +83,11 @@
 // ============= QUICK REFERENCE =============
 
 /**
- * BUDGET CONVERSION (approximate, ~₦433 per $1 USD)
- * 
- * Interiors (typical):
- * $20,000  = ₦8,660,000
- * $30,000  = ₦12,990,000
- * $50,000  = ₦21,650,000
- * $75,000  = ₦32,475,000
- * $100,000 = ₦43,300,000
- * 
- * Construction (typical):
- * $500,000  = ₦216,500,000
- * $1M       = ₦433,000,000
- * $2M       = ₦866,000,000
- * $5M       = ₦2,165,000,000
- * $10M      = ₦4,330,000,000
+ * BUDGET FORMAT
+ *
+ * Naira only. Write the amount exactly as it was agreed with the client,
+ * for example '₦28,000,000'. Never add a foreign-currency figure or a
+ * conversion note to a project, a comment or the site.
  */
 
 /**

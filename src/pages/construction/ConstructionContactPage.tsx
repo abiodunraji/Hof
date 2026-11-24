@@ -86,11 +86,11 @@ export function ConstructionContactPage() {
   ];
 
   const budgetRanges = [
-    'Under $100K',
-    '$100K - $500K',
-    '$500K - $1M',
-    '$1M - $5M',
-    'Over $5M',
+    'Under ₦50,000,000',
+    '₦50,000,000 - ₦150,000,000',
+    '₦150,000,000 - ₦500,000,000',
+    '₦500,000,000 - ₦1,000,000,000',
+    'Over ₦1,000,000,000',
     'Not Sure Yet'
   ];
 
@@ -423,7 +423,7 @@ export function ConstructionContactPage() {
               <CardContent className="p-6">
                 <h3 className="mb-2">How much does a construction project cost?</h3>
                 <p className="text-muted-foreground">
-                  Project costs vary greatly depending on size, scope, materials, and location. We provide free detailed quotes after assessing your specific needs. Our projects typically range from $100K for renovations to $5M+ for large commercial builds.
+                  Project costs vary greatly depending on size, scope, materials, and location. We provide free detailed quotes after assessing your specific needs.
                 </p>
               </CardContent>
             </Card>

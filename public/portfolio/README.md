@@ -124,12 +124,7 @@ Edit the file: `src/data/portfolioData.ts`
 
 ## Budget Format
 
-All budgets are displayed in Nigerian Naira (₦). Common conversions:
-- $65,000 ≈ ₦28,000,000
-- $45,000 ≈ ₦19,500,000
-- $85,000 ≈ ₦36,800,000
-
-Use approximately 433 as the conversion rate (or current market rate).
+All budgets are shown in Nigerian Naira (₦) only. Write the amount in naira exactly as it was agreed with the client (for example ₦28,000,000). Never add a foreign-currency figure to a project or anywhere else on the site.
 
 ## Gallery Navigation
 

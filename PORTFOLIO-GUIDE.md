@@ -103,11 +103,13 @@ gallery: [
 ## 💰 Budget Examples
 
 ```typescript
-budget: '₦19,500,000'    // ~$45,000
-budget: '₦28,000,000'    // ~$65,000
-budget: '₦36,800,000'    // ~$85,000
-budget: '₦1,385,600,000' // ~$3.2M (Construction)
+budget: '₦19,500,000'
+budget: '₦28,000,000'
+budget: '₦36,800,000'
+budget: '₦1,385,600,000' // Construction
 ```
+
+Budgets are written in naira only, exactly as agreed with the client. Never add a foreign-currency figure.
 
 ## 🖼️ Image Requirements
 
