@@ -3,8 +3,10 @@ import { ChevronLeft, ChevronRight, Sparkles, Award, Building2 } from 'lucide-re
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
-import { interiorsProjects, constructionProjects } from '../data/portfolioData';
+import { interiorsProjects } from '../data/portfolioData';
 
+// The Construction side of the landing page borrows one photo of site work (the same one as before).
+const CONSTRUCTION_IMAGE = '/portfolio/construction/site-work/site-work-01.jpg';
 
 export function LandingPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -29,7 +31,7 @@ export function LandingPage() {
       description: 'Transforming visions into extraordinary living environments',
     },
     {
-      image: constructionProjects[0]?.image || interiorsProjects[0]?.image,
+      image: CONSTRUCTION_IMAGE,
       overlayImage: interiorsProjects[4]?.image || interiorsProjects[1]?.image,
       title: 'CRAFTSMANSHIP',
       titleLarge: 'MEETS',
@@ -356,7 +358,7 @@ export function LandingPage() {
               className="group relative aspect-[3/4] overflow-hidden"
             >
               <ImageWithFallback
-                src={constructionProjects[0]?.image || interiorsProjects[2]?.image}
+                src={CONSTRUCTION_IMAGE}
                 alt="Construction"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 loading="lazy"

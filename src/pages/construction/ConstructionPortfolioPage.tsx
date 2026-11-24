@@ -48,7 +48,8 @@ export function ConstructionPortfolioPage() {
         </div>
       </section>
 
-      {/* Filter Buttons */}
+      {/* Filter Buttons (only when there are projects to filter) */}
+      {constructionProjects.length > 0 && (
       <section className="px-4 pb-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center gap-3">
@@ -68,10 +69,27 @@ export function ConstructionPortfolioPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Projects Grid */}
       <section className="px-4 pb-20">
         <div className="max-w-7xl mx-auto">
+          {filteredProjects.length === 0 && (
+            <div className="max-w-2xl mx-auto text-center py-16">
+              <Building2 className="w-12 h-12 mx-auto mb-6 text-muted-foreground" />
+              <h2 className="text-3xl mb-4">Our project gallery is being updated</h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                New projects will be added here soon. In the meantime, tell us about your project and we will send you a free quote.
+              </p>
+              <Button
+                onClick={() => navigate('/construction/contact')}
+                size="lg"
+                className="bg-foreground text-background hover:bg-foreground/90"
+              >
+                Get a Free Quote
+              </Button>
+            </div>
+          )}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
               <Card 

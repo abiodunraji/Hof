@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import { Button } from '../../components/ui/button';
 import { Card, CardContent } from '../../components/ui/card';
+import { usePortfolioData } from '../../hooks/usePortfolioData';
 import { Building2, HardHat, Hammer, Award, Shield, Clock, CheckCircle, ArrowRight } from 'lucide-react';
 
 const services = [
@@ -50,17 +51,11 @@ const whyChooseUs = [
   }
 ];
 
-const recentProjects = [
-  {
-    id: 1,
-    title: 'Riverside Corporate Center',
-    category: 'Commercial',
-    location: 'Downtown District',
-    image: '/portfolio/construction/site-work/site-work-01.jpg'
-  }
-];
-
 export function ConstructionHomePage() {
+  // The newest real projects from the portfolio (none yet, so the section stays hidden).
+  const { constructionProjects } = usePortfolioData();
+  const recentProjects = constructionProjects.slice(0, 3);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -184,7 +179,8 @@ export function ConstructionHomePage() {
         </div>
       </section>
 
-      {/* Recent Projects Preview */}
+      {/* Recent Projects Preview (only when there are real projects to show) */}
+      {recentProjects.length > 0 && (
       <section className="py-20 bg-gradient-to-br from-muted/20 to-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-end mb-12">
@@ -245,6 +241,7 @@ export function ConstructionHomePage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 bg-foreground text-background">
