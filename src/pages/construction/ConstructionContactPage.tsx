@@ -65,7 +65,7 @@ export function ConstructionContactPage() {
     {
       icon: MapPin,
       title: 'Office Location',
-      details: ['Bolien House, 90 4th Ave', 'Gwarinpa, Abuja 900108', 'Federal Capital Territory'],
+      details: ['Node by COBUILDIT', 'Mabushi, Abuja', 'Federal Capital Territory'],
       action: 'Get Directions'
     },
     {
@@ -395,8 +395,8 @@ export function ConstructionContactPage() {
             <div className="aspect-video bg-muted/50 flex items-center justify-center">
               <div className="text-center text-muted-foreground">
                 <MapPin className="w-12 h-12 mx-auto mb-4" />
-                <p>Bolien House, 90 4th Ave</p>
-                <p>Gwarinpa, Abuja 900108</p>
+                <p>Node by COBUILDIT</p>
+                <p>Mabushi, Abuja</p>
                 <p>Federal Capital Territory</p>
                 <Button 
                   variant="outline" 

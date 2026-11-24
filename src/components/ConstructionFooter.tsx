@@ -83,7 +83,7 @@ export function ConstructionFooter() {
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-background/70">Bolien House, 90 4th Ave, Gwarinpa, Abuja 900108, Federal Capital Territory</span>
+                <span className="text-background/70">Node by COBUILDIT, Mabushi, Abuja, Federal Capital Territory</span>
               </li>
             </ul>
           </div>

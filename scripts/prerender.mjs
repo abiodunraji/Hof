@@ -74,10 +74,20 @@ function buildHeadTags({ siteOrigin, siteName, meta, prerenderedRoute }) {
     `<meta property="og:type" content="website">`,
     `<meta property="og:site_name" content="${escapedSiteName}">`,
     `<meta property="og:image" content="${escapedImageUrl}">`,
+    // Optional per-route image details (set in src/seo/routes.json). Giving the
+    // size and type up front lets link-preview crawlers lay the card out
+    // without downloading the image first.
+    ...(meta.imageWidth && meta.imageHeight ? [
+      `<meta property="og:image:width" content="${escapeHtml(meta.imageWidth)}">`,
+      `<meta property="og:image:height" content="${escapeHtml(meta.imageHeight)}">`,
+    ] : []),
+    ...(meta.imageType ? [`<meta property="og:image:type" content="${escapeHtml(meta.imageType)}">`] : []),
+    ...(meta.imageAlt ? [`<meta property="og:image:alt" content="${escapeHtml(meta.imageAlt)}">`] : []),
     `<meta name="twitter:card" content="summary_large_image">`,
     `<meta name="twitter:title" content="${title}">`,
     `<meta name="twitter:description" content="${description}">`,
     `<meta name="twitter:image" content="${escapedImageUrl}">`,
+    ...(meta.imageAlt ? [`<meta name="twitter:image:alt" content="${escapeHtml(meta.imageAlt)}">`] : []),
   ].join('\n      ');
 }
 

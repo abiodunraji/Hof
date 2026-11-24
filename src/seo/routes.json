@@ -6,7 +6,11 @@
       "path": "/",
       "title": "House of Faridah | Interior Design & Construction in Nigeria",
       "description": "House of Faridah is a Nigerian design-and-build house pairing HOF Interiors' bespoke residential and commercial interiors with HOF Construction's residential and commercial building services.",
-      "image": "/og-faridah.jpg"
+      "image": "/og-faridah.jpg",
+      "imageWidth": 1200,
+      "imageHeight": 630,
+      "imageType": "image/jpeg",
+      "imageAlt": "A woman standing in front of the House of Faridah Interior Studio wall sign in the studio"
     },
     {
       "path": "/interiors",
@@ -40,8 +44,8 @@
     },
     {
       "path": "/interiors/contact",
-      "title": "Contact HOF Interiors | Gwarinpa, Abuja, Nigeria",
-      "description": "Reach HOF Interiors at Bolien House, Gwarinpa, Abuja, Nigeria to start an interior design project or book a complimentary consultation.",
+      "title": "Contact HOF Interiors | Mabushi, Abuja, Nigeria",
+      "description": "Reach HOF Interiors at Node by COBUILDIT, Mabushi, Abuja, Nigeria to start an interior design project or book a complimentary consultation.",
       "image": "/assets/hof-interiors-logo.png"
     },
     {
@@ -64,8 +68,8 @@
     },
     {
       "path": "/construction/contact",
-      "title": "Contact HOF Construction | Gwarinpa, Abuja, Nigeria",
-      "description": "Reach HOF Construction at Bolien House, Gwarinpa, Abuja, Nigeria to request a free quote for your residential or commercial construction project.",
+      "title": "Contact HOF Construction | Mabushi, Abuja, Nigeria",
+      "description": "Reach HOF Construction at Node by COBUILDIT, Mabushi, Abuja, Nigeria to request a free quote for your residential or commercial construction project.",
       "image": "/assets/hof-construction-logo.png"
     }
   ]

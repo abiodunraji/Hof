@@ -231,8 +231,8 @@ export function ContactPage() {
                     <div>
                       <p className="text-muted-foreground mb-1">Address</p>
                       <p className="text-lg">
-                        Bolien House, 90 4th Ave<br />
-                        Gwarinpa, Abuja 900108<br />
+                        Node by COBUILDIT<br />
+                        Mabushi, Abuja<br />
                         Federal Capital Territory
                       </p>
                     </div>
