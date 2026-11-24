@@ -285,7 +285,7 @@ export const constructionProjects: ConstructionProject[] = [
     tags: ['LEED Certified', 'Sustainable', 'Corporate'],
     location: 'Downtown District',
     year: '2024',
-    budget: '₦3,680,000,000', // ~$8.5M
+    budget: '₦3,680,000,000',
     duration: '18 months',
     size: '75,000 sq ft',
     fullDescription: 'This flagship commercial project showcases our commitment to sustainable construction practices while delivering a modern, efficient workspace for the future.',

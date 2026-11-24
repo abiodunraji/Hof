@@ -147,11 +147,11 @@ export function ContactPage() {
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="under-10k">Under $10,000</SelectItem>
-                            <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
-                            <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
-                            <SelectItem value="50k-100k">$50,000 - $100,000</SelectItem>
-                            <SelectItem value="over-100k">Over $100,000</SelectItem>
+                            <SelectItem value="under-1m">Under ₦1,000,000</SelectItem>
+                            <SelectItem value="1m-3m">₦1,000,000 - ₦3,000,000</SelectItem>
+                            <SelectItem value="3m-5m">₦3,000,000 - ₦5,000,000</SelectItem>
+                            <SelectItem value="5m-10m">₦5,000,000 - ₦10,000,000</SelectItem>
+                            <SelectItem value="over-10m">Over ₦10,000,000</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -231,8 +231,8 @@ export function ContactPage() {
                     <div>
                       <p className="text-muted-foreground mb-1">Address</p>
                       <p className="text-lg">
-                        Bolien House, 90 4th Ave<br />
-                        Gwarinpa, Abuja 900108<br />
+                        Node by COBUILDIT<br />
+                        Mabushi, Abuja<br />
                         Federal Capital Territory
                       </p>
                     </div>

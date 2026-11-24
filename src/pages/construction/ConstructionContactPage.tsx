@@ -65,7 +65,7 @@ export function ConstructionContactPage() {
     {
       icon: MapPin,
       title: 'Office Location',
-      details: ['Bolien House, 90 4th Ave', 'Gwarinpa, Abuja 900108', 'Federal Capital Territory'],
+      details: ['Node by COBUILDIT', 'Mabushi, Abuja', 'Federal Capital Territory'],
       action: 'Get Directions'
     },
     {
@@ -86,11 +86,11 @@ export function ConstructionContactPage() {
   ];
 
   const budgetRanges = [
-    'Under $100K',
-    '$100K - $500K',
-    '$500K - $1M',
-    '$1M - $5M',
-    'Over $5M',
+    'Under ₦50,000,000',
+    '₦50,000,000 - ₦150,000,000',
+    '₦150,000,000 - ₦500,000,000',
+    '₦500,000,000 - ₦1,000,000,000',
+    'Over ₦1,000,000,000',
     'Not Sure Yet'
   ];
 
@@ -395,8 +395,8 @@ export function ConstructionContactPage() {
             <div className="aspect-video bg-muted/50 flex items-center justify-center">
               <div className="text-center text-muted-foreground">
                 <MapPin className="w-12 h-12 mx-auto mb-4" />
-                <p>Bolien House, 90 4th Ave</p>
-                <p>Gwarinpa, Abuja 900108</p>
+                <p>Node by COBUILDIT</p>
+                <p>Mabushi, Abuja</p>
                 <p>Federal Capital Territory</p>
                 <Button 
                   variant="outline" 
@@ -423,7 +423,7 @@ export function ConstructionContactPage() {
               <CardContent className="p-6">
                 <h3 className="mb-2">How much does a construction project cost?</h3>
                 <p className="text-muted-foreground">
-                  Project costs vary greatly depending on size, scope, materials, and location. We provide free detailed quotes after assessing your specific needs. Our projects typically range from $100K for renovations to $5M+ for large commercial builds.
+                  Project costs vary greatly depending on size, scope, materials, and location. We provide free detailed quotes after assessing your specific needs.
                 </p>
               </CardContent>
             </Card>
