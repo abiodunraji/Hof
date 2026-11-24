@@ -40,8 +40,9 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_ADMIN_USERNAME: ${{ secrets.VITE_ADMIN_USERNAME }}
-          VITE_ADMIN_PASSWORD_HASH: ${{ secrets.VITE_ADMIN_PASSWORD_HASH }}
+          # The content Worker's address (a public repository variable, see worker/DEPLOY.md).
+          # Empty = the site builds with its built-in content and the forms show their fallback message.
+          VITE_API_BASE: ${{ vars.VITE_API_BASE }}
           VITE_CLOUDINARY_CLOUD_NAME: ${{ secrets.VITE_CLOUDINARY_CLOUD_NAME }}
           VITE_CLOUDINARY_UPLOAD_PRESET: ${{ secrets.VITE_CLOUDINARY_UPLOAD_PRESET }}
       
