@@ -15,6 +15,75 @@ describe('GET /api/content (public)', () => {
     expect(body.portfolio).toBeNull();
     expect(body.updatedAt).toBeNull();
     expect(res.headers.get('Cache-Control')).toMatch(/max-age=30/);
+    // the owner's existing Interiors form is the default; there is no Construction form yet
+    expect((body.config as Record<string, unknown>).tallyInteriorsFormId).toBe('vGPYv8');
+    expect((body.config as Record<string, unknown>).tallyConstructionFormId).toBe('');
+  });
+});
+
+describe('the Tally form ids (the only way the site takes enquiries)', () => {
+  const save = async (config: Record<string, unknown>) => {
+    const env = makeEnv();
+    const token = await loginToken(env);
+    const res = await call(env, 'PUT', '/api/content', { token, body: { config } });
+    return { res, env };
+  };
+
+  it.each([
+    ['a 4 character id', 'abcd'],
+    ['a 6 character id like the owner\'s', 'vGPYv8'],
+    ['a 20 character id', 'A1b2C3d4E5f6G7h8I9j0'],
+  ])('accepts %s for either form', async (_label, id) => {
+    const { res, env } = await save({ tallyInteriorsFormId: id, tallyConstructionFormId: id });
+    expect(res.status).toBe(200);
+    const body = (await (await call(env, 'GET', '/api/content')).json()) as any;
+    expect(body.config.tallyInteriorsFormId).toBe(id);
+    expect(body.config.tallyConstructionFormId).toBe(id);
+  });
+
+  it('accepts an empty id (no form: the page shows the phone and email instead)', async () => {
+    const { res, env } = await save({ tallyInteriorsFormId: '', tallyConstructionFormId: '' });
+    expect(res.status).toBe(200);
+    const body = (await (await call(env, 'GET', '/api/content')).json()) as any;
+    expect(body.config.tallyInteriorsFormId).toBe('');
+  });
+
+  it.each([
+    ['3 characters', 'abc'],
+    ['21 characters', 'a'.repeat(21)],
+    ['a space inside', 'ab cd'],
+    ['a dash', 'ab-cd'],
+    ['a symbol', 'ab!d'],
+    ['a pasted link (the panel turns links into ids before saving)', 'https://tally.so/r/abcd'],
+    ['a script tag', '<script>x</script>'],
+  ])('refuses an id with %s (400)', async (_label, id) => {
+    for (const key of ['tallyInteriorsFormId', 'tallyConstructionFormId']) {
+      const { res, env } = await save({ [key]: id });
+      expect(res.status).toBe(400);
+      expect(((await (await call(env, 'GET', '/api/content')).json()) as any).updatedAt).toBeNull();
+    }
+  });
+
+  it('refuses an id that is not text (400)', async () => {
+    expect((await save({ tallyInteriorsFormId: 123456 })).res.status).toBe(400);
+    expect((await save({ tallyConstructionFormId: null })).res.status).toBe(400);
+  });
+});
+
+describe('the enquiry endpoints are gone (enquiries go to the owner\'s Tally form, not to the Worker)', () => {
+  it.each([
+    ['POST', '/api/enquiry'],
+    ['GET', '/api/enquiries'],
+    ['POST', '/api/enquiries'],
+  ])('%s %s is 404', async (method, path) => {
+    const env = makeEnv();
+    const token = await loginToken(env);
+    const res = await call(env, method, path, {
+      token,
+      body: method === 'POST' ? { source: 'interiors-contact', name: 'A', email: 'a@example.com' } : undefined,
+    });
+    expect(res.status).toBe(404);
+    expect(env.CONTENT.keysWithPrefix('enquiry:')).toHaveLength(0);
   });
 });
 

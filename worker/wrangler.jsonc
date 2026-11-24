@@ -11,6 +11,5 @@
     // Local development (`npm run dev`) ignores it and uses a throwaway local store.
     { "binding": "CONTENT", "id": "REPLACE_WITH_KV_NAMESPACE_ID" }
   ]
-  // Secrets (never written here): ADMIN_USERNAME, ADMIN_PASSWORD_HASH, SESSION_SECRET,
-  // RESEND_API_KEY, ENQUIRY_TO, ENQUIRY_FROM. Optional: RESEND_API_BASE (tests only).
+  // Secrets (never written here): ADMIN_USERNAME, ADMIN_PASSWORD_HASH, SESSION_SECRET.
 }

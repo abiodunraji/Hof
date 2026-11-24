@@ -3,6 +3,7 @@
  * content can only ever have the shape the site expects.
  */
 import { CONFIG_KEYS, defaultConfig, type SiteConfig } from '../../src/data/siteConfig';
+import { isTallyId } from '../../src/lib/tally';
 
 export type Checked<T> = { ok: true; value: T } | { ok: false; error: string };
 
@@ -45,11 +46,14 @@ const CONFIG_LIMITS: Record<keyof SiteConfig, { max: number; min?: number }> = {
   interiorsTagline: { max: 500, min: 1 },
   constructionTagline: { max: 500, min: 1 },
   consultationCtaText: { max: 60, min: 1 },
+  tallyInteriorsFormId: { max: 20 },
+  tallyConstructionFormId: { max: 20 },
   showConsultationCta: { max: 0 },
   portfolioEnabled: { max: 0 },
 };
 
 const SOCIAL_KEYS: (keyof SiteConfig)[] = ['socialInstagram', 'socialFacebook', 'socialLinkedIn'];
+const TALLY_KEYS: (keyof SiteConfig)[] = ['tallyInteriorsFormId', 'tallyConstructionFormId'];
 
 export function validateConfig(input: unknown): Checked<Partial<SiteConfig>> {
   if (!isPlainObject(input)) return fail('config must be an object');
@@ -71,6 +75,9 @@ export function validateConfig(input: unknown): Checked<Partial<SiteConfig>> {
       return fail(`config.${key} must be a full https:// link`);
     }
     if (k === 'contactEmail' && !EMAIL.test(text)) return fail('config.contactEmail is not a valid email address');
+    if (TALLY_KEYS.includes(k) && text !== '' && !isTallyId(text)) {
+      return fail(`config.${key} must be 4 to 20 letters or digits (the id from the Tally link), or empty`);
+    }
     out[key] = text;
   }
   return { ok: true, value: out as Partial<SiteConfig> };
@@ -204,68 +211,4 @@ export function validateContentUpdate(input: unknown): Checked<ContentUpdate> {
     out.portfolio = r.value;
   }
   return { ok: true, value: out };
-}
-
-// ---------------------------------------------------------------- enquiries
-
-export const ENQUIRY_SOURCES = ['interiors-contact', 'construction-contact', 'consultation-dialog'] as const;
-export type EnquirySource = (typeof ENQUIRY_SOURCES)[number];
-
-export interface Enquiry {
-  source: EnquirySource;
-  name: string;
-  email: string;
-  phone: string;
-  company: string;
-  serviceNeeded: string;
-  projectType: string;
-  budget: string;
-  timeline: string;
-  message: string;
-}
-
-const ENQUIRY_LIMITS: Record<Exclude<keyof Enquiry, 'source'>, number> = {
-  name: 120,
-  email: 200,
-  phone: 40,
-  company: 200,
-  serviceNeeded: 200,
-  projectType: 200,
-  budget: 200,
-  timeline: 200,
-  message: 5000,
-};
-
-export const HONEYPOT_FIELD = 'website';
-
-/** Collapses anything that could break a mail header or a single-line field. */
-const LINE_BREAKS = new RegExp('[\r\n\u2028\u2029\t]+', 'g');
-
-export function oneLine(s: string): string {
-  return s.replace(LINE_BREAKS, ' ').trim();
-}
-
-export function validateEnquiry(input: unknown): Checked<Enquiry> {
-  if (!isPlainObject(input)) return fail('The body must be an object.');
-  const allowed = new Set<string>(['source', HONEYPOT_FIELD, ...Object.keys(ENQUIRY_LIMITS)]);
-  for (const key of Object.keys(input)) {
-    if (!allowed.has(key)) return fail(`${key} is not allowed`);
-  }
-  if (typeof input.source !== 'string' || !(ENQUIRY_SOURCES as readonly string[]).includes(input.source)) {
-    return fail('source is not recognised');
-  }
-  const out: Record<string, string> = { source: input.source };
-  for (const [field, max] of Object.entries(ENQUIRY_LIMITS)) {
-    const v = input[field];
-    if (v === undefined || v === null) {
-      out[field] = '';
-      continue;
-    }
-    if (typeof v !== 'string') return fail(`${field} must be text`);
-    if (v.length > max) return fail(`${field} is too long (max ${max})`);
-    out[field] = field === 'message' ? v.trim() : oneLine(v);
-  }
-  if (out.name.length < 1) return fail('Please enter your name.');
-  if (!EMAIL.test(out.email)) return fail('Please enter a valid email address.');
-  return { ok: true, value: out as unknown as Enquiry };
 }

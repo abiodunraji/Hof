@@ -1,10 +1,14 @@
 # House of Faridah content Worker: how to put it live
 
-This Worker is what makes the admin panel publish for real and what delivers the
-contact / consultation forms. Nothing here has been run against Cloudflare yet:
-it was built and tested locally only (`npm test`, `npm run dev`).
+This Worker is what makes the admin panel publish for real: the owner's changes to contact
+details, links, texts and projects are saved here and every visitor sees them. Nothing here
+has been run against Cloudflare yet: it was built and tested locally only (`npm test`,
+`npm run dev`).
 
-Do the steps in order. Steps 2 to 6 create things on a Cloudflare account, so check
+It does **not** take enquiries. The site's forms are the owner's own Tally forms, embedded on
+the pages (see "Tally forms" below), so nothing a visitor types ever reaches this Worker.
+
+Do the steps in order. Steps 2 to 5 create things on a Cloudflare account, so check
 **whose account** is signed in first (step 2). Everything is on the free plan.
 
 ## 0. What you need
@@ -12,16 +16,13 @@ Do the steps in order. Steps 2 to 6 create things on a Cloudflare account, so ch
 - A Cloudflare account (free). Use Biodun's own, never a client's.
 - A GitHub login that can edit `abiodunraji/Hof` settings.
 - The password the owner will use for `/.admin` (10+ characters), and the username.
-- For the enquiry emails: the owner's email address(es) that should receive them, and
-  an email provider (see "Enquiry email" below). The Worker works without it: every
-  enquiry is still stored and can be read in the panel's Enquiries tab.
 
 ## 1. Install
 
 ```
 cd worker
 npm ci
-npm test            # 68+ tests, local only
+npm test            # 89 tests, local only
 npm run typecheck
 ```
 
@@ -50,15 +51,7 @@ node scripts/hash-password.mjs --secret           # prints a random value
 npx wrangler secret put SESSION_SECRET            # paste it (48+ characters)
 ```
 
-Enquiry email (optional but this is what puts the form in her inbox):
-
-```
-npx wrangler secret put RESEND_API_KEY
-npx wrangler secret put ENQUIRY_TO                # one address, or several separated by commas
-npx wrangler secret put ENQUIRY_FROM              # for example: House of Faridah <enquiries@houseoffaridah.com>
-```
-
-Do not set `RESEND_API_BASE`; it exists only so the tests can point at a fake provider.
+These three are the only secrets the Worker uses.
 
 ## 5. Deploy the Worker
 
@@ -74,8 +67,8 @@ It prints the address, like `https://hof-content.<account>.workers.dev`. Write i
 curl https://hof-content.<account>.workers.dev/api/content
 ```
 
-Expect JSON with `config` (the site's defaults) and `portfolio: null`. Then, from a
-terminal, sign in with the real username and password:
+Expect JSON with `config` (the site's defaults, including `tallyInteriorsFormId`) and
+`portfolio: null`. Then sign in from a terminal with the real username and password:
 
 ```
 curl -X POST https://hof-content.<account>.workers.dev/api/login -H "Content-Type: application/json" -d "{\"username\":\"USER\",\"password\":\"PASSWORD\"}"
@@ -98,33 +91,30 @@ Expect a `token`. A wrong password must answer 401.
 - `https://houseoffaridah.com/.admin`: sign in. A wrong password must be refused.
 - Change the Contact phone, press **Save Changes**. Open the site in a private window:
   the new phone shows within about 30 seconds.
-- Send a test message from the contact page. It must appear under **Enquiries** in the
-  panel, and (if email is set up) in the inbox.
+- Open the Interiors contact page: the owner's Tally form shows inside the page.
 
-## Enquiry email: the choices
+## Tally forms
 
-The Worker calls an email provider's HTTP API from `worker/src/email.ts` (Resend today;
-only that file changes for another provider).
-
-- **Resend (free tier)**: needs the sender domain verified, which means adding the DNS
-  records Resend shows at Namecheap, where the owners hold `houseoffaridah.com`. Gives mail
-  that comes from `enquiries@houseoffaridah.com`. Until the domain is verified, Resend only
-  delivers to the account holder's own address, so it cannot reach the owner.
-- **No email at all**: leave the three email secrets unset. Enquiries are stored and listed in
-  the panel; the owner has to open the panel to see them (which is why email is better).
+- The Interiors contact page and the Interiors "Book a consultation" pop-up embed the owner's
+  Tally form **Client Onboarding Form**, id `vGPYv8` (an Interiors intake). It is the default
+  of the setting `tallyInteriorsFormId`.
+- There is no Construction form yet. Until `tallyConstructionFormId` is set, the Construction
+  contact page shows a "Call or email us to request a quote" card with the configured phone
+  and email, and no form.
+- The owner can change either id in the panel (Contact tab). Pasting the Tally share link
+  (`https://tally.so/r/<id>`) or embed link is enough; the panel keeps only the id. The Worker
+  accepts only 4 to 20 letters or digits, or empty.
+- Submissions go straight to the owner's Tally account and email. This Worker never sees them.
 
 ## Limits to know
 
 - KV is eventually consistent: a save can take up to about a minute to show everywhere.
-- Rate limits (5 wrong logins per 15 minutes per connection, 5 enquiries per 10 minutes) are
-  best effort for the same reason.
+- The wrong-login limit (5 per 15 minutes per connection) is best effort for the same reason.
 - One owner login. A password change from the panel ends every older session.
 - If the Worker is down or the address is wrong, the site falls back to its built-in content
-  (exactly today's site) and the forms show an error with the phone and email instead of a
-  false "thank you".
+  (exactly today's site), including the owner's Tally form.
 
 ## Rolling back
 
 Delete the `VITE_API_BASE` variable and redeploy the site: it returns to the built-in
-content and the forms show their error message. The Worker and its stored enquiries are
-untouched.
+content. The Worker and its stored content are untouched.

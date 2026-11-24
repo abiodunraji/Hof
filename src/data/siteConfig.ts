@@ -22,6 +22,10 @@
  *   constructionTagline  Construction footer paragraph
  *   consultationCtaText  the button on the Interiors contact page that opens the
  *                        consultation form
+ *   tallyInteriorsFormId   the owner's Tally form shown on the Interiors contact page and in
+ *                        the Interiors consultation pop-up (empty = show phone and email)
+ *   tallyConstructionFormId the Tally form for Construction (none exists yet: empty = the
+ *                        Construction contact page shows phone and email instead of a form)
  *   showConsultationCta  the "Complimentary Consultation" card on that page
  *   portfolioEnabled     the Portfolio link in both navigation bars and the footer
  */
@@ -41,6 +45,10 @@ export interface SiteConfig {
   interiorsTagline: string;
   constructionTagline: string;
   consultationCtaText: string;
+
+  // Enquiry forms (Tally form ids; empty = no form)
+  tallyInteriorsFormId: string;
+  tallyConstructionFormId: string;
 
   // Feature toggles
   showConsultationCta: boolean;
@@ -64,6 +72,10 @@ export const defaultConfig: SiteConfig = {
   constructionTagline:
     'Building excellence since 2010. Quality construction and renovation services you can trust.',
   consultationCtaText: 'Book Consultation',
+
+  // Enquiry forms: the owner's "Client Onboarding Form" is an Interiors intake; there is no Construction form yet
+  tallyInteriorsFormId: 'vGPYv8',
+  tallyConstructionFormId: '',
 
   // Feature toggles
   showConsultationCta: true,
