@@ -286,41 +286,13 @@ export function ConstructionContactPage() {
               <Card className="bg-gradient-to-br from-foreground to-foreground/90 text-background border-0">
                 <CardContent className="p-8">
                   <Building2 className="w-12 h-12 mb-4" />
-                  <h3 className="text-2xl mb-4">Why Choose Us?</h3>
+                  <h3 className="text-2xl mb-4">What to Expect</h3>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="mb-1">Free Consultation & Quote</p>
                         <p className="text-sm text-background/80">No obligation, detailed project assessment</p>
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="mb-1">Licensed & Insured</p>
-                        <p className="text-sm text-background/80">Fully certified with comprehensive coverage</p>
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="mb-1">Quality Guarantee</p>
-                        <p className="text-sm text-background/80">We stand behind our work with warranties</p>
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="mb-1">Transparent Pricing</p>
-                        <p className="text-sm text-background/80">Detailed quotes with no hidden costs</p>
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="mb-1">On-Time Delivery</p>
-                        <p className="text-sm text-background/80">Proven track record of meeting deadlines</p>
                       </div>
                     </li>
                   </ul>
@@ -428,32 +400,6 @@ export function ConstructionContactPage() {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="mb-2">How long does a typical project take?</h3>
-                <p className="text-muted-foreground">
-                  Timeline depends on project complexity. Residential homes typically take 12-18 months, commercial buildings 12-24 months, and renovations 3-12 months. We provide detailed schedules during the proposal phase.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="mb-2">Do you handle permits and inspections?</h3>
-                <p className="text-muted-foreground">
-                  Yes! We handle all necessary permits, approvals, and inspections. Our team is experienced in working with local building departments and ensures full compliance with all regulations.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="mb-2">What areas do you serve?</h3>
-                <p className="text-muted-foreground">
-                  We serve the greater metropolitan area and surrounding regions within 50 miles of our office. For larger projects, we're willing to travel further. Contact us to discuss your location.
-                </p>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>

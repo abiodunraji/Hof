@@ -15,7 +15,7 @@ export function ConstructionFooter() {
               <h3 className="text-xl">HOF Construction</h3>
             </div>
             <p className="text-background/70 text-sm">
-              Building excellence since 2010. Quality construction and renovation services you can trust.
+              Construction and renovation services by House of Faridah.
             </p>
           </div>
 

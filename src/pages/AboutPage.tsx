@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
-import { Award, Heart, Sparkles, Star, Users, Home } from 'lucide-react';
-const faridahAboutImage = '/about-me.png';
+import { Heart, Sparkles, Star, Users } from 'lucide-react';
+const faridahAboutImage = '/faridah-tella.jpg';
 const values = [
   {
     icon: Heart,
@@ -27,12 +27,8 @@ const values = [
   },
 ];
 
-const achievements = [
-  { icon: Home, value: '500+', label: 'Homes Transformed' },
-  { icon: Award, value: '15+', label: 'Years Experience' },
-  { icon: Heart, value: '1000+', label: 'Happy Clients' },
-  { icon: Sparkles, value: '50+', label: 'Design Awards' },
-];
+// The "Achievements & Milestones" figures (homes transformed, years, happy clients, design awards)
+// were removed on 24 Nov 2026 because the owner has not confirmed them. Add one back only when she supplies it.
 
 export function AboutPage() {
   return (
@@ -69,7 +65,7 @@ export function AboutPage() {
               <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl luxe-card">
                 <ImageWithFallback
                   src={faridahAboutImage}
-                  alt="Faridah - Interior Designer"
+                  alt="Faridah Tella in front of the House of Faridah Interior Studio sign"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -138,30 +134,6 @@ export function AboutPage() {
                   {value.description}
                 </p>
               </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Achievements Section */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl mb-4">Achievements & Milestones</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              A testament to years of dedication and passion
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {achievements.map((achievement, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 text-primary rounded-full mb-4">
-                  <achievement.icon size={32} />
-                </div>
-                <div className="text-4xl sm:text-5xl mb-2 text-primary">{achievement.value}</div>
-                <div className="text-muted-foreground">{achievement.label}</div>
-              </div>
             ))}
           </div>
         </div>

@@ -4,7 +4,7 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { ConsultationDialog } from '../components/ConsultationDialog';
-import { Home, MessageCircle, Layout, Palette, Box, Sofa, ChevronLeft, ChevronRight, Award, Users, Sparkles } from 'lucide-react';
+import { Home, MessageCircle, Layout, Palette, Box, Sofa, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 
 // Hero carousel images
 const heroSlides = [
@@ -200,46 +200,6 @@ export function HomePage() {
                 </div>
               </div>
 
-              {/* Right: Floating Stats Card */}
-              <div className="hidden lg:block">
-                <div className="backdrop-elegant rounded-3xl p-8 border border-white/20 shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:scale-105 animate-fade-in-up [animation-delay:0.8s]">
-                  <div className="space-y-8">
-                    <div className="flex items-start gap-4 group">
-                      <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
-                        <Award className="w-7 h-7 text-white" />
-                      </div>
-                      <div>
-                        <div className="text-4xl font-display text-white mb-1">45+</div>
-                        <div className="text-white/80 text-sm uppercase tracking-wider">Years of Excellence</div>
-                      </div>
-                    </div>
-
-                    <div className="h-px bg-gradient-to-r from-white/20 via-white/40 to-white/20"></div>
-
-                    <div className="flex items-start gap-4 group">
-                      <div className="w-14 h-14 rounded-2xl bg-magenta-dark/20 flex items-center justify-center group-hover:bg-magenta-dark/30 transition-colors">
-                        <Users className="w-7 h-7 text-white" />
-                      </div>
-                      <div>
-                        <div className="text-4xl font-display text-white mb-1">500+</div>
-                        <div className="text-white/80 text-sm uppercase tracking-wider">Satisfied Clients</div>
-                      </div>
-                    </div>
-
-                    <div className="h-px bg-gradient-to-r from-white/20 via-white/40 to-white/20"></div>
-
-                    <div className="flex items-start gap-4 group">
-                      <div className="w-14 h-14 rounded-2xl bg-hot-pink/20 flex items-center justify-center group-hover:bg-hot-pink/30 transition-colors">
-                        <Sparkles className="w-7 h-7 text-white" />
-                      </div>
-                      <div>
-                        <div className="text-4xl font-display text-white mb-1">300+</div>
-                        <div className="text-white/80 text-sm uppercase tracking-wider">Stunning Projects</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -429,8 +389,8 @@ export function HomePage() {
 
             <div className="order-1 lg:order-2 relative h-[500px] rounded-2xl overflow-hidden shadow-xl animate-fade-in-up hover-lift animate-delay-1700">
               <ImageWithFallback
-                src="/about-me.png"
-                alt="Faridah - Interior Designer"
+                src="/faridah-tella.jpg"
+                alt="Faridah Tella in front of the House of Faridah Interior Studio sign"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 loading="lazy"
                 decoding="async"

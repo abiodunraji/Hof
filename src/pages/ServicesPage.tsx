@@ -83,8 +83,7 @@ const services = [
       'Custom furniture design and production',
       'Curated furniture selection',
       'Fabric and finishing coordination',
-      'Professional installation management',
-      'Quality assurance and warranty support'
+      'Professional installation management'
     ],
     image: '/portfolio/interiors/minimalist-bedroom-design/bedroom-full-view.jpg',
     duration: '4-8 weeks',
@@ -410,7 +409,7 @@ export function ServicesPage() {
                   </div>
                   <div className="flex-1 space-y-2">
                     <h3 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight group-hover:text-primary transition-colors duration-300">
-                      Proven Process
+                      Our Process
                     </h3>
                     <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                       Our systematic approach ensures seamless project execution from initial concept to final completion, delivering excellence at every stage.
