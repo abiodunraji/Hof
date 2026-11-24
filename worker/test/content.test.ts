@@ -21,6 +21,23 @@ describe('GET /api/content (public)', () => {
   });
 });
 
+describe('the built-in wording (what the Worker serves until the owner changes it)', () => {
+  it('makes no claim the owner has not confirmed', () => {
+    const CLAIM = /since\s+\d{4}|\d+\s*\+|\byears?\b|licen[sc]ed|certified|insured|award|guarantee|warrant|track record/i;
+    for (const [key, value] of Object.entries(defaultConfig)) {
+      if (typeof value === 'string') expect({ key, claim: CLAIM.test(value) }).toEqual({ key, claim: false });
+    }
+  });
+
+  it('links only to a social page that exists: the real Instagram, and nothing for the pages that do not', () => {
+    // 1 Nov 2026: instagram.com/houseoffaridah, facebook.com/houseoffaridah and the LinkedIn company page were not found;
+    // the owner's real Instagram is hofinteriorconcept. An empty link hides its icon on the site.
+    expect(defaultConfig.socialInstagram).toBe('https://instagram.com/hofinteriorconcept');
+    expect(defaultConfig.socialFacebook).toBe('');
+    expect(defaultConfig.socialLinkedIn).toBe('');
+  });
+});
+
 describe('the Tally form ids (the only way the site takes enquiries)', () => {
   const save = async (config: Record<string, unknown>) => {
     const env = makeEnv();

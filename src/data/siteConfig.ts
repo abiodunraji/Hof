@@ -62,15 +62,18 @@ export const defaultConfig: SiteConfig = {
   contactAddress: 'Node by COBUILDIT\nMabushi, Abuja\nFederal Capital Territory',
 
   // Social
-  socialInstagram: 'https://instagram.com/houseoffaridah',
-  socialFacebook: 'https://facebook.com/houseoffaridah',
-  socialLinkedIn: 'https://linkedin.com/company/houseoffaridah',
+  // Only the Instagram account that exists. The pages instagram.com/houseoffaridah,
+  // facebook.com/houseoffaridah and the LinkedIn company page were not found (1 Nov 2026),
+  // so they are empty here (an empty link hides its icon). The owner can add them in the panel.
+  socialInstagram: 'https://instagram.com/hofinteriorconcept',
+  socialFacebook: '',
+  socialLinkedIn: '',
 
   // Business
   interiorsTagline:
     'Creating beautiful, timeless spaces that nurture the soul and celebrate the art of living. Every design tells a unique story of elegance and comfort.',
   constructionTagline:
-    'Building excellence since 2010. Quality construction and renovation services you can trust.',
+    'Construction and renovation services by House of Faridah.',
   consultationCtaText: 'Book Consultation',
 
   // Enquiry forms: the owner's "Client Onboarding Form" is an Interiors intake; there is no Construction form yet
