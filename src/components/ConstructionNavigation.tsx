@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Menu, X, ArrowLeft } from 'lucide-react';
 import { Button } from './ui/button';
+import { useSiteConfig } from '../hooks/useSiteConfig';
 
 export function ConstructionNavigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,12 +22,13 @@ export function ConstructionNavigation() {
 
   const currentPage = location.pathname.replace(/\/+$/, '').split('/').pop() || 'home';
 
+  const config = useSiteConfig();
   const navLinks = [
     { label: 'Home', page: 'home', path: '/construction' },
     { label: 'About Us', page: 'about', path: '/construction/about' },
     { label: 'Portfolio', page: 'portfolio', path: '/construction/portfolio' },
     { label: 'Contact Us', page: 'contact', path: '/construction/contact' },
-  ];
+  ].filter((link) => link.page !== 'portfolio' || config.portfolioEnabled);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-wood-light/95 to-white/95 backdrop-blur-md border-b border-wood-primary/20 shadow-lg relative wood-texture">

@@ -1,12 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Switch } from '../../components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import { Separator } from '../../components/ui/separator';
-import { useAdminAuth, useSessionTimeout } from '../../hooks/useAdminAuth';
-import { loadConfig, saveConfig, resetConfig } from '../../hooks/useSiteConfig';
+import { useAdminAuth, useSessionTimeout, adminFetch, refreshSession } from '../../hooks/useAdminAuth';
 import { defaultConfig, type SiteConfig } from '../../data/siteConfig';
+import { extractTallyId } from '../../lib/tally';
+import { mergeContent, setContent, type ContentResponse, type SiteContent } from '../../lib/content';
 import { ProjectsTab } from './ProjectsTab';
 import { SettingsTab } from './SettingsTab';
+import type { ContentUpdate, Notify, SaveResult } from './types';
 
 // ── Field components ──────────────────────────────────────────────────────────
 
@@ -16,14 +18,18 @@ function Field({
   value,
   onChange,
   placeholder,
+  hint,
   type = 'text',
+  onBlur,
 }: {
   label: string;
   id: string;
   value: string;
   onChange: (v: string) => void;
   placeholder?: string;
+  hint?: string;
   type?: string;
+  onBlur?: () => void;
 }) {
   return (
     <div className="admin-field">
@@ -33,8 +39,34 @@ function Field({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
         placeholder={placeholder}
       />
+      {hint && <p className="admin-field__hint">{hint}</p>}
+    </div>
+  );
+}
+
+function TextAreaField({
+  label,
+  id,
+  value,
+  onChange,
+  hint,
+  rows = 3,
+}: {
+  label: string;
+  id: string;
+  value: string;
+  onChange: (v: string) => void;
+  hint?: string;
+  rows?: number;
+}) {
+  return (
+    <div className="admin-field">
+      <label htmlFor={id}>{label}</label>
+      <textarea id={id} value={value} rows={rows} onChange={(e) => onChange(e.target.value)} />
+      {hint && <p className="admin-field__hint">{hint}</p>}
     </div>
   );
 }
@@ -61,14 +93,22 @@ function ToggleField({
   );
 }
 
-// ── Save banner ───────────────────────────────────────────────────────────────
+// ── Result banner ─────────────────────────────────────────────────────────────
 
-function SaveBanner({ visible, onDismiss }: { visible: boolean; onDismiss: () => void }) {
-  if (!visible) return null;
+interface Banner {
+  kind: 'success' | 'error';
+  text: string;
+}
+
+function ResultBanner({ banner, onDismiss }: { banner: Banner | null; onDismiss: () => void }) {
+  if (!banner) return null;
   return (
-    <div className="admin-save-banner">
-      <span>Changes saved to browser storage.</span>
-      <button type="button" onClick={onDismiss} className="admin-save-banner__dismiss">
+    <div
+      className={`admin-save-banner${banner.kind === 'error' ? ' admin-save-banner--error' : ''}`}
+      role={banner.kind === 'error' ? 'alert' : 'status'}
+    >
+      <span>{banner.text}</span>
+      <button type="button" onClick={onDismiss} className="admin-save-banner__dismiss" aria-label="Dismiss">
         ×
       </button>
     </div>
@@ -108,16 +148,35 @@ function SessionWarningBanner({
 
 export function AdminDashboard() {
   const { logout } = useAdminAuth();
-  const [config, setConfig] = useState<SiteConfig>(() => loadConfig());
-  const [saved, setSaved] = useState(false);
+  // What the Worker holds right now. Null until it has been read: the panel never edits
+  // a guess (saving the built-in defaults over real content would be worse than waiting).
+  const [content, setContentState] = useState<SiteContent | null>(null);
+  const contentRef = useRef<SiteContent | null>(null);
+  contentRef.current = content;
+  const [loadError, setLoadError] = useState('');
+  const [config, setConfig] = useState<SiteConfig>(defaultConfig);
+  const [banner, setBanner] = useState<Banner | null>(null);
+  const [saving, setSaving] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showSessionWarning, setShowSessionWarning] = useState(false);
 
-  useEffect(() => {
-    const handler = () => setConfig(loadConfig());
-    window.addEventListener('focus', handler);
-    return () => window.removeEventListener('focus', handler);
+  const notify: Notify = useCallback((kind, text) => setBanner({ kind, text }), []);
+
+  const loadFromServer = useCallback(async () => {
+    setLoadError('');
+    const res = await adminFetch<ContentResponse>('/api/content');
+    if (res.ok) {
+      const merged = mergeContent(res.data);
+      setContentState(merged);
+      setConfig(merged.config);
+    } else if (res.status !== 401) {
+      setLoadError(res.error);
+    }
   }, []);
+
+  useEffect(() => {
+    void loadFromServer();
+  }, [loadFromServer]);
 
   const handleExpire = useCallback(() => {
     setShowSessionWarning(false);
@@ -137,17 +196,98 @@ export function AdminDashboard() {
   const handleStay = useCallback(() => {
     setShowSessionWarning(false);
     resetTimer();
+    void refreshSession();
   }, [resetTimer]);
+
+  // While the owner is working (clicking or typing), renew the 30 minute server session every 5 minutes.
+  useEffect(() => {
+    let lastActive = Date.now();
+    let lastRefresh = Date.now();
+    const mark = () => { lastActive = Date.now(); };
+    window.addEventListener('pointerdown', mark, { passive: true });
+    window.addEventListener('keydown', mark, { passive: true });
+    const timer = setInterval(() => {
+      if (lastActive > lastRefresh) {
+        lastRefresh = Date.now();
+        void refreshSession();
+      }
+    }, 5 * 60 * 1000);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('pointerdown', mark);
+      window.removeEventListener('keydown', mark);
+    };
+  }, []);
 
   const update = <K extends keyof SiteConfig>(key: K, value: SiteConfig[K]) =>
     setConfig((prev) => ({ ...prev, [key]: value }));
 
-  const handleSave = () => { saveConfig(config); setSaved(true); };
-  const handleReset = () => {
-    resetConfig();
-    setConfig(defaultConfig);
+  /** The one way anything is saved: PUT /api/content, then show the real result. */
+  const saveToServer = useCallback(
+    async (body: ContentUpdate): Promise<SaveResult> => {
+      const res = await adminFetch<{ ok: boolean; updatedAt: string }>('/api/content', { method: 'PUT', body });
+      if (!res.ok) {
+        notify('error', `Not saved: ${res.error}`);
+        return { ok: false, error: res.error };
+      }
+      // Keep the panel (and any open site tab) in step with what the Worker now holds.
+      const prev = contentRef.current;
+      if (prev) {
+        const next: SiteContent = {
+          config: { ...prev.config, ...(body.config ?? {}) },
+          portfolio: { ...prev.portfolio, ...(body.portfolio ?? {}) },
+        };
+        contentRef.current = next;
+        setContentState(next);
+        setContent(next);
+      }
+      notify('success', 'Saved. Visitors will see this within about 30 seconds.');
+      return { ok: true };
+    },
+    [notify],
+  );
+
+  /** Pasting a Tally link into a form box keeps only the id (the part after /r/ or /embed/). */
+  const tidyTallyBox = (key: 'tallyInteriorsFormId' | 'tallyConstructionFormId') => {
+    const id = extractTallyId(config[key]);
+    if (id !== null && id !== config[key]) update(key, id);
+  };
+
+  const handleSave = async () => {
+    const interiorsId = extractTallyId(config.tallyInteriorsFormId);
+    const constructionId = extractTallyId(config.tallyConstructionFormId);
+    if (interiorsId === null || constructionId === null) {
+      notify('error', 'Not saved: a form box must hold the Tally form id or a Tally link (https://tally.so/r/…), or be empty.');
+      return;
+    }
+    const toSave: SiteConfig = { ...config, tallyInteriorsFormId: interiorsId, tallyConstructionFormId: constructionId };
+    setConfig(toSave);
+    setSaving(true);
+    try {
+      await saveToServer({ config: toSave });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const resetAll = async () => {
     setShowResetConfirm(false);
-    setSaved(true);
+    const res = await adminFetch<{ ok: boolean }>('/api/content', { method: 'DELETE' });
+    if (!res.ok) {
+      notify('error', `Not reset: ${res.error}`);
+      return;
+    }
+    const merged = mergeContent(null);
+    setContentState(merged);
+    setConfig(merged.config);
+    setContent(null);
+    notify('success', 'Everything is back to the built-in content.');
+  };
+
+  const importBackup = async (body: ContentUpdate): Promise<SaveResult> => {
+    const result = await saveToServer(body);
+    if (result.ok) await loadFromServer();
+    return result;
   };
 
   return (
@@ -161,8 +301,8 @@ export function AdminDashboard() {
             <h1 className="admin-header__title">Admin Panel</h1>
           </div>
           <div className="admin-header__actions">
-            <button type="button" onClick={handleSave} className="admin-btn-primary">
-              Save Changes
+            <button type="button" onClick={handleSave} disabled={!content || saving} className="admin-btn-primary">
+              {saving ? 'Saving…' : 'Save Changes'}
             </button>
             <button type="button" onClick={() => logout()} className="admin-btn-ghost">
               Sign Out
@@ -173,154 +313,182 @@ export function AdminDashboard() {
 
       {/* ── Content ── */}
       <main className="admin-main">
-        <Tabs defaultValue="contact">
-
-          <TabsList>
-            <TabsTrigger value="contact">Contact</TabsTrigger>
-            <TabsTrigger value="social">Social</TabsTrigger>
-            <TabsTrigger value="business">Business</TabsTrigger>
-            <TabsTrigger value="features">Features</TabsTrigger>
-            <TabsTrigger value="projects">Projects</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
-          </TabsList>
-
-          {/* ── Contact ── */}
-          <TabsContent value="contact">
-            <div className="admin-panel">
-              <div className="admin-panel__header">
-                <h2 className="admin-panel__title">Contact Information</h2>
-                <p className="admin-panel__subtitle">Displayed on the contact page and footer.</p>
-              </div>
-              <Separator />
-              <div className="admin-field-grid-2 admin-panel-body">
-                <Field label="Phone number" id="contactPhone" value={config.contactPhone}
-                  onChange={(v) => update('contactPhone', v)} placeholder="+234 800 000 0000" type="tel" />
-                <Field label="Email address" id="contactEmail" value={config.contactEmail}
-                  onChange={(v) => update('contactEmail', v)} placeholder="hello@houseoffaridah.com" type="email" />
-                <Field label="WhatsApp number" id="contactWhatsApp" value={config.contactWhatsApp}
-                  onChange={(v) => update('contactWhatsApp', v)} placeholder="+234 800 000 0000" type="tel" />
-                <Field label="Office address" id="contactAddress" value={config.contactAddress}
-                  onChange={(v) => update('contactAddress', v)} placeholder="Lagos, Nigeria" />
-              </div>
+        {!content ? (
+          <div className="admin-panel">
+            <div className="admin-panel-body">
+              {loadError ? (
+                <>
+                  <p className="admin-settings__error">
+                    The panel could not read the site's saved content: {loadError} Nothing has been changed.
+                  </p>
+                  <div style={{ marginTop: '1rem' }}>
+                    <button type="button" onClick={() => void loadFromServer()} className="admin-btn-primary">
+                      Try again
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <p className="admin-panel__subtitle">Loading the site's saved content…</p>
+              )}
             </div>
-          </TabsContent>
-
-          {/* ── Social ── */}
-          <TabsContent value="social">
-            <div className="admin-panel">
-              <div className="admin-panel__header">
-                <h2 className="admin-panel__title">Social Media Links</h2>
-                <p className="admin-panel__subtitle">Enter full URLs (e.g. https://instagram.com/yourhandle).</p>
-              </div>
-              <Separator />
-              <div className="admin-field-grid-2 admin-panel-body">
-                <Field label="Instagram" id="socialInstagram" value={config.socialInstagram}
-                  onChange={(v) => update('socialInstagram', v)} placeholder="https://instagram.com/houseoffaridah" />
-                <Field label="Facebook" id="socialFacebook" value={config.socialFacebook}
-                  onChange={(v) => update('socialFacebook', v)} placeholder="https://facebook.com/houseoffaridah" />
-                <Field label="LinkedIn" id="socialLinkedIn" value={config.socialLinkedIn}
-                  onChange={(v) => update('socialLinkedIn', v)} placeholder="https://linkedin.com/company/houseoffaridah" />
-                <Field label="Pinterest" id="socialPinterest" value={config.socialPinterest}
-                  onChange={(v) => update('socialPinterest', v)} placeholder="https://pinterest.com/houseoffaridah" />
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* ── Business ── */}
-          <TabsContent value="business">
-            <div className="admin-panel">
-              <div className="admin-panel__header">
-                <h2 className="admin-panel__title">Business Copy</h2>
-                <p className="admin-panel__subtitle">Short texts used across the site.</p>
-              </div>
-              <Separator />
-              <div className="admin-field-stack">
-                <Field label="Interiors tagline" id="interiorsTagline" value={config.interiorsTagline}
-                  onChange={(v) => update('interiorsTagline', v)} placeholder="Luxury interior design tailored to your lifestyle." />
-                <Field label="Construction tagline" id="constructionTagline" value={config.constructionTagline}
-                  onChange={(v) => update('constructionTagline', v)} placeholder="Building excellence, crafted with precision." />
-                <Field label="Consultation CTA button text" id="consultationCtaText" value={config.consultationCtaText}
-                  onChange={(v) => update('consultationCtaText', v)} placeholder="Book a Free Consultation" />
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* ── Features ── */}
-          <TabsContent value="features">
-            <div className="admin-panel">
-              <div className="admin-panel__header">
-                <h2 className="admin-panel__title">Feature Toggles</h2>
-                <p className="admin-panel__subtitle">Enable or disable site-wide features.</p>
-              </div>
-              <Separator />
-              <div className="admin-toggle-stack">
-                <ToggleField
-                  label="Consultation CTA button"
-                  description="Show the 'Book a Consultation' button in navigation."
-                  checked={config.showConsultationCta}
-                  onCheckedChange={(v) => update('showConsultationCta', v)}
-                />
-                <Separator />
-                <ToggleField
-                  label="WhatsApp floating button"
-                  description="Show a floating WhatsApp chat button on all pages."
-                  checked={config.showWhatsAppButton}
-                  onCheckedChange={(v) => update('showWhatsAppButton', v)}
-                />
-                <Separator />
-                <ToggleField
-                  label="Portfolio section"
-                  description="Show the portfolio / gallery section on the site."
-                  checked={config.portfolioEnabled}
-                  onCheckedChange={(v) => update('portfolioEnabled', v)}
-                />
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* ── Projects ── */}
-          <TabsContent value="projects">
-            <ProjectsTab onSaved={() => setSaved(true)} />
-          </TabsContent>
-
-          {/* ── Settings ── */}
-          <TabsContent value="settings">
-            <SettingsTab onSaved={() => setSaved(true)} />
-          </TabsContent>
-
-        </Tabs>
-
-        {/* Save + reset row */}
-        <div className="admin-footer-actions">
-          <div>
-            {!showResetConfirm ? (
-              <button
-                type="button"
-                onClick={() => setShowResetConfirm(true)}
-                className="admin-text-btn admin-text-btn--faint"
-              >
-                Reset all to defaults
-              </button>
-            ) : (
-              <div className="admin-reset-confirm">
-                <span className="admin-reset-confirm__prompt">Reset all settings to defaults?</span>
-                <button type="button" onClick={handleReset} className="admin-text-btn admin-text-btn--danger">
-                  Yes, reset
-                </button>
-                <button type="button" onClick={() => setShowResetConfirm(false)} className="admin-text-btn admin-text-btn--cancel">
-                  Cancel
-                </button>
-              </div>
-            )}
           </div>
-          <button type="button" onClick={handleSave} className="admin-btn-primary">
-            Save Changes
-          </button>
-        </div>
+        ) : (
+          <>
+            <Tabs defaultValue="contact">
 
+              <TabsList>
+                <TabsTrigger value="contact">Contact</TabsTrigger>
+                <TabsTrigger value="social">Social</TabsTrigger>
+                <TabsTrigger value="business">Business</TabsTrigger>
+                <TabsTrigger value="features">Features</TabsTrigger>
+                <TabsTrigger value="projects">Projects</TabsTrigger>
+                <TabsTrigger value="settings">Settings</TabsTrigger>
+              </TabsList>
+
+              {/* ── Contact ── */}
+              <TabsContent value="contact">
+                <div className="admin-panel">
+                  <div className="admin-panel__header">
+                    <h2 className="admin-panel__title">Contact Information</h2>
+                    <p className="admin-panel__subtitle">
+                      Shown on both contact pages and in the HOF Construction footer, plus the enquiry forms on those pages.
+                    </p>
+                  </div>
+                  <Separator />
+                  <div className="admin-field-grid-2 admin-panel-body">
+                    <Field label="Phone number" id="contactPhone" value={config.contactPhone}
+                      onChange={(v) => update('contactPhone', v)} placeholder="09039330335 / 07040654539" type="tel"
+                      hint="For two numbers, write them with a slash between: 0903… / 0704…" />
+                    <Field label="Email address" id="contactEmail" value={config.contactEmail}
+                      onChange={(v) => update('contactEmail', v)} placeholder="name@example.com" type="email" />
+                    <TextAreaField label="Office address" id="contactAddress" value={config.contactAddress}
+                      onChange={(v) => update('contactAddress', v)}
+                      hint="One line per row, exactly as it should read." />
+                    <Field label="Interiors enquiry form (Tally)" id="tallyInteriorsFormId" value={config.tallyInteriorsFormId}
+                      onChange={(v) => update('tallyInteriorsFormId', v)} onBlur={() => tidyTallyBox('tallyInteriorsFormId')}
+                      placeholder="vGPYv8"
+                      hint="The Tally form shown on the Interiors contact page and in the Interiors consultation pop-up. Paste the form's Tally link (https://tally.so/r/…) or just its id; only the id is kept. Empty = no form, the page shows your phone and email." />
+                    <Field label="Construction enquiry form (Tally)" id="tallyConstructionFormId" value={config.tallyConstructionFormId}
+                      onChange={(v) => update('tallyConstructionFormId', v)} onBlur={() => tidyTallyBox('tallyConstructionFormId')}
+                      placeholder="Leave empty until a Construction form exists"
+                      hint="Same, for the Construction contact page. While this is empty that page shows “Call or email us to request a quote” with your phone and email." />
+                  </div>
+                </div>
+              </TabsContent>
+
+              {/* ── Social ── */}
+              <TabsContent value="social">
+                <div className="admin-panel">
+                  <div className="admin-panel__header">
+                    <h2 className="admin-panel__title">Social Media Links</h2>
+                    <p className="admin-panel__subtitle">
+                      Full links that start with https:// . Leave one empty to hide its icon.
+                    </p>
+                  </div>
+                  <Separator />
+                  <div className="admin-field-grid-2 admin-panel-body">
+                    <Field label="Instagram" id="socialInstagram" value={config.socialInstagram}
+                      onChange={(v) => update('socialInstagram', v)} placeholder="https://instagram.com/yourhandle" />
+                    <Field label="Facebook" id="socialFacebook" value={config.socialFacebook}
+                      onChange={(v) => update('socialFacebook', v)} placeholder="https://facebook.com/yourpage" />
+                    <Field label="LinkedIn" id="socialLinkedIn" value={config.socialLinkedIn}
+                      onChange={(v) => update('socialLinkedIn', v)} placeholder="https://linkedin.com/company/yourpage" />
+                  </div>
+                </div>
+              </TabsContent>
+
+              {/* ── Business ── */}
+              <TabsContent value="business">
+                <div className="admin-panel">
+                  <div className="admin-panel__header">
+                    <h2 className="admin-panel__title">Business Copy</h2>
+                    <p className="admin-panel__subtitle">Short texts shown in the footers and on the contact page.</p>
+                  </div>
+                  <Separator />
+                  <div className="admin-field-stack">
+                    <TextAreaField label="Interiors footer text" id="interiorsTagline" value={config.interiorsTagline}
+                      onChange={(v) => update('interiorsTagline', v)}
+                      hint="The paragraph under “House of Faridah” in the Interiors footer." />
+                    <TextAreaField label="Construction footer text" id="constructionTagline" value={config.constructionTagline}
+                      onChange={(v) => update('constructionTagline', v)}
+                      hint="The paragraph under “HOF Construction” in the Construction footer." />
+                    <Field label="Consultation button text" id="consultationCtaText" value={config.consultationCtaText}
+                      onChange={(v) => update('consultationCtaText', v)} placeholder="Book Consultation"
+                      hint="The button on the Interiors contact page that opens the consultation form." />
+                  </div>
+                </div>
+              </TabsContent>
+
+              {/* ── Features ── */}
+              <TabsContent value="features">
+                <div className="admin-panel">
+                  <div className="admin-panel__header">
+                    <h2 className="admin-panel__title">Feature Toggles</h2>
+                    <p className="admin-panel__subtitle">Switch parts of the site on or off.</p>
+                  </div>
+                  <Separator />
+                  <div className="admin-toggle-stack">
+                    <ToggleField
+                      label="Complimentary consultation card"
+                      description="The pink “Complimentary Consultation” card with its booking button on the Interiors contact page."
+                      checked={config.showConsultationCta}
+                      onCheckedChange={(v) => update('showConsultationCta', v)}
+                    />
+                    <Separator />
+                    <ToggleField
+                      label="Portfolio links"
+                      description="The Portfolio link in both menus and in the Interiors footer. The pages stay reachable by their address."
+                      checked={config.portfolioEnabled}
+                      onCheckedChange={(v) => update('portfolioEnabled', v)}
+                    />
+                  </div>
+                </div>
+              </TabsContent>
+
+              {/* ── Projects ── */}
+              <TabsContent value="projects">
+                <ProjectsTab portfolio={content.portfolio} onSavePortfolio={(portfolio) => saveToServer({ portfolio })} />
+              </TabsContent>
+
+              {/* ── Settings ── */}
+              <TabsContent value="settings">
+                <SettingsTab content={content} onImport={importBackup} onResetAll={resetAll} />
+              </TabsContent>
+
+            </Tabs>
+
+            {/* Save + reset row */}
+            <div className="admin-footer-actions">
+              <div>
+                {!showResetConfirm ? (
+                  <button
+                    type="button"
+                    onClick={() => setShowResetConfirm(true)}
+                    className="admin-text-btn admin-text-btn--faint"
+                  >
+                    Reset all to defaults
+                  </button>
+                ) : (
+                  <div className="admin-reset-confirm">
+                    <span className="admin-reset-confirm__prompt">Reset all content to the built-in defaults?</span>
+                    <button type="button" onClick={() => void resetAll()} className="admin-text-btn admin-text-btn--danger">
+                      Yes, reset
+                    </button>
+                    <button type="button" onClick={() => setShowResetConfirm(false)} className="admin-text-btn admin-text-btn--cancel">
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </div>
+              <button type="button" onClick={handleSave} disabled={saving} className="admin-btn-primary">
+                {saving ? 'Saving…' : 'Save Changes'}
+              </button>
+            </div>
+          </>
+        )}
       </main>
 
-      <SaveBanner visible={saved} onDismiss={() => setSaved(false)} />
+      <ResultBanner banner={banner} onDismiss={() => setBanner(null)} />
 
       <SessionWarningBanner
         visible={showSessionWarning}

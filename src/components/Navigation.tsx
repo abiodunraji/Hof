@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Menu, X, ArrowLeft } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
+import { useSiteConfig } from '../hooks/useSiteConfig';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +28,7 @@ export function Navigation() {
     setIsOpen(false);
   };
 
+  const config = useSiteConfig();
   const navLinks = [
     { label: 'Home', page: 'home', path: '/interiors' },
     { label: 'About', page: 'about', path: '/interiors/about' },
@@ -34,7 +36,7 @@ export function Navigation() {
     { label: 'Services', page: 'services', path: '/interiors/services' },
     { label: 'Process', page: 'process', path: '/interiors/process' },
     { label: 'Contact', page: 'contact', path: '/interiors/contact' },
-  ];
+  ].filter((link) => link.page !== 'portfolio' || config.portfolioEnabled);
 
   const [logoLoaded, setLogoLoaded] = useState<boolean | null>(null);
 

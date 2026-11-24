@@ -1875,3 +1875,17 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─── Panel: result banner (error) and field hints ──────────────────────── */
+
+.admin-save-banner--error {
+  background: linear-gradient(135deg, #c0392b 0%, #962d22 100%);
+}
+
+.admin-field__hint {
+  margin: 0.375rem 0 0;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--admin-muted, #6b6b76);
+}

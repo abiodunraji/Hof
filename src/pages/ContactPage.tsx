@@ -1,39 +1,15 @@
 import { useState } from 'react';
 import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Textarea } from '../components/ui/textarea';
-import { Label } from '../components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { ConsultationDialog } from '../components/ConsultationDialog';
+import { EnquiryForm } from '../components/EnquiryForm';
 import { Mail, Phone, MapPin, Clock, Instagram, Facebook, Linkedin } from 'lucide-react';
-import { toast } from 'sonner';
+import { useSiteConfig } from '../hooks/useSiteConfig';
+import { AddressBreaks } from '../lib/format';
 
 export function ContactPage() {
   const [showConsultationDialog, setShowConsultationDialog] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    projectType: '',
-    budget: '',
-    timeline: '',
-    message: '',
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast.success('Thank you for reaching out! We\'ll get back to you within 24 hours.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      projectType: '',
-      budget: '',
-      timeline: '',
-      message: '',
-    });
-  };
+  const config = useSiteConfig();
 
   return (
     <div className="min-h-screen">
@@ -62,137 +38,23 @@ export function ContactPage() {
       <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Contact Form */}
+            {/* Enquiry form: the owner's Tally form, embedded */}
             <div className="lg:col-span-2">
               <Card className="border-primary/20">
                 <CardHeader>
                   <CardTitle className="text-3xl">Start Your Project</CardTitle>
                   <p className="text-muted-foreground">
-                    Complete the form below and we'll respond within 24 hours
+                    {config.tallyInteriorsFormId
+                      ? "Complete the form below and we'll respond within 24 hours"
+                      : "Call or email us and we'll respond within 24 hours"}
                   </p>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <Label htmlFor="name">Full Name *</Label>
-                        <Input
-                          id="name"
-                          type="text"
-                          placeholder="Your name"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          required
-                          className="mt-1"
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="email">Email Address *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="your.email@example.com"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          required
-                          className="mt-1"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <Label htmlFor="phone">Phone Number</Label>
-                        <Input
-                          id="phone"
-                          type="tel"
-                          placeholder="09039330335"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="mt-1"
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="projectType">Project Type *</Label>
-                        <Select
-                          value={formData.projectType}
-                          onValueChange={(value: string) => setFormData({ ...formData, projectType: value })}
-                          required
-                        >
-                          <SelectTrigger className="mt-1">
-                            <SelectValue placeholder="Select project type" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="full-home">Full Home Design</SelectItem>
-                            <SelectItem value="room-makeover">Room Makeover</SelectItem>
-                            <SelectItem value="consultation">Design Consultation</SelectItem>
-                            <SelectItem value="e-design">E-Design Services</SelectItem>
-                            <SelectItem value="styling">Styling & Staging</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <Label htmlFor="budget">Budget Range</Label>
-                        <Select
-                          value={formData.budget}
-                          onValueChange={(value: string) => setFormData({ ...formData, budget: value })}
-                        >
-                          <SelectTrigger className="mt-1">
-                            <SelectValue placeholder="Select budget range" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="under-1m">Under ₦1,000,000</SelectItem>
-                            <SelectItem value="1m-3m">₦1,000,000 - ₦3,000,000</SelectItem>
-                            <SelectItem value="3m-5m">₦3,000,000 - ₦5,000,000</SelectItem>
-                            <SelectItem value="5m-10m">₦5,000,000 - ₦10,000,000</SelectItem>
-                            <SelectItem value="over-10m">Over ₦10,000,000</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="timeline">Timeline</Label>
-                        <Select
-                          value={formData.timeline}
-                          onValueChange={(value: string) => setFormData({ ...formData, timeline: value })}
-                        >
-                          <SelectTrigger className="mt-1">
-                            <SelectValue placeholder="Select timeline" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="asap">As soon as possible</SelectItem>
-                            <SelectItem value="1-3months">1-3 months</SelectItem>
-                            <SelectItem value="3-6months">3-6 months</SelectItem>
-                            <SelectItem value="6months-plus">6+ months</SelectItem>
-                            <SelectItem value="flexible">Flexible</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="message">Tell Me About Your Project *</Label>
-                      <Textarea
-                        id="message"
-                        placeholder="Share your vision, style preferences, and any specific requirements..."
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        required
-                        rows={6}
-                        className="mt-1"
-                      />
-                    </div>
-
-                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" size="lg">
-                      Send Inquiry
-                    </Button>
-                  </form>
+                  <EnquiryForm
+                    formId={config.tallyInteriorsFormId}
+                    formTitle="Client Onboarding Form"
+                    noFormHeading="Call or email us to start your project"
+                  />
                 </CardContent>
               </Card>
             </div>
@@ -210,7 +72,7 @@ export function ContactPage() {
                     </div>
                     <div>
                       <p className="text-muted-foreground mb-1">Phone</p>
-                      <p className="text-lg">09039330335 / 07040654539</p>
+                      <p className="text-lg">{config.contactPhone}</p>
                     </div>
                   </div>
 
@@ -220,7 +82,7 @@ export function ContactPage() {
                     </div>
                     <div>
                       <p className="text-muted-foreground mb-1">Email</p>
-                      <p className="text-lg">Houseoffaridahh@gmail.com</p>
+                      <p className="text-lg">{config.contactEmail}</p>
                     </div>
                   </div>
 
@@ -231,9 +93,7 @@ export function ContactPage() {
                     <div>
                       <p className="text-muted-foreground mb-1">Address</p>
                       <p className="text-lg">
-                        Node by COBUILDIT<br />
-                        Mabushi, Abuja<br />
-                        Federal Capital Territory
+                        <AddressBreaks address={config.contactAddress} />
                       </p>
                     </div>
                   </div>
@@ -260,33 +120,39 @@ export function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex gap-3">
-                    <a
-                      href="https://instagram.com/houseoffaridah"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Follow House of Faridah on Instagram"
-                      className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
-                    >
-                      <Instagram size={20} />
-                    </a>
-                    <a
-                      href="https://facebook.com/houseoffaridah"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Follow House of Faridah on Facebook"
-                      className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
-                    >
-                      <Facebook size={20} />
-                    </a>
-                    <a
-                      href="https://linkedin.com/company/houseoffaridah"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Connect with House of Faridah on LinkedIn"
-                      className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
-                    >
-                      <Linkedin size={20} />
-                    </a>
+                    {config.socialInstagram && (
+                      <a
+                        href={config.socialInstagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Follow House of Faridah on Instagram"
+                        className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                      >
+                        <Instagram size={20} />
+                      </a>
+                    )}
+                    {config.socialFacebook && (
+                      <a
+                        href={config.socialFacebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Follow House of Faridah on Facebook"
+                        className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                      >
+                        <Facebook size={20} />
+                      </a>
+                    )}
+                    {config.socialLinkedIn && (
+                      <a
+                        href={config.socialLinkedIn}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Connect with House of Faridah on LinkedIn"
+                        className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                      >
+                        <Linkedin size={20} />
+                      </a>
+                    )}
                   </div>
                   <p className="text-sm text-muted-foreground mt-4">
                     Follow along for design inspiration, behind-the-scenes glimpses, and styling tips!
@@ -294,6 +160,7 @@ export function ContactPage() {
                 </CardContent>
               </Card>
 
+              {config.showConsultationCta && (
               <Card className="bg-primary text-white border-0">
                 <CardContent className="p-6">
                   <h3 className="text-xl mb-3">Complimentary Consultation</h3>
@@ -305,10 +172,11 @@ export function ContactPage() {
                     onClick={() => setShowConsultationDialog(true)}
                     className="w-full border-white bg-white text-primary hover:bg-white/90"
                   >
-                    Book Consultation
+                    {config.consultationCtaText}
                   </Button>
                 </CardContent>
               </Card>
+              )}
             </div>
           </div>
         </div>

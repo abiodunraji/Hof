@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Separator } from '../../components/ui/separator';
-import { changeCredentials, getActiveUsername } from '../../hooks/useAdminAuth';
-import { loadConfig, saveConfig } from '../../hooks/useSiteConfig';
-import { loadPortfolioStore, savePortfolioStore } from '../../hooks/usePortfolioData';
+import { adminFetch, storeSession } from '../../hooks/useAdminAuth';
+import { CONFIG_KEYS } from '../../data/siteConfig';
+import type { PortfolioStore, SiteContent } from '../../lib/content';
+import type { ContentUpdate, SaveResult } from './types';
 
 // ── Section wrapper ───────────────────────────────────────────────────────────
 
@@ -33,53 +34,40 @@ function StatusMsg({ type, text }: { type: 'success' | 'error'; text: string }) 
   );
 }
 
-// ── Change credentials form ───────────────────────────────────────────────────
+// ── Change password form ──────────────────────────────────────────────────────
 
-function ChangeCredentialsForm({ onSaved }: { onSaved: () => void }) {
-  const [currentPw, setCurrentPw]   = useState('');
-  const [newUsername, setNewUsername] = useState('');
-  const [newPw, setNewPw]           = useState('');
-  const [confirmPw, setConfirmPw]   = useState('');
-  const [loading, setLoading]       = useState(false);
-  const [status, setStatus]         = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-
-  const activeUsername = getActiveUsername();
+function ChangePasswordForm() {
+  const [currentPw, setCurrentPw] = useState('');
+  const [newPw, setNewPw] = useState('');
+  const [confirmPw, setConfirmPw] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const handleSubmit = async () => {
     setStatus(null);
-
-    if (!currentPw) { setStatus({ type: 'error', text: 'Current password is required.' }); return; }
-    if (!newUsername && !newPw) { setStatus({ type: 'error', text: 'Enter a new username, a new password, or both.' }); return; }
-    if (newPw && newPw !== confirmPw) { setStatus({ type: 'error', text: 'New passwords do not match.' }); return; }
+    if (!currentPw) { setStatus({ type: 'error', text: 'Enter your current password.' }); return; }
+    if (newPw.length < 10) { setStatus({ type: 'error', text: 'The new password must be at least 10 characters.' }); return; }
+    if (newPw !== confirmPw) { setStatus({ type: 'error', text: 'The new passwords do not match.' }); return; }
 
     setLoading(true);
-    const err = await changeCredentials({
-      currentPassword: currentPw,
-      newUsername: newUsername || undefined,
-      newPassword: newPw || undefined,
+    const res = await adminFetch<{ ok: boolean; token: string; expiresAt: number }>('/api/password', {
+      method: 'POST',
+      body: { currentPassword: currentPw, newPassword: newPw },
     });
     setLoading(false);
 
-    if (err) {
-      setStatus({ type: 'error', text: err });
-    } else {
-      setStatus({ type: 'success', text: 'Credentials updated. Changes take effect on next login.' });
-      setCurrentPw(''); setNewUsername(''); setNewPw(''); setConfirmPw('');
-      onSaved();
+    if (!res.ok) {
+      setStatus({ type: 'error', text: res.error });
+      return;
     }
+    // Changing the password ends every older session; the Worker sends a fresh one so this tab stays signed in.
+    storeSession(res.data.token, res.data.expiresAt);
+    setStatus({ type: 'success', text: 'Password changed. Use the new one the next time you sign in.' });
+    setCurrentPw(''); setNewPw(''); setConfirmPw('');
   };
 
   return (
     <div className="admin-field-stack">
-      {/* Current state */}
-      <div className="admin-settings__current">
-        <span className="admin-settings__current-label">Current username</span>
-        <span className="admin-settings__current-value">{activeUsername}</span>
-      </div>
-
-      <Separator />
-
-      {/* Current password — always required to authorise a change */}
       <div className="admin-field">
         <label htmlFor="cred-current-pw">Current password <span className="admin-uploader__required">*</span></label>
         <input
@@ -92,31 +80,15 @@ function ChangeCredentialsForm({ onSaved }: { onSaved: () => void }) {
         />
       </div>
 
-      <Separator />
-
-      {/* New username (optional) */}
-      <div className="admin-field">
-        <label htmlFor="cred-new-username">New username <span className="admin-settings__optional">(leave blank to keep current)</span></label>
-        <input
-          id="cred-new-username"
-          type="text"
-          value={newUsername}
-          onChange={(e) => setNewUsername(e.target.value)}
-          placeholder={activeUsername}
-          autoComplete="username"
-        />
-      </div>
-
-      {/* New password (optional) */}
       <div className="admin-field-grid-2">
         <div className="admin-field">
-          <label htmlFor="cred-new-pw">New password <span className="admin-settings__optional">(leave blank to keep current)</span></label>
+          <label htmlFor="cred-new-pw">New password</label>
           <input
             id="cred-new-pw"
             type="password"
             value={newPw}
             onChange={(e) => setNewPw(e.target.value)}
-            placeholder="Min. 8 characters"
+            placeholder="At least 10 characters"
             autoComplete="new-password"
           />
         </div>
@@ -136,13 +108,8 @@ function ChangeCredentialsForm({ onSaved }: { onSaved: () => void }) {
       {status && <StatusMsg type={status.type} text={status.text} />}
 
       <div>
-        <button
-          type="button"
-          onClick={handleSubmit}
-          disabled={loading}
-          className="admin-btn-primary"
-        >
-          {loading ? 'Saving…' : 'Update credentials'}
+        <button type="button" onClick={handleSubmit} disabled={loading} className="admin-btn-primary">
+          {loading ? 'Saving…' : 'Change password'}
         </button>
       </div>
     </div>
@@ -151,19 +118,45 @@ function ChangeCredentialsForm({ onSaved }: { onSaved: () => void }) {
 
 // ── Export / Import ───────────────────────────────────────────────────────────
 
-function ExportImport({ onSaved }: { onSaved: () => void }) {
+const PORTFOLIO_KEYS: (keyof PortfolioStore)[] = ['interiors', 'construction', 'interiorsCategories', 'constructionCategories'];
+
+/** Keeps only the parts of a backup file the Worker accepts (old backups carry settings that no longer exist). */
+function readBackup(data: unknown): ContentUpdate | null {
+  if (typeof data !== 'object' || data === null) return null;
+  const raw = data as Record<string, unknown>;
+  const update: ContentUpdate = {};
+
+  const rawConfig = (raw.config ?? raw.siteConfig) as Record<string, unknown> | undefined;
+  if (rawConfig && typeof rawConfig === 'object') {
+    const config: Record<string, unknown> = {};
+    for (const key of CONFIG_KEYS) if (key in rawConfig) config[key] = rawConfig[key];
+    update.config = config as ContentUpdate['config'];
+  }
+  const rawPortfolio = raw.portfolio as Record<string, unknown> | undefined;
+  if (rawPortfolio && typeof rawPortfolio === 'object') {
+    const portfolio: Record<string, unknown> = {};
+    for (const key of PORTFOLIO_KEYS) if (Array.isArray(rawPortfolio[key])) portfolio[key] = rawPortfolio[key];
+    update.portfolio = portfolio as ContentUpdate['portfolio'];
+  }
+  return update.config || update.portfolio ? update : null;
+}
+
+function ExportImport({ content, onImport }: {
+  content: SiteContent;
+  onImport: (body: ContentUpdate) => Promise<SaveResult>;
+}) {
   const [importStatus, setImportStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const handleExport = () => {
     const payload = {
       exportedAt: new Date().toISOString(),
-      siteConfig: loadConfig(),
-      portfolio: loadPortfolioStore(),
+      config: content.config,
+      portfolio: content.portfolio,
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href     = url;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
     a.download = `hof-admin-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
@@ -175,16 +168,23 @@ function ExportImport({ onSaved }: { onSaved: () => void }) {
     e.target.value = '';
 
     const reader = new FileReader();
-    reader.onload = (ev) => {
+    reader.onload = async (ev) => {
+      let update: ContentUpdate | null = null;
       try {
-        const data = JSON.parse(ev.target?.result as string);
-        if (data.siteConfig) saveConfig(data.siteConfig);
-        if (data.portfolio)  savePortfolioStore(data.portfolio);
-        setImportStatus({ type: 'success', text: 'Backup restored successfully.' });
-        onSaved();
+        update = readBackup(JSON.parse(ev.target?.result as string));
       } catch {
-        setImportStatus({ type: 'error', text: 'Invalid backup file. Please use a file exported from this panel.' });
+        update = null;
       }
+      if (!update) {
+        setImportStatus({ type: 'error', text: 'That is not a backup file from this panel.' });
+        return;
+      }
+      const result = await onImport(update);
+      setImportStatus(
+        result.ok
+          ? { type: 'success', text: 'Backup restored and saved to the site.' }
+          : { type: 'error', text: `The backup was not saved: ${result.error}` },
+      );
     };
     reader.readAsText(file);
   };
@@ -193,7 +193,7 @@ function ExportImport({ onSaved }: { onSaved: () => void }) {
     <div className="admin-settings__export-row">
       <div className="admin-settings__export-item">
         <p className="admin-settings__export-title">Export backup</p>
-        <p className="admin-settings__export-desc">Download all settings and portfolio data as a JSON file.</p>
+        <p className="admin-settings__export-desc">Download the site's current settings and portfolio as a JSON file.</p>
         <button type="button" onClick={handleExport} className="admin-btn-ghost admin-settings__export-btn">
           Download backup
         </button>
@@ -201,7 +201,7 @@ function ExportImport({ onSaved }: { onSaved: () => void }) {
 
       <div className="admin-settings__export-item">
         <p className="admin-settings__export-title">Import backup</p>
-        <p className="admin-settings__export-desc">Restore settings from a previously exported backup file.</p>
+        <p className="admin-settings__export-desc">Put the contents of a backup file back on the site. This replaces what is there now.</p>
         <label className="admin-btn-ghost admin-settings__export-btn admin-settings__import-label">
           Choose file
           <input type="file" accept=".json" className="admin-uploader__input" onChange={handleImport} />
@@ -215,103 +215,70 @@ function ExportImport({ onSaved }: { onSaved: () => void }) {
 
 // ── Danger zone ───────────────────────────────────────────────────────────────
 
-function DangerZone({ onSaved }: { onSaved: () => void }) {
-  const [confirm, setConfirm] = useState<'credentials' | 'allData' | null>(null);
-
-  const resetCredentials = () => {
-    localStorage.removeItem('hofAdminPwHash');
-    localStorage.removeItem('hofAdminUsername');
-    setConfirm(null);
-    onSaved();
-  };
-
-  const clearAllData = () => {
-    localStorage.removeItem('hofAdminConfig');
-    localStorage.removeItem('hofAdminPortfolio');
-    localStorage.removeItem('hofAdminPwHash');
-    localStorage.removeItem('hofAdminUsername');
-    setConfirm(null);
-    onSaved();
-  };
+function DangerZone({ onResetAll }: { onResetAll: () => Promise<void> }) {
+  const [confirm, setConfirm] = useState(false);
 
   return (
     <div className="admin-settings__danger-stack">
-
-      {/* Reset credential overrides */}
       <div className="admin-settings__danger-row">
         <div>
-          <p className="admin-settings__danger-title">Reset credentials to defaults</p>
+          <p className="admin-settings__danger-title">Reset all content to the built-in defaults</p>
           <p className="admin-settings__danger-desc">
-            Removes any username / password changes made in this panel.
-            The credentials set in your environment variables will apply again.
+            Removes every change saved on the site's server (contact details, links, texts and all edited
+            projects). The site goes back to exactly what it was built with. Your password is kept.
           </p>
         </div>
-        {confirm === 'credentials' ? (
+        {confirm ? (
           <div className="admin-reset-confirm">
-            <span className="admin-reset-confirm__prompt">Are you sure?</span>
-            <button type="button" onClick={resetCredentials} className="admin-text-btn admin-text-btn--danger">Yes, reset</button>
-            <button type="button" onClick={() => setConfirm(null)} className="admin-text-btn admin-text-btn--cancel">Cancel</button>
+            <span className="admin-reset-confirm__prompt">This changes the live site. Sure?</span>
+            <button
+              type="button"
+              onClick={() => { setConfirm(false); void onResetAll(); }}
+              className="admin-text-btn admin-text-btn--danger"
+            >
+              Yes, reset
+            </button>
+            <button type="button" onClick={() => setConfirm(false)} className="admin-text-btn admin-text-btn--cancel">Cancel</button>
           </div>
         ) : (
-          <button type="button" onClick={() => setConfirm('credentials')} className="admin-text-btn admin-text-btn--danger">
-            Reset credentials
+          <button type="button" onClick={() => setConfirm(true)} className="admin-text-btn admin-text-btn--danger">
+            Reset all content
           </button>
         )}
       </div>
-
-      <Separator />
-
-      {/* Clear all data */}
-      <div className="admin-settings__danger-row">
-        <div>
-          <p className="admin-settings__danger-title">Clear all admin data</p>
-          <p className="admin-settings__danger-desc">
-            Wipes all settings, portfolio edits, and credential overrides from this browser.
-            The site will revert to its built-in defaults. This cannot be undone.
-          </p>
-        </div>
-        {confirm === 'allData' ? (
-          <div className="admin-reset-confirm">
-            <span className="admin-reset-confirm__prompt">This will wipe everything. Sure?</span>
-            <button type="button" onClick={clearAllData} className="admin-text-btn admin-text-btn--danger">Yes, clear all</button>
-            <button type="button" onClick={() => setConfirm(null)} className="admin-text-btn admin-text-btn--cancel">Cancel</button>
-          </div>
-        ) : (
-          <button type="button" onClick={() => setConfirm('allData')} className="admin-text-btn admin-text-btn--danger">
-            Clear all data
-          </button>
-        )}
-      </div>
-
     </div>
   );
 }
 
 // ── Main exported tab ─────────────────────────────────────────────────────────
 
-export function SettingsTab({ onSaved }: { onSaved: () => void }) {
+export function SettingsTab({ content, onImport, onResetAll }: {
+  content: SiteContent;
+  onImport: (body: ContentUpdate) => Promise<SaveResult>;
+  onResetAll: () => Promise<void>;
+}) {
   return (
     <div className="admin-field-stack">
 
       <Section
-        title="Login Credentials"
-        subtitle="Change the username or password used to access this admin panel."
+        title="Password"
+        subtitle="Change the password used to sign in to this panel. It is checked on the server and is never stored in the site."
       >
-        <ChangeCredentialsForm onSaved={onSaved} />
+        <ChangePasswordForm />
       </Section>
 
       <Section
         title="Backup & Restore"
-        subtitle="Export all settings and portfolio data, or restore from a previous backup."
+        subtitle="Download what is on the site now, or put a previous backup back."
       >
-        <ExportImport onSaved={onSaved} />
+        <ExportImport content={content} onImport={onImport} />
       </Section>
 
       <Section
         title="Danger Zone"
         subtitle="Irreversible actions — proceed with caution."
       >
-        <DangerZone onSaved={onSaved} />
+        <DangerZone onResetAll={onResetAll} />
       </Section>
 
     </div>
