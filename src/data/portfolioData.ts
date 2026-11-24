@@ -275,46 +275,8 @@ export const interiorsProjects: InteriorsProject[] = [
 
 export const constructionCategories = ['All', 'Commercial', 'Residential', 'Renovation'];
 
-export const constructionProjects: ConstructionProject[] = [
-  {
-    id: 1,
-    title: 'Riverside Corporate Center',
-    category: 'Commercial',
-    description: 'Modern office complex featuring sustainable design, state-of-the-art facilities, and LEED Gold certification.',
-    image: '/portfolio/construction/site-work/site-work-01.jpg',
-    tags: ['LEED Certified', 'Sustainable', 'Corporate'],
-    location: 'Downtown District',
-    year: '2024',
-    budget: '₦3,680,000,000',
-    duration: '18 months',
-    size: '75,000 sq ft',
-    fullDescription: 'This flagship commercial project showcases our commitment to sustainable construction practices while delivering a modern, efficient workspace for the future.',
-    highlights: [
-      'LEED Gold Certified',
-      'Energy-efficient HVAC system',
-      'Rooftop solar installation',
-      'Underground parking for 200 vehicles'
-    ],
-    gallery: [
-      '/portfolio/construction/site-work/site-work-01.jpg',
-      '/portfolio/construction/site-work/site-work-02.jpg',
-      '/portfolio/construction/site-work/site-work-03.jpg',
-      '/portfolio/construction/site-work/site-work-04.jpg',
-      '/portfolio/construction/site-work/site-work-05.jpg',
-      '/portfolio/construction/site-work/site-work-06.jpg',
-      '/portfolio/construction/site-work/site-work-07.jpg',
-      '/portfolio/construction/site-work/site-work-08.jpg',
-      '/portfolio/construction/site-work/site-work-09.jpg',
-      '/portfolio/construction/site-work/site-work-10.jpg',
-      '/portfolio/construction/site-work/site-work-11.jpg',
-      '/portfolio/construction/site-work/site-work-12.jpg',
-      '/portfolio/construction/site-work/site-work-13.jpg',
-      '/portfolio/construction/site-work/site-work-14.jpg',
-      '/portfolio/construction/site-work/site-work-15.jpg',
-      '/portfolio/construction/site-work/site-work-16.jpg',
-      '/portfolio/construction/site-work/site-work-17.jpg',
-      '/portfolio/construction/site-work/site-work-18.jpg'
-    ]
-  }
-];
+// No real Construction projects are listed yet. The earlier entry, a placeholder called
+// 'Riverside Corporate Center', was a design mock-up and not real work, so it was removed.
+// Add real projects in the admin panel, or here (see PROJECT-TEMPLATE.txt).
+export const constructionProjects: ConstructionProject[] = [];
 
