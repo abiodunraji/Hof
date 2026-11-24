@@ -1,12 +1,14 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAdminAuth } from '../../hooks/useAdminAuth';
+import { takeNotice, useAdminAuth } from '../../hooks/useAdminAuth';
 
 export function AdminLoginPage() {
   const { login, error, loading, isAuthenticated } = useAdminAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  // For example "Your session expired", left by the panel when it signed the owner out.
+  const [notice] = useState(() => takeNotice());
 
   // Redirect once login succeeds (or if already authenticated)
   useEffect(() => {
@@ -60,8 +62,8 @@ export function AdminLoginPage() {
               />
             </div>
 
-            {error && (
-              <p className="admin-login__error">{error}</p>
+            {(error || notice) && (
+              <p className="admin-login__error">{error || notice}</p>
             )}
 
             <button

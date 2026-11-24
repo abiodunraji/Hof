@@ -1,60 +1,90 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-
-const SESSION_KEY         = 'hofAdminAuth';
-const SESSION_TS_KEY      = 'hofAdminAuthAt';
-const PW_OVERRIDE_KEY     = 'hofAdminPwHash';   // localStorage override for password
-const USERNAME_OVERRIDE_KEY = 'hofAdminUsername'; // localStorage override for username
-
-/** 30-minute idle timeout; warn at 28 minutes. */
-export const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
-export const SESSION_WARN_MS    = 28 * 60 * 1000;
-
-/** Dispatched whenever admin is signed out (timeout or manual). */
-const LOGOUT_EVENT = 'hofAdminLogout';
+import { apiFetch, type ApiOptions, type ApiResult } from '../lib/api';
 
 /**
- * Admin credentials — configure via .env.local (gitignored).
- * localStorage overrides (set via the Settings tab) take precedence over env vars.
- *
- * USERNAME  → VITE_ADMIN_USERNAME   (plaintext, case-insensitive)
- * PASSWORD  → VITE_ADMIN_PASSWORD_HASH  (SHA-256 hex)
+ * Owner sign-in. The username and password are checked by the Worker, never in the
+ * browser: this file only holds the 30-minute session token the Worker hands back,
+ * in sessionStorage (it disappears when the tab closes).
  */
-const ENV_USERNAME: string =
-  (import.meta.env.VITE_ADMIN_USERNAME as string | undefined) ?? 'admin';
 
-const ENV_PASSWORD_HASH: string =
-  (import.meta.env.VITE_ADMIN_PASSWORD_HASH as string | undefined) ??
-  'eaee66ec5977653082e5193a25f9dfcbd46d14a56cd0563ae8b78fa4de3ae935';
+const TOKEN_KEY = 'hofAdminToken';
+const EXPIRES_KEY = 'hofAdminTokenExp';
+const NOTICE_KEY = 'hofAdminNotice';
 
-export async function sha256hex(message: string): Promise<string> {
-  const buf = await crypto.subtle.digest(
-    'SHA-256',
-    new TextEncoder().encode(message),
-  );
-  return [...new Uint8Array(buf)]
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('');
+/** 30-minute idle timeout; warn at 28 minutes (matches the Worker's token life). */
+export const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
+export const SESSION_WARN_MS = 28 * 60 * 1000;
+
+/** Dispatched whenever the owner is signed out (timeout, manual, or the Worker said 401). */
+const LOGOUT_EVENT = 'hofAdminLogout';
+
+export function getToken(): string | null {
+  try {
+    const token = sessionStorage.getItem(TOKEN_KEY);
+    const exp = Number(sessionStorage.getItem(EXPIRES_KEY));
+    if (!token || !Number.isFinite(exp) || exp <= Date.now()) return null;
+    return token;
+  } catch {
+    return null;
+  }
 }
 
-/** Returns the active expected username (localStorage override > env var). */
-function getExpectedUsername(): string {
-  return localStorage.getItem(USERNAME_OVERRIDE_KEY) ?? ENV_USERNAME;
-}
-
-/** Returns the active expected password hash (localStorage override > env var). */
-function getExpectedPasswordHash(): string {
-  return localStorage.getItem(PW_OVERRIDE_KEY) ?? ENV_PASSWORD_HASH;
+export function storeSession(token: string, expiresAt: number) {
+  try {
+    sessionStorage.setItem(TOKEN_KEY, token);
+    sessionStorage.setItem(EXPIRES_KEY, String(expiresAt));
+  } catch {
+    /* private mode: the owner just has to sign in again after a reload */
+  }
 }
 
 function clearSession() {
-  sessionStorage.removeItem(SESSION_KEY);
-  sessionStorage.removeItem(SESSION_TS_KEY);
+  try {
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(EXPIRES_KEY);
+  } catch {
+    /* nothing to clear */
+  }
+}
+
+/** A message to show once on the sign-in page (for example "Your session expired"). */
+export function takeNotice(): string {
+  try {
+    const n = sessionStorage.getItem(NOTICE_KEY) ?? '';
+    sessionStorage.removeItem(NOTICE_KEY);
+    return n;
+  } catch {
+    return '';
+  }
+}
+
+function endSession(reason?: string) {
+  clearSession();
+  try {
+    if (reason) sessionStorage.setItem(NOTICE_KEY, reason);
+  } catch {
+    /* ignore */
+  }
+  window.dispatchEvent(new CustomEvent(LOGOUT_EVENT));
+}
+
+/**
+ * A call to the Worker with the owner's token. If the Worker says the session is no longer
+ * valid (401) the owner is signed out and sent back to the sign-in page.
+ */
+export async function adminFetch<T>(path: string, options: Omit<ApiOptions, 'token'> = {}): Promise<ApiResult<T>> {
+  const token = getToken();
+  if (!token) {
+    endSession('Your session expired. Please sign in again.');
+    return { ok: false, status: 401, error: 'Your session expired. Please sign in again.' };
+  }
+  const res = await apiFetch<T>(path, { ...options, token, fresh: true });
+  if (!res.ok && res.status === 401) endSession('Your session expired. Please sign in again.');
+  return res;
 }
 
 export function useAdminAuth() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    () => sessionStorage.getItem(SESSION_KEY) === 'true',
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => getToken() !== null);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
@@ -69,64 +99,25 @@ export function useAdminAuth() {
     setLoading(true);
     setError('');
     try {
-      const usernameMatch =
-        username.trim().toLowerCase() === getExpectedUsername().trim().toLowerCase();
-      const passwordHash = await sha256hex(password);
-      const passwordMatch = passwordHash === getExpectedPasswordHash();
-
-      if (usernameMatch && passwordMatch) {
-        sessionStorage.setItem(SESSION_KEY, 'true');
-        sessionStorage.setItem(SESSION_TS_KEY, Date.now().toString());
+      const res = await apiFetch<{ token: string; expiresAt: number }>('/api/login', {
+        method: 'POST',
+        body: { username, password },
+        fresh: true,
+      });
+      if (res.ok) {
+        storeSession(res.data.token, res.data.expiresAt);
         setIsAuthenticated(true);
+      } else if (res.status === 401) {
+        setError('Wrong username or password. Please try again.');
       } else {
-        setError('Invalid credentials. Please try again.');
+        setError(res.error);
       }
-    } catch {
-      setError('Authentication error. Please try again.');
     } finally {
       setLoading(false);
     }
   }, []);
 
   return { isAuthenticated, login, logout, error, loading };
-}
-
-/**
- * Verifies the current password and saves new credentials to localStorage.
- * Returns an error string on failure, or null on success.
- */
-export async function changeCredentials({
-  currentPassword,
-  newUsername,
-  newPassword,
-}: {
-  currentPassword: string;
-  newUsername?: string;
-  newPassword?: string;
-}): Promise<string | null> {
-  const currentHash = await sha256hex(currentPassword);
-  if (currentHash !== getExpectedPasswordHash()) {
-    return 'Current password is incorrect.';
-  }
-
-  if (newUsername) {
-    const trimmed = newUsername.trim();
-    if (trimmed.length < 3) return 'Username must be at least 3 characters.';
-    localStorage.setItem(USERNAME_OVERRIDE_KEY, trimmed);
-  }
-
-  if (newPassword) {
-    if (newPassword.length < 8) return 'New password must be at least 8 characters.';
-    const newHash = await sha256hex(newPassword);
-    localStorage.setItem(PW_OVERRIDE_KEY, newHash);
-  }
-
-  return null;
-}
-
-/** Returns the currently active username (what the admin logs in with). */
-export function getActiveUsername(): string {
-  return getExpectedUsername();
 }
 
 /**
@@ -141,20 +132,20 @@ export function useSessionTimeout({
   onWarn: () => void;
   onExpire: () => void;
 }) {
-  const warnTimer   = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const warnTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const expireTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const onWarnRef   = useRef(onWarn);
+  const onWarnRef = useRef(onWarn);
   const onExpireRef = useRef(onExpire);
 
-  useEffect(() => { onWarnRef.current   = onWarn;   }, [onWarn]);
+  useEffect(() => { onWarnRef.current = onWarn; }, [onWarn]);
   useEffect(() => { onExpireRef.current = onExpire; }, [onExpire]);
 
   const resetTimer = useCallback(() => {
-    if (warnTimer.current)   clearTimeout(warnTimer.current);
+    if (warnTimer.current) clearTimeout(warnTimer.current);
     if (expireTimer.current) clearTimeout(expireTimer.current);
     if (!enabled) return;
 
-    warnTimer.current   = setTimeout(() => onWarnRef.current(),   SESSION_WARN_MS);
+    warnTimer.current = setTimeout(() => onWarnRef.current(), SESSION_WARN_MS);
     expireTimer.current = setTimeout(() => onExpireRef.current(), SESSION_TIMEOUT_MS);
   }, [enabled]);
 
@@ -167,7 +158,7 @@ export function useSessionTimeout({
 
     return () => {
       EVENTS.forEach((e) => window.removeEventListener(e, resetTimer));
-      if (warnTimer.current)   clearTimeout(warnTimer.current);
+      if (warnTimer.current) clearTimeout(warnTimer.current);
       if (expireTimer.current) clearTimeout(expireTimer.current);
     };
   }, [enabled, resetTimer]);

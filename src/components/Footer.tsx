@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Linkedin, Heart } from 'lucide-react';
+import { useSiteConfig } from '../hooks/useSiteConfig';
 
 export function Footer() {
+  const config = useSiteConfig();
 
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-foreground to-gray-900 text-white py-12 px-4 relative">
@@ -12,8 +14,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <h3 className="text-2xl mb-4 magenta-gradient-text">House of Faridah</h3>
             <p className="text-gray-300 mb-4 leading-relaxed">
-              Creating beautiful, timeless spaces that nurture the soul and celebrate the art of living.
-              Every design tells a unique story of elegance and comfort.
+              {config.interiorsTagline}
             </p>
             <div className="w-16 h-0.5 bg-gradient-to-r from-magenta via-magenta-light to-transparent" />
           </div>
@@ -31,11 +32,13 @@ export function Footer() {
                   About
                 </Link>
               </li>
-              <li>
-                <Link to="/interiors/portfolio" className="text-gray-300 hover:text-primary transition-colors duration-300">
-                  Portfolio
-                </Link>
-              </li>
+              {config.portfolioEnabled && (
+                <li>
+                  <Link to="/interiors/portfolio" className="text-gray-300 hover:text-primary transition-colors duration-300">
+                    Portfolio
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link to="/interiors/services" className="text-gray-300 hover:text-primary transition-colors duration-300">
                   Services
@@ -52,33 +55,39 @@ export function Footer() {
           <div>
             <h4 className="mb-4">Connect</h4>
             <div className="flex gap-3 mb-4">
-              <a 
-                href="https://instagram.com/houseoffaridah" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Follow House of Faridah on Instagram"
-                className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-magenta hover:to-magenta-dark transition-all duration-300 border border-magenta/20"
-              >
-                <Instagram size={20} />
-              </a>
-              <a 
-                href="https://facebook.com/houseoffaridah" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Follow House of Faridah on Facebook"
-                className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-magenta hover:to-magenta-dark transition-all duration-300 border border-magenta/20"
-              >
-                <Facebook size={20} />
-              </a>
-              <a 
-                href="https://linkedin.com/company/houseoffaridah" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Connect with House of Faridah on LinkedIn"
-                className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-magenta hover:to-magenta-dark transition-all duration-300 border border-magenta/20"
-              >
-                <Linkedin size={20} />
-              </a>
+              {config.socialInstagram && (
+                <a 
+                  href={config.socialInstagram} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Follow House of Faridah on Instagram"
+                  className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-magenta hover:to-magenta-dark transition-all duration-300 border border-magenta/20"
+                >
+                  <Instagram size={20} />
+                </a>
+              )}
+              {config.socialFacebook && (
+                <a 
+                  href={config.socialFacebook} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Follow House of Faridah on Facebook"
+                  className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-magenta hover:to-magenta-dark transition-all duration-300 border border-magenta/20"
+                >
+                  <Facebook size={20} />
+                </a>
+              )}
+              {config.socialLinkedIn && (
+                <a 
+                  href={config.socialLinkedIn} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Connect with House of Faridah on LinkedIn"
+                  className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-magenta hover:to-magenta-dark transition-all duration-300 border border-magenta/20"
+                >
+                  <Linkedin size={20} />
+                </a>
+              )}
             </div>
             <p className="text-sm text-gray-400">
               Follow for design inspiration<br />and project updates

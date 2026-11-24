@@ -7,9 +7,9 @@ import {
   type ManagedInteriorsProject,
   type ManagedConstructionProject,
   type PortfolioStore,
-  loadPortfolioStore,
-  savePortfolioStore,
-} from '../../hooks/usePortfolioData';
+  DEFAULT_PORTFOLIO,
+} from '../../lib/content';
+import type { SaveResult } from './types';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -77,7 +77,7 @@ function ProjectForm<T extends AnyProject>({
   initial, categories, folder, onSave, onCancel, isNew,
 }: {
   initial: T; categories: string[]; folder: string;
-  onSave: (p: T) => void; onCancel: () => void; isNew: boolean;
+  onSave: (p: T) => Promise<void> | void; onCancel: () => void; isNew: boolean;
 }) {
   const [draft, setDraft] = useState<T>({ ...initial });
   const [tagsText, setTagsText] = useState(lines(initial.tags));
@@ -86,8 +86,14 @@ function ProjectForm<T extends AnyProject>({
   const set = <K extends keyof T>(key: K, value: T[K]) =>
     setDraft((p) => ({ ...p, [key]: value }));
 
-  const handleSave = () => {
-    onSave({ ...draft, tags: parseLines(tagsText), highlights: parseLines(highlightsText) } as T);
+  const [saving, setSaving] = useState(false);
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await onSave({ ...draft, tags: parseLines(tagsText), highlights: parseLines(highlightsText) } as T);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const valid = draft.title.trim().length > 0 && draft.image.trim().length > 0;
@@ -193,8 +199,8 @@ function ProjectForm<T extends AnyProject>({
       {/* Footer */}
       <div className="admin-form-footer">
         <button type="button" onClick={onCancel} className="admin-btn-ghost">Cancel</button>
-        <button type="button" onClick={handleSave} disabled={!valid} className="admin-btn-primary">
-          {isNew ? 'Add project' : 'Save changes'}
+        <button type="button" onClick={handleSave} disabled={!valid || saving} className="admin-btn-primary">
+          {saving ? 'Saving…' : isNew ? 'Add project' : 'Save changes'}
         </button>
       </div>
 
@@ -267,11 +273,11 @@ function ProjectRow<T extends AnyProject>({
 // ── Section manager ───────────────────────────────────────────────────────────
 
 function SectionManager<T extends AnyProject>({
-  projects, categories, folder, onSave, onReset, emptyFn, savedBanner,
+  projects, categories, folder, onSave, onReset, emptyFn,
 }: {
   projects: T[]; categories: string[]; folder: string;
-  onSave: (updated: T[]) => void; onReset: () => void;
-  emptyFn: () => T; savedBanner: () => void;
+  onSave: (updated: T[]) => Promise<boolean>; onReset: () => Promise<void>;
+  emptyFn: () => T;
 }) {
   const [list, setList] = useState<T[]>(() => projects);
   const [editingId, setEditingId] = useState<number | 'new' | null>(null);
@@ -284,19 +290,26 @@ function SectionManager<T extends AnyProject>({
     setEditingId(null);
   }
 
-  const commit = (updated: T[]) => { setList(updated); onSave(updated); savedBanner(); };
+  // A change counts only once the server has accepted it: the list updates after the save succeeds,
+  // and the dashboard shows the owner the real result (saved, or why it was not).
+  const commit = async (updated: T[]): Promise<boolean> => {
+    const saved = await onSave(updated);
+    if (saved) setList(updated);
+    return saved;
+  };
 
-  const handleAdd    = (p: T) => { commit([...list, p]); setEditingId(null); };
-  const handleEdit   = (p: T) => { commit(list.map((x) => (x.id === p.id ? p : x))); setEditingId(null); };
-  const handleDelete = (id: number) => commit(list.filter((x) => x.id !== id));
+  const handleAdd    = async (p: T) => { if (await commit([...list, p])) setEditingId(null); };
+  const handleEdit   = async (p: T) => { if (await commit(list.map((x) => (x.id === p.id ? p : x)))) setEditingId(null); };
+  const handleDelete = (id: number) => { void commit(list.filter((x) => x.id !== id)); };
   const handleMove   = (index: number, dir: 'up' | 'down') => {
     const next = [...list];
     const swap = dir === 'up' ? index - 1 : index + 1;
     [next[index], next[swap]] = [next[swap], next[index]];
-    commit(next);
+    void commit(next);
   };
-  const handleToggleVisible = (id: number) =>
-    commit(list.map((x) => (x.id === id ? { ...x, visible: x.visible !== false ? false : true } : x)));
+  const handleToggleVisible = (id: number) => {
+    void commit(list.map((x) => (x.id === id ? { ...x, visible: x.visible !== false ? false : true } : x)));
+  };
 
   return (
     <div>
@@ -365,41 +378,32 @@ function SectionManager<T extends AnyProject>({
 
 // ── Main exported tab ─────────────────────────────────────────────────────────
 
-export function ProjectsTab({ onSaved }: { onSaved: () => void }) {
-  const [store, setStore] = useState<PortfolioStore>(() => loadPortfolioStore());
+export function ProjectsTab({ portfolio, onSavePortfolio }: {
+  /** The portfolio as the Worker holds it (built-in projects where nothing was saved). */
+  portfolio: PortfolioStore;
+  /** Saves part of the portfolio on the Worker; the dashboard shows the owner the result. */
+  onSavePortfolio: (update: Partial<PortfolioStore>) => Promise<SaveResult>;
+}) {
+  const store = portfolio;
 
-  const updateInteriors = (projects: ManagedInteriorsProject[]) => {
-    const next = { ...store, interiors: projects };
-    savePortfolioStore(next); setStore(next);
+  const updateInteriors = async (projects: ManagedInteriorsProject[]) =>
+    (await onSavePortfolio({ interiors: projects })).ok;
+
+  const updateConstruction = async (projects: ManagedConstructionProject[]) =>
+    (await onSavePortfolio({ construction: projects })).ok;
+
+  const resetInteriors = async () => {
+    await onSavePortfolio({
+      interiors: DEFAULT_PORTFOLIO.interiors,
+      interiorsCategories: DEFAULT_PORTFOLIO.interiorsCategories,
+    });
   };
 
-  const updateConstruction = (projects: ManagedConstructionProject[]) => {
-    const next = { ...store, construction: projects };
-    savePortfolioStore(next); setStore(next);
-  };
-
-  const resetInteriors = () => {
-    localStorage.removeItem('hofAdminPortfolio');
-    const defaults = loadPortfolioStore();
-    const next: PortfolioStore = {
-      interiors: defaults.interiors,
-      construction: store.construction,
-      interiorsCategories: defaults.interiorsCategories,
-      constructionCategories: store.constructionCategories,
-    };
-    savePortfolioStore(next); setStore(next); onSaved();
-  };
-
-  const resetConstruction = () => {
-    localStorage.removeItem('hofAdminPortfolio');
-    const defaults = loadPortfolioStore();
-    const next: PortfolioStore = {
-      interiors: store.interiors,
-      construction: defaults.construction,
-      interiorsCategories: store.interiorsCategories,
-      constructionCategories: defaults.constructionCategories,
-    };
-    savePortfolioStore(next); setStore(next); onSaved();
+  const resetConstruction = async () => {
+    await onSavePortfolio({
+      construction: DEFAULT_PORTFOLIO.construction,
+      constructionCategories: DEFAULT_PORTFOLIO.constructionCategories,
+    });
   };
 
   return (
@@ -423,7 +427,7 @@ export function ProjectsTab({ onSaved }: { onSaved: () => void }) {
               projects={store.interiors} categories={store.interiorsCategories}
               folder="hof-interiors"
               onSave={updateInteriors} onReset={resetInteriors}
-              emptyFn={emptyInteriors} savedBanner={onSaved} />
+              emptyFn={emptyInteriors} />
           </div>
         </div>
       </TabsContent>
@@ -442,7 +446,7 @@ export function ProjectsTab({ onSaved }: { onSaved: () => void }) {
               projects={store.construction} categories={store.constructionCategories}
               folder="hof-construction"
               onSave={updateConstruction} onReset={resetConstruction}
-              emptyFn={emptyConstruction} savedBanner={onSaved} />
+              emptyFn={emptyConstruction} />
           </div>
         </div>
       </TabsContent>

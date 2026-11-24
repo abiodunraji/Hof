@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Building2, Mail, Phone, MapPin } from 'lucide-react';
+import { useSiteConfig } from '../hooks/useSiteConfig';
+import { addressOneLine } from '../lib/format';
 
 export function ConstructionFooter() {
   const currentYear = new Date().getFullYear();
+  const config = useSiteConfig();
 
   return (
     <footer className="bg-gradient-to-br from-wood-dark via-wood-primary to-wood-dark text-background relative wood-texture">
@@ -15,7 +18,7 @@ export function ConstructionFooter() {
               <h3 className="text-xl">HOF Construction</h3>
             </div>
             <p className="text-background/70 text-sm">
-              Construction and renovation services by House of Faridah.
+              {config.constructionTagline}
             </p>
           </div>
 
@@ -39,14 +42,16 @@ export function ConstructionFooter() {
                   About Us
                 </Link>
               </li>
-              <li>
-                <Link 
-                  to="/construction/portfolio"
-                  className="text-background/70 hover:text-background transition"
-                >
-                  Portfolio
-                </Link>
-              </li>
+              {config.portfolioEnabled && (
+                <li>
+                  <Link
+                    to="/construction/portfolio"
+                    className="text-background/70 hover:text-background transition"
+                  >
+                    Portfolio
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link 
                   to="/construction/contact"
@@ -75,15 +80,15 @@ export function ConstructionFooter() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-background/70">09039330335 / 07040654539</span>
+                <span className="text-background/70">{config.contactPhone}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-background/70">Houseoffaridahh@gmail.com</span>
+                <span className="text-background/70">{config.contactEmail}</span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span className="text-background/70">Node by COBUILDIT, Mabushi, Abuja, Federal Capital Territory</span>
+                <span className="text-background/70">{addressOneLine(config.contactAddress)}</span>
               </li>
             </ul>
           </div>

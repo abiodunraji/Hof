@@ -5,6 +5,7 @@
  *   PUT    /api/content     owner   save settings and/or portfolio
  *   DELETE /api/content     owner   reset to the site's built-in defaults
  *   POST   /api/login       public  username + password -> 30 minute session token
+ *   POST   /api/refresh     owner   a fresh 30 minute token (the panel calls it while the owner is active)
  *   POST   /api/password    owner   change the password (ends older sessions)
  *   POST   /api/enquiry     public  a contact / consultation form; stored, then emailed
  *   GET    /api/enquiries   owner   the stored enquiries, newest first
@@ -121,6 +122,12 @@ async function login(req: Request, env: Env): Promise<Response> {
   return json(await issueToken(env));
 }
 
+async function refresh(req: Request, env: Env): Promise<Response> {
+  const denied = await requireSession(req, env);
+  if (denied) return denied;
+  return json(await issueToken(env));
+}
+
 async function changePassword(req: Request, env: Env): Promise<Response> {
   const denied = await requireSession(req, env);
   if (denied) return denied;
@@ -215,6 +222,8 @@ async function route(req: Request, env: Env, url: URL): Promise<Response> {
       return errorResponse(405, 'Method not allowed.', { Allow: 'GET, PUT, DELETE, OPTIONS' });
     case '/api/login':
       return method === 'POST' ? login(req, env) : errorResponse(405, 'Method not allowed.', { Allow: 'POST, OPTIONS' });
+    case '/api/refresh':
+      return method === 'POST' ? refresh(req, env) : errorResponse(405, 'Method not allowed.', { Allow: 'POST, OPTIONS' });
     case '/api/password':
       return method === 'POST' ? changePassword(req, env) : errorResponse(405, 'Method not allowed.', { Allow: 'POST, OPTIONS' });
     case '/api/enquiry':

@@ -70,6 +70,41 @@ describe('sessions', () => {
   });
 });
 
+describe('POST /api/refresh', () => {
+  it('needs a session', async () => {
+    const env = makeEnv();
+    expect((await call(env, 'POST', '/api/refresh')).status).toBe(401);
+    expect((await call(env, 'POST', '/api/refresh', { token: 'nope' })).status).toBe(401);
+  });
+
+  it('gives a new token that outlives the old one, so an active owner is not signed out', async () => {
+    const env = makeEnv();
+    const first = await login(env, TEST_USER, TEST_PASSWORD);
+    const { token, expiresAt } = (await first.json()) as { token: string; expiresAt: number };
+
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(Date.now() + 20 * 60 * 1000);
+    const res = await call(env, 'POST', '/api/refresh', { token });
+    expect(res.status).toBe(200);
+    const fresh = (await res.json()) as { token: string; expiresAt: number };
+    expect(fresh.expiresAt).toBeGreaterThan(expiresAt);
+
+    // 35 minutes after the first login the old token is dead and the refreshed one still works
+    vi.setSystemTime(Date.now() + 15 * 60 * 1000);
+    const put = (t: string) => call(env, 'PUT', '/api/content', { token: t, body: { config: { contactPhone: '0800' } } });
+    expect((await put(token)).status).toBe(401);
+    expect((await put(fresh.token)).status).toBe(200);
+  });
+
+  it('refuses an expired token', async () => {
+    const env = makeEnv();
+    const token = await loginToken(env);
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(Date.now() + 31 * 60 * 1000);
+    expect((await call(env, 'POST', '/api/refresh', { token })).status).toBe(401);
+  });
+});
+
 describe('POST /api/password', () => {
   it('needs a session, the current password and a long enough new one', async () => {
     const env = makeEnv();
