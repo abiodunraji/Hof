@@ -7,9 +7,9 @@
   "workers_dev": true,
   "observability": { "enabled": true },
   "kv_namespaces": [
-    // Replace the id with the one printed by `wrangler kv namespace create CONTENT`.
+    // Created 24 Nov 2026 in Biodun's own Cloudflare account (`wrangler kv namespace create CONTENT`).
     // Local development (`npm run dev`) ignores it and uses a throwaway local store.
-    { "binding": "CONTENT", "id": "REPLACE_WITH_KV_NAMESPACE_ID" }
+    { "binding": "CONTENT", "id": "63f908e80e744b4db9a16ba7f65c040f" }
   ]
   // Secrets (never written here): ADMIN_USERNAME, ADMIN_PASSWORD_HASH, SESSION_SECRET.
 }
