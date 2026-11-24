@@ -68,6 +68,14 @@ function endSession(reason?: string) {
   window.dispatchEvent(new CustomEvent(LOGOUT_EVENT));
 }
 
+/** Asks the Worker for a fresh 30 minute token. Called while the owner is active, so a long editing session is not cut off. */
+export async function refreshSession(): Promise<void> {
+  const token = getToken();
+  if (!token) return;
+  const res = await apiFetch<{ token: string; expiresAt: number }>('/api/refresh', { method: 'POST', token, fresh: true });
+  if (res.ok) storeSession(res.data.token, res.data.expiresAt);
+}
+
 /**
  * A call to the Worker with the owner's token. If the Worker says the session is no longer
  * valid (401) the owner is signed out and sent back to the sign-in page.

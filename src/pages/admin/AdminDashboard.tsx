@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Switch } from '../../components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import { Separator } from '../../components/ui/separator';
-import { useAdminAuth, useSessionTimeout, adminFetch } from '../../hooks/useAdminAuth';
+import { useAdminAuth, useSessionTimeout, adminFetch, refreshSession } from '../../hooks/useAdminAuth';
 import { defaultConfig, type SiteConfig } from '../../data/siteConfig';
 import { mergeContent, setContent, type ContentResponse, type SiteContent } from '../../lib/content';
 import { ProjectsTab } from './ProjectsTab';
@@ -193,7 +193,28 @@ export function AdminDashboard() {
   const handleStay = useCallback(() => {
     setShowSessionWarning(false);
     resetTimer();
+    void refreshSession();
   }, [resetTimer]);
+
+  // While the owner is working (clicking or typing), renew the 30 minute server session every 5 minutes.
+  useEffect(() => {
+    let lastActive = Date.now();
+    let lastRefresh = Date.now();
+    const mark = () => { lastActive = Date.now(); };
+    window.addEventListener('pointerdown', mark, { passive: true });
+    window.addEventListener('keydown', mark, { passive: true });
+    const timer = setInterval(() => {
+      if (lastActive > lastRefresh) {
+        lastRefresh = Date.now();
+        void refreshSession();
+      }
+    }, 5 * 60 * 1000);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('pointerdown', mark);
+      window.removeEventListener('keydown', mark);
+    };
+  }, []);
 
   const update = <K extends keyof SiteConfig>(key: K, value: SiteConfig[K]) =>
     setConfig((prev) => ({ ...prev, [key]: value }));

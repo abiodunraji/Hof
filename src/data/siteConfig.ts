@@ -51,7 +51,7 @@ export const defaultConfig: SiteConfig = {
   // Contact
   contactPhone: '09039330335 / 07040654539',
   contactEmail: 'Houseoffaridahh@gmail.com',
-  contactAddress: 'Bolien House, 90 4th Ave\nGwarinpa, Abuja 900108\nFederal Capital Territory',
+  contactAddress: 'Node by COBUILDIT\nMabushi, Abuja\nFederal Capital Territory',
 
   // Social
   socialInstagram: 'https://instagram.com/houseoffaridah',

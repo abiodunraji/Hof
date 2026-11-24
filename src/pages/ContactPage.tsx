@@ -8,6 +8,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { ConsultationDialog } from '../components/ConsultationDialog';
 import { Mail, Phone, MapPin, Clock, Instagram, Facebook, Linkedin } from 'lucide-react';
 import { toast } from 'sonner';
+import { useSiteConfig } from '../hooks/useSiteConfig';
+import { HoneypotField, honeypotValue } from '../components/HoneypotField';
+import { AddressBreaks } from '../lib/format';
+import {
+  INTERIORS_BUDGET_LABELS,
+  INTERIORS_PROJECT_TYPE_LABELS,
+  INTERIORS_TIMELINE_LABELS,
+  labelFor,
+  submitEnquiry,
+} from '../lib/enquiry';
 
 export function ContactPage() {
   const [showConsultationDialog, setShowConsultationDialog] = useState(false);
@@ -21,8 +31,34 @@ export function ContactPage() {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const config = useSiteConfig();
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (sending) return;
+    const website = honeypotValue(e.currentTarget);
+    setSending(true);
+    const result = await submitEnquiry(
+      {
+        source: 'interiors-contact',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        projectType: labelFor(INTERIORS_PROJECT_TYPE_LABELS, formData.projectType),
+        budget: labelFor(INTERIORS_BUDGET_LABELS, formData.budget),
+        timeline: labelFor(INTERIORS_TIMELINE_LABELS, formData.timeline),
+        message: formData.message,
+        website,
+      },
+      config,
+    );
+    setSending(false);
+    // The thank-you appears only when the server really has the message; otherwise the form stays filled.
+    if (!result.ok) {
+      toast.error(result.error);
+      return;
+    }
     toast.success('Thank you for reaching out! We\'ll get back to you within 24 hours.');
     setFormData({
       name: '',
@@ -189,9 +225,10 @@ export function ContactPage() {
                       />
                     </div>
 
-                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" size="lg">
-                      Send Inquiry
+                    <Button type="submit" disabled={sending} className="w-full bg-primary hover:bg-primary/90" size="lg">
+                      {sending ? 'Sending…' : 'Send Inquiry'}
                     </Button>
+                    <HoneypotField />
                   </form>
                 </CardContent>
               </Card>
@@ -210,7 +247,7 @@ export function ContactPage() {
                     </div>
                     <div>
                       <p className="text-muted-foreground mb-1">Phone</p>
-                      <p className="text-lg">09039330335 / 07040654539</p>
+                      <p className="text-lg">{config.contactPhone}</p>
                     </div>
                   </div>
 
@@ -220,7 +257,7 @@ export function ContactPage() {
                     </div>
                     <div>
                       <p className="text-muted-foreground mb-1">Email</p>
-                      <p className="text-lg">Houseoffaridahh@gmail.com</p>
+                      <p className="text-lg">{config.contactEmail}</p>
                     </div>
                   </div>
 
@@ -231,9 +268,7 @@ export function ContactPage() {
                     <div>
                       <p className="text-muted-foreground mb-1">Address</p>
                       <p className="text-lg">
-                        Node by COBUILDIT<br />
-                        Mabushi, Abuja<br />
-                        Federal Capital Territory
+                        <AddressBreaks address={config.contactAddress} />
                       </p>
                     </div>
                   </div>
@@ -260,33 +295,39 @@ export function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex gap-3">
-                    <a
-                      href="https://instagram.com/houseoffaridah"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Follow House of Faridah on Instagram"
-                      className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
-                    >
-                      <Instagram size={20} />
-                    </a>
-                    <a
-                      href="https://facebook.com/houseoffaridah"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Follow House of Faridah on Facebook"
-                      className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
-                    >
-                      <Facebook size={20} />
-                    </a>
-                    <a
-                      href="https://linkedin.com/company/houseoffaridah"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Connect with House of Faridah on LinkedIn"
-                      className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
-                    >
-                      <Linkedin size={20} />
-                    </a>
+                    {config.socialInstagram && (
+                      <a
+                        href={config.socialInstagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Follow House of Faridah on Instagram"
+                        className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                      >
+                        <Instagram size={20} />
+                      </a>
+                    )}
+                    {config.socialFacebook && (
+                      <a
+                        href={config.socialFacebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Follow House of Faridah on Facebook"
+                        className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                      >
+                        <Facebook size={20} />
+                      </a>
+                    )}
+                    {config.socialLinkedIn && (
+                      <a
+                        href={config.socialLinkedIn}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Connect with House of Faridah on LinkedIn"
+                        className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                      >
+                        <Linkedin size={20} />
+                      </a>
+                    )}
                   </div>
                   <p className="text-sm text-muted-foreground mt-4">
                     Follow along for design inspiration, behind-the-scenes glimpses, and styling tips!
@@ -294,6 +335,7 @@ export function ContactPage() {
                 </CardContent>
               </Card>
 
+              {config.showConsultationCta && (
               <Card className="bg-primary text-white border-0">
                 <CardContent className="p-6">
                   <h3 className="text-xl mb-3">Complimentary Consultation</h3>
@@ -305,10 +347,11 @@ export function ContactPage() {
                     onClick={() => setShowConsultationDialog(true)}
                     className="w-full border-white bg-white text-primary hover:bg-white/90"
                   >
-                    Book Consultation
+                    {config.consultationCtaText}
                   </Button>
                 </CardContent>
               </Card>
+              )}
             </div>
           </div>
         </div>

@@ -16,6 +16,10 @@ import {
   MessageSquare
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useSiteConfig } from '../../hooks/useSiteConfig';
+import { HoneypotField, honeypotValue } from '../../components/HoneypotField';
+import { addressLines, phoneNumbers } from '../../lib/format';
+import { submitEnquiry } from '../../lib/enquiry';
 
 export function ConstructionContactPage() {
   const [formData, setFormData] = useState({
@@ -28,8 +32,34 @@ export function ConstructionContactPage() {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const config = useSiteConfig();
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (sending) return;
+    const website = honeypotValue(e.currentTarget);
+    setSending(true);
+    const result = await submitEnquiry(
+      {
+        source: 'construction-contact',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        projectType: formData.projectType,
+        budget: formData.budget,
+        timeline: formData.timeline,
+        message: formData.message,
+        website,
+      },
+      config,
+    );
+    setSending(false);
+    // The thank-you appears only when the server really has the message; otherwise the form stays filled.
+    if (!result.ok) {
+      toast.error(result.error);
+      return;
+    }
     toast.success('Thank you for your inquiry! We\'ll contact you within 24 hours.');
     setFormData({
       name: '',
@@ -49,23 +79,29 @@ export function ConstructionContactPage() {
     });
   };
 
+  // "0903… / 0704…" shows as Main / Alternate; the second number is also the emergency line.
+  const phones = phoneNumbers(config.contactPhone);
+  const phoneDetails = phones.map((p, i) => (i === 0 ? `Main: ${p}` : i === 1 ? `Alternate: ${p}` : `Also: ${p}`));
+  const emergencyPhone = phones[1] ?? phones[0];
+  const officeLines = addressLines(config.contactAddress);
+
   const contactInfo = [
     {
       icon: Phone,
       title: 'Phone',
-      details: ['Main: 09039330335', 'Alternate: 07040654539'],
+      details: phoneDetails,
       action: 'Call Us'
     },
     {
       icon: Mail,
       title: 'Email',
-      details: ['Houseoffaridahh@gmail.com'],
+      details: [config.contactEmail],
       action: 'Email Us'
     },
     {
       icon: MapPin,
       title: 'Office Location',
-      details: ['Node by COBUILDIT', 'Mabushi, Abuja', 'Federal Capital Territory'],
+      details: officeLines,
       action: 'Get Directions'
     },
     {
@@ -273,11 +309,13 @@ export function ConstructionContactPage() {
                 <Button
                   type="submit"
                   size="lg"
+                  disabled={sending}
                   className="w-full bg-foreground hover:bg-foreground/90 text-background"
                 >
                   <Send className="w-4 h-4 mr-2" />
-                  Send Request
+                  {sending ? 'Sending…' : 'Send Request'}
                 </Button>
+                <HoneypotField />
               </form>
             </div>
 
@@ -345,7 +383,7 @@ export function ConstructionContactPage() {
 
               <div className="bg-muted/50 p-6 rounded-lg border border-border">
                 <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">Emergency Services:</strong> For urgent construction issues or emergencies, please call our 24/7 emergency line at 07040654539.
+                  <strong className="text-foreground">Emergency Services:</strong> For urgent construction issues or emergencies, please call our 24/7 emergency line at {emergencyPhone}.
                 </p>
               </div>
             </div>
@@ -367,9 +405,9 @@ export function ConstructionContactPage() {
             <div className="aspect-video bg-muted/50 flex items-center justify-center">
               <div className="text-center text-muted-foreground">
                 <MapPin className="w-12 h-12 mx-auto mb-4" />
-                <p>Node by COBUILDIT</p>
-                <p>Mabushi, Abuja</p>
-                <p>Federal Capital Territory</p>
+                {officeLines.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
                 <Button 
                   variant="outline" 
                   className="mt-4"

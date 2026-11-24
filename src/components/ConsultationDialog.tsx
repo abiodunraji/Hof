@@ -7,6 +7,9 @@ import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { toast } from 'sonner@2.0.3';
 import { Calendar, Building2, User, Phone, Mail, Briefcase } from 'lucide-react';
+import { useSiteConfig } from '../hooks/useSiteConfig';
+import { HoneypotField, honeypotValue } from './HoneypotField';
+import { DIALOG_BUDGET_LABELS, DIALOG_TIMELINE_LABELS, labelFor, submitEnquiry } from '../lib/enquiry';
 
 interface ConsultationDialogProps {
   open: boolean;
@@ -28,6 +31,8 @@ export function ConsultationDialog({ open, onOpenChange, serviceType = 'interior
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sending, setSending] = useState(false);
+  const config = useSiteConfig();
 
   const prewrittenMessage = serviceType === 'interiors' 
     ? "Hello! I'm interested in your interior design services. I would love to discuss how we can transform my space into something beautiful and functional."
@@ -44,8 +49,10 @@ export function ConsultationDialog({ open, onOpenChange, serviceType = 'interior
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (sending) return;
+    const website = honeypotValue(e.currentTarget);
     const newErrors: Record<string, string> = {};
 
     // Validate required fields
@@ -74,12 +81,29 @@ export function ConsultationDialog({ open, onOpenChange, serviceType = 'interior
       return;
     }
 
-    // Success - submit the form
-    console.log('Form submitted:', {
-      ...formData,
-      phoneNumber: `+234${formData.phoneNumber}`,
-      message: formData.message || prewrittenMessage,
-    });
+    // Send it to the server; the success message appears only when the server really has it.
+    setSending(true);
+    const result = await submitEnquiry(
+      {
+        source: 'consultation-dialog',
+        name: formData.name,
+        company: formData.company,
+        email: formData.email,
+        phone: `+234${formData.phoneNumber}`,
+        serviceNeeded: formData.serviceNeeded,
+        projectType: serviceType === 'interiors' ? 'Interiors' : 'Construction',
+        budget: labelFor(DIALOG_BUDGET_LABELS, formData.budget),
+        timeline: labelFor(DIALOG_TIMELINE_LABELS, formData.timeline),
+        message: formData.message || prewrittenMessage,
+        website,
+      },
+      config,
+    );
+    setSending(false);
+    if (!result.ok) {
+      toast.error(result.error);
+      return;
+    }
 
     toast.success('Consultation request submitted!', {
       description: "We'll get back to you within 24 hours.",
@@ -338,15 +362,17 @@ export function ConsultationDialog({ open, onOpenChange, serviceType = 'interior
             </Button>
             <Button
               type="submit"
+              disabled={sending}
               className={
                 serviceType === 'interiors'
                   ? 'flex-1 bg-gradient-to-r from-primary to-magenta-dark hover:from-primary/90 hover:to-magenta-dark/90'
                   : 'flex-1 bg-gradient-to-r from-wood-primary to-wood-dark hover:from-wood-primary/90 hover:to-wood-dark/90 text-white'
               }
             >
-              Submit Consultation Request
+              {sending ? 'Sending…' : 'Submit Consultation Request'}
             </Button>
           </div>
+          <HoneypotField />
         </form>
       </DialogContent>
     </Dialog>
