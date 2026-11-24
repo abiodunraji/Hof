@@ -1,83 +1,21 @@
-import { useState } from 'react';
 import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
-import { Textarea } from '../../components/ui/textarea';
-import { Label } from '../../components/ui/label';
 import { ConsultationDialog } from '../../components/ConsultationDialog';
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Clock, 
-  Send,
+import { EnquiryForm } from '../../components/EnquiryForm';
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
   Building2,
   CheckCircle,
   MessageSquare
 } from 'lucide-react';
-import { toast } from 'sonner';
 import { useSiteConfig } from '../../hooks/useSiteConfig';
-import { HoneypotField, honeypotValue } from '../../components/HoneypotField';
 import { addressLines, phoneNumbers } from '../../lib/format';
-import { submitEnquiry } from '../../lib/enquiry';
 
 export function ConstructionContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    projectType: '',
-    budget: '',
-    timeline: '',
-    message: ''
-  });
-
   const config = useSiteConfig();
-  const [sending, setSending] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (sending) return;
-    const website = honeypotValue(e.currentTarget);
-    setSending(true);
-    const result = await submitEnquiry(
-      {
-        source: 'construction-contact',
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        projectType: formData.projectType,
-        budget: formData.budget,
-        timeline: formData.timeline,
-        message: formData.message,
-        website,
-      },
-      config,
-    );
-    setSending(false);
-    // The thank-you appears only when the server really has the message; otherwise the form stays filled.
-    if (!result.ok) {
-      toast.error(result.error);
-      return;
-    }
-    toast.success('Thank you for your inquiry! We\'ll contact you within 24 hours.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      projectType: '',
-      budget: '',
-      timeline: '',
-      message: ''
-    });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
 
   // "0903… / 0704…" shows as Main / Alternate; the second number is also the emergency line.
   const phones = phoneNumbers(config.contactPhone);
@@ -110,33 +48,6 @@ export function ConstructionContactPage() {
       details: ['Monday - Friday: 7am - 6pm', 'Saturday: 8am - 2pm'],
       action: 'Schedule Visit'
     }
-  ];
-
-  const projectTypes = [
-    'Residential Construction',
-    'Commercial Building',
-    'Renovation/Addition',
-    'Multi-Family Development',
-    'Industrial/Warehouse',
-    'Other'
-  ];
-
-  const budgetRanges = [
-    'Under ₦50,000,000',
-    '₦50,000,000 - ₦150,000,000',
-    '₦150,000,000 - ₦500,000,000',
-    '₦500,000,000 - ₦1,000,000,000',
-    'Over ₦1,000,000,000',
-    'Not Sure Yet'
-  ];
-
-  const timelineOptions = [
-    'ASAP',
-    '1-3 months',
-    '3-6 months',
-    '6-12 months',
-    'Over 1 year',
-    'Just exploring'
   ];
 
   return (
@@ -192,131 +103,18 @@ export function ConstructionContactPage() {
             {/* Left Column - Form */}
             <div>
               <h2 className="text-3xl md:text-4xl mb-4">Request a Quote</h2>
-              <p className="text-muted-foreground mb-8">
-                Fill out the form below and we'll get back to you within 24 hours with a detailed quote and project timeline.
-              </p>
+              {config.tallyConstructionFormId && (
+                <p className="text-muted-foreground mb-8">
+                  Fill out the form below and we'll get back to you within 24 hours with a detailed quote and project timeline.
+                </p>
+              )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <Label htmlFor="name">Full Name *</Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="John Smith"
-                    className="mt-1.5"
-                  />
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="email">Email Address *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      placeholder="john@example.com"
-                      className="mt-1.5"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="phone">Phone Number *</Label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      required
-                      placeholder="09039330335"
-                      className="mt-1.5"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="projectType">Project Type *</Label>
-                  <select
-                    id="projectType"
-                    name="projectType"
-                    value={formData.projectType}
-                    onChange={handleChange}
-                    required
-                    aria-label="Select project type"
-                    className="mt-1.5 w-full px-3 py-2 border border-input rounded-md bg-input-background focus:outline-none focus:ring-2 focus:ring-ring"
-                  >
-                    <option value="">Select project type...</option>
-                    {projectTypes.map((type) => (
-                      <option key={type} value={type}>{type}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="budget">Budget Range</Label>
-                    <select
-                      id="budget"
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleChange}
-                      aria-label="Select budget range"
-                      className="mt-1.5 w-full px-3 py-2 border border-input rounded-md bg-input-background focus:outline-none focus:ring-2 focus:ring-ring"
-                    >
-                      <option value="">Select budget range...</option>
-                      {budgetRanges.map((range) => (
-                        <option key={range} value={range}>{range}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <Label htmlFor="timeline">Desired Timeline</Label>
-                    <select
-                      id="timeline"
-                      name="timeline"
-                      value={formData.timeline}
-                      onChange={handleChange}
-                      aria-label="Select desired timeline"
-                      className="mt-1.5 w-full px-3 py-2 border border-input rounded-md bg-input-background focus:outline-none focus:ring-2 focus:ring-ring"
-                    >
-                      <option value="">Select timeline...</option>
-                      {timelineOptions.map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="message">Project Details *</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    placeholder="Tell us about your project... What are you looking to build? Any specific requirements or goals?"
-                    className="mt-1.5"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={sending}
-                  className="w-full bg-foreground hover:bg-foreground/90 text-background"
-                >
-                  <Send className="w-4 h-4 mr-2" />
-                  {sending ? 'Sending…' : 'Send Request'}
-                </Button>
-                <HoneypotField />
-              </form>
+              <EnquiryForm
+                formId={config.tallyConstructionFormId}
+                formTitle="Construction enquiry form"
+                noFormHeading="Call or email us to request a quote"
+                noFormIntro="We'll get back to you within 24 hours with a detailed quote and project timeline."
+              />
             </div>
 
             {/* Right Column - Info */}

@@ -1,75 +1,15 @@
 import { useState } from 'react';
 import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Textarea } from '../components/ui/textarea';
-import { Label } from '../components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { ConsultationDialog } from '../components/ConsultationDialog';
+import { EnquiryForm } from '../components/EnquiryForm';
 import { Mail, Phone, MapPin, Clock, Instagram, Facebook, Linkedin } from 'lucide-react';
-import { toast } from 'sonner';
 import { useSiteConfig } from '../hooks/useSiteConfig';
-import { HoneypotField, honeypotValue } from '../components/HoneypotField';
 import { AddressBreaks } from '../lib/format';
-import {
-  INTERIORS_BUDGET_LABELS,
-  INTERIORS_PROJECT_TYPE_LABELS,
-  INTERIORS_TIMELINE_LABELS,
-  labelFor,
-  submitEnquiry,
-} from '../lib/enquiry';
 
 export function ContactPage() {
   const [showConsultationDialog, setShowConsultationDialog] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    projectType: '',
-    budget: '',
-    timeline: '',
-    message: '',
-  });
-
   const config = useSiteConfig();
-  const [sending, setSending] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (sending) return;
-    const website = honeypotValue(e.currentTarget);
-    setSending(true);
-    const result = await submitEnquiry(
-      {
-        source: 'interiors-contact',
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        projectType: labelFor(INTERIORS_PROJECT_TYPE_LABELS, formData.projectType),
-        budget: labelFor(INTERIORS_BUDGET_LABELS, formData.budget),
-        timeline: labelFor(INTERIORS_TIMELINE_LABELS, formData.timeline),
-        message: formData.message,
-        website,
-      },
-      config,
-    );
-    setSending(false);
-    // The thank-you appears only when the server really has the message; otherwise the form stays filled.
-    if (!result.ok) {
-      toast.error(result.error);
-      return;
-    }
-    toast.success('Thank you for reaching out! We\'ll get back to you within 24 hours.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      projectType: '',
-      budget: '',
-      timeline: '',
-      message: '',
-    });
-  };
 
   return (
     <div className="min-h-screen">
@@ -98,138 +38,23 @@ export function ContactPage() {
       <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Contact Form */}
+            {/* Enquiry form: the owner's Tally form, embedded */}
             <div className="lg:col-span-2">
               <Card className="border-primary/20">
                 <CardHeader>
                   <CardTitle className="text-3xl">Start Your Project</CardTitle>
                   <p className="text-muted-foreground">
-                    Complete the form below and we'll respond within 24 hours
+                    {config.tallyInteriorsFormId
+                      ? "Complete the form below and we'll respond within 24 hours"
+                      : "Call or email us and we'll respond within 24 hours"}
                   </p>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <Label htmlFor="name">Full Name *</Label>
-                        <Input
-                          id="name"
-                          type="text"
-                          placeholder="Your name"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          required
-                          className="mt-1"
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="email">Email Address *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="your.email@example.com"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          required
-                          className="mt-1"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <Label htmlFor="phone">Phone Number</Label>
-                        <Input
-                          id="phone"
-                          type="tel"
-                          placeholder="09039330335"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="mt-1"
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="projectType">Project Type *</Label>
-                        <Select
-                          value={formData.projectType}
-                          onValueChange={(value: string) => setFormData({ ...formData, projectType: value })}
-                          required
-                        >
-                          <SelectTrigger className="mt-1">
-                            <SelectValue placeholder="Select project type" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="full-home">Full Home Design</SelectItem>
-                            <SelectItem value="room-makeover">Room Makeover</SelectItem>
-                            <SelectItem value="consultation">Design Consultation</SelectItem>
-                            <SelectItem value="e-design">E-Design Services</SelectItem>
-                            <SelectItem value="styling">Styling & Staging</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <Label htmlFor="budget">Budget Range</Label>
-                        <Select
-                          value={formData.budget}
-                          onValueChange={(value: string) => setFormData({ ...formData, budget: value })}
-                        >
-                          <SelectTrigger className="mt-1">
-                            <SelectValue placeholder="Select budget range" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="under-1m">Under ₦1,000,000</SelectItem>
-                            <SelectItem value="1m-3m">₦1,000,000 - ₦3,000,000</SelectItem>
-                            <SelectItem value="3m-5m">₦3,000,000 - ₦5,000,000</SelectItem>
-                            <SelectItem value="5m-10m">₦5,000,000 - ₦10,000,000</SelectItem>
-                            <SelectItem value="over-10m">Over ₦10,000,000</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="timeline">Timeline</Label>
-                        <Select
-                          value={formData.timeline}
-                          onValueChange={(value: string) => setFormData({ ...formData, timeline: value })}
-                        >
-                          <SelectTrigger className="mt-1">
-                            <SelectValue placeholder="Select timeline" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="asap">As soon as possible</SelectItem>
-                            <SelectItem value="1-3months">1-3 months</SelectItem>
-                            <SelectItem value="3-6months">3-6 months</SelectItem>
-                            <SelectItem value="6months-plus">6+ months</SelectItem>
-                            <SelectItem value="flexible">Flexible</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="message">Tell Me About Your Project *</Label>
-                      <Textarea
-                        id="message"
-                        placeholder="Share your vision, style preferences, and any specific requirements..."
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        required
-                        rows={6}
-                        className="mt-1"
-                      />
-                    </div>
-
-                    <Button type="submit" disabled={sending} className="w-full bg-primary hover:bg-primary/90" size="lg">
-                      {sending ? 'Sending…' : 'Send Inquiry'}
-                    </Button>
-                    <HoneypotField />
-                  </form>
+                  <EnquiryForm
+                    formId={config.tallyInteriorsFormId}
+                    formTitle="Client Onboarding Form"
+                    noFormHeading="Call or email us to start your project"
+                  />
                 </CardContent>
               </Card>
             </div>

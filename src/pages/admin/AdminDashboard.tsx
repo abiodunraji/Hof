@@ -4,10 +4,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/ta
 import { Separator } from '../../components/ui/separator';
 import { useAdminAuth, useSessionTimeout, adminFetch, refreshSession } from '../../hooks/useAdminAuth';
 import { defaultConfig, type SiteConfig } from '../../data/siteConfig';
+import { extractTallyId } from '../../lib/tally';
 import { mergeContent, setContent, type ContentResponse, type SiteContent } from '../../lib/content';
 import { ProjectsTab } from './ProjectsTab';
 import { SettingsTab } from './SettingsTab';
-import { EnquiriesTab } from './EnquiriesTab';
 import type { ContentUpdate, Notify, SaveResult } from './types';
 
 // ── Field components ──────────────────────────────────────────────────────────
@@ -20,6 +20,7 @@ function Field({
   placeholder,
   hint,
   type = 'text',
+  onBlur,
 }: {
   label: string;
   id: string;
@@ -28,6 +29,7 @@ function Field({
   placeholder?: string;
   hint?: string;
   type?: string;
+  onBlur?: () => void;
 }) {
   return (
     <div className="admin-field">
@@ -37,6 +39,7 @@ function Field({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
         placeholder={placeholder}
       />
       {hint && <p className="admin-field__hint">{hint}</p>}
@@ -244,10 +247,24 @@ export function AdminDashboard() {
     [notify],
   );
 
+  /** Pasting a Tally link into a form box keeps only the id (the part after /r/ or /embed/). */
+  const tidyTallyBox = (key: 'tallyInteriorsFormId' | 'tallyConstructionFormId') => {
+    const id = extractTallyId(config[key]);
+    if (id !== null && id !== config[key]) update(key, id);
+  };
+
   const handleSave = async () => {
+    const interiorsId = extractTallyId(config.tallyInteriorsFormId);
+    const constructionId = extractTallyId(config.tallyConstructionFormId);
+    if (interiorsId === null || constructionId === null) {
+      notify('error', 'Not saved: a form box must hold the Tally form id or a Tally link (https://tally.so/r/…), or be empty.');
+      return;
+    }
+    const toSave: SiteConfig = { ...config, tallyInteriorsFormId: interiorsId, tallyConstructionFormId: constructionId };
+    setConfig(toSave);
     setSaving(true);
     try {
-      await saveToServer({ config });
+      await saveToServer({ config: toSave });
     } finally {
       setSaving(false);
     }
@@ -325,7 +342,6 @@ export function AdminDashboard() {
                 <TabsTrigger value="business">Business</TabsTrigger>
                 <TabsTrigger value="features">Features</TabsTrigger>
                 <TabsTrigger value="projects">Projects</TabsTrigger>
-                <TabsTrigger value="enquiries">Enquiries</TabsTrigger>
                 <TabsTrigger value="settings">Settings</TabsTrigger>
               </TabsList>
 
@@ -335,7 +351,7 @@ export function AdminDashboard() {
                   <div className="admin-panel__header">
                     <h2 className="admin-panel__title">Contact Information</h2>
                     <p className="admin-panel__subtitle">
-                      Shown on both contact pages and in the HOF Construction footer.
+                      Shown on both contact pages and in the HOF Construction footer, plus the enquiry forms on those pages.
                     </p>
                   </div>
                   <Separator />
@@ -348,6 +364,14 @@ export function AdminDashboard() {
                     <TextAreaField label="Office address" id="contactAddress" value={config.contactAddress}
                       onChange={(v) => update('contactAddress', v)}
                       hint="One line per row, exactly as it should read." />
+                    <Field label="Interiors enquiry form (Tally)" id="tallyInteriorsFormId" value={config.tallyInteriorsFormId}
+                      onChange={(v) => update('tallyInteriorsFormId', v)} onBlur={() => tidyTallyBox('tallyInteriorsFormId')}
+                      placeholder="vGPYv8"
+                      hint="The Tally form shown on the Interiors contact page and in the Interiors consultation pop-up. Paste the form's Tally link (https://tally.so/r/…) or just its id; only the id is kept. Empty = no form, the page shows your phone and email." />
+                    <Field label="Construction enquiry form (Tally)" id="tallyConstructionFormId" value={config.tallyConstructionFormId}
+                      onChange={(v) => update('tallyConstructionFormId', v)} onBlur={() => tidyTallyBox('tallyConstructionFormId')}
+                      placeholder="Leave empty until a Construction form exists"
+                      hint="Same, for the Construction contact page. While this is empty that page shows “Call or email us to request a quote” with your phone and email." />
                   </div>
                 </div>
               </TabsContent>
@@ -424,11 +448,6 @@ export function AdminDashboard() {
               {/* ── Projects ── */}
               <TabsContent value="projects">
                 <ProjectsTab portfolio={content.portfolio} onSavePortfolio={(portfolio) => saveToServer({ portfolio })} />
-              </TabsContent>
-
-              {/* ── Enquiries ── */}
-              <TabsContent value="enquiries">
-                <EnquiriesTab />
               </TabsContent>
 
               {/* ── Settings ── */}

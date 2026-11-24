@@ -225,7 +225,7 @@ function DangerZone({ onResetAll }: { onResetAll: () => Promise<void> }) {
           <p className="admin-settings__danger-title">Reset all content to the built-in defaults</p>
           <p className="admin-settings__danger-desc">
             Removes every change saved on the site's server (contact details, links, texts and all edited
-            projects). The site goes back to exactly what it was built with. Enquiries and your password are kept.
+            projects). The site goes back to exactly what it was built with. Your password is kept.
           </p>
         </div>
         {confirm ? (
