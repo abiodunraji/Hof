@@ -3,7 +3,7 @@ import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import { Button } from '../../components/ui/button';
 import { Card, CardContent } from '../../components/ui/card';
 import { usePortfolioData } from '../../hooks/usePortfolioData';
-import { Building2, HardHat, Hammer, Award, Shield, Clock, CheckCircle, ArrowRight } from 'lucide-react';
+import { Building2, HardHat, Hammer, CheckCircle, ArrowRight } from 'lucide-react';
 
 const services = [
   {
@@ -26,30 +26,9 @@ const services = [
   }
 ];
 
-const stats = [
-  { number: '500+', label: 'Projects Completed' },
-  { number: '15+', label: 'Years Experience' },
-  { number: '98%', label: 'Client Satisfaction' },
-  { number: '50+', label: 'Expert Team Members' }
-];
-
-const whyChooseUs = [
-  {
-    icon: Award,
-    title: 'Licensed & Certified',
-    description: 'Fully licensed contractors with all necessary certifications and insurance coverage.'
-  },
-  {
-    icon: Shield,
-    title: 'Quality Guarantee',
-    description: 'We stand behind our work with comprehensive warranties and quality assurance.'
-  },
-  {
-    icon: Clock,
-    title: 'On-Time Delivery',
-    description: 'Proven track record of completing projects on schedule and within budget.'
-  }
-];
+// Numbers (projects completed, years, satisfaction, staff) and credentials (licences, insurance,
+// warranties, track record) were removed on 24 Nov 2026 because the owner has not confirmed them.
+// Add one back only when she supplies it.
 
 export function ConstructionHomePage() {
   // The newest real projects from the portfolio (none yet, so the section stays hidden).
@@ -97,20 +76,6 @@ export function ConstructionHomePage() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-foreground text-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl mb-2">{stat.number}</div>
-                <div className="text-background/70">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Services Section */}
       <section className="py-20 bg-gradient-to-br from-muted/30 to-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -146,33 +111,6 @@ export function ConstructionHomePage() {
                     <p className="text-muted-foreground">{service.description}</p>
                   </CardContent>
                 </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4">Why Choose HOF Construction</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Your trusted partner in building excellence
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {whyChooseUs.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div key={index} className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-foreground/10 flex items-center justify-center mx-auto mb-6">
-                    <Icon className="w-8 h-8 text-foreground" />
-                  </div>
-                  <h3 className="text-xl mb-3">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </div>
               );
             })}
           </div>

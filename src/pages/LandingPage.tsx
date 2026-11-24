@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Sparkles, Award, Building2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Sparkles, Building2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Button } from '../components/ui/button';
@@ -17,9 +17,9 @@ export function LandingPage() {
     {
       image: '/portfolio/interiors/contemporary-abuja-residence/lifestyle-shot.jpg',
       overlayImage: interiorsProjects[1]?.image || '/portfolio/interiors/modern-kitchen-design/kitchen-full-view.jpg',
-      title: 'OVER',
-      titleLarge: '7 YEARS',
-      titleBottom: 'OF DESIGN INNOVATION',
+      title: 'TIMELESS',
+      titleLarge: 'INTERIORS',
+      titleBottom: 'BY HOUSE OF FARIDAH',
       description: 'Creating timeless spaces with elegance and sophistication',
     },
     {
@@ -163,24 +163,6 @@ export function LandingPage() {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  
-                  {/* Stats card overlay */}
-                  <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-6 rounded-xl shadow-xl">
-                    <div className="grid grid-cols-3 gap-4">
-                      <div className="text-center">
-                        <div className="text-3xl font-display text-primary mb-1">7+</div>
-                        <div className="text-xs uppercase tracking-wider text-neutral-600">Years</div>
-                      </div>
-                      <div className="text-center border-x border-neutral-200">
-                        <div className="text-3xl font-display text-primary mb-1">500+</div>
-                        <div className="text-xs uppercase tracking-wider text-neutral-600">Projects</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-3xl font-display text-primary mb-1">300+</div>
-                        <div className="text-xs uppercase tracking-wider text-neutral-600">Clients</div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Decorative element */}
@@ -297,14 +279,6 @@ export function LandingPage() {
                 />
               </div>
 
-              {/* Floating stats card */}
-              <div className="absolute top-1/3 left-1/4 bg-white/95 backdrop-blur-sm p-8 shadow-xl border border-neutral-100 z-10">
-                <div className="text-center">
-                  <Award className="w-12 h-12 text-primary mx-auto mb-3" />
-                  <div className="text-4xl font-display text-neutral-900 mb-2">7+</div>
-                  <div className="text-xs uppercase tracking-widest text-neutral-500">Years Excellence</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -510,7 +484,7 @@ export function LandingPage() {
                 </div>
               </div>
               <p className="text-neutral-600 text-sm font-light leading-relaxed max-w-xs">
-                Creating timeless interiors and exceptional construction for over 45 years.
+                Creating timeless interiors and exceptional construction.
               </p>
             </div>
             
